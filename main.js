@@ -1,4 +1,4 @@
-const kana = [
+let kana = [
 "あ","い","う","え","お",
 "か","き","く","け","こ",
 "さ","し","す","せ","そ",
@@ -63,7 +63,7 @@ function initResize() {
 
     document.addEventListener(!mobile ? "mouseup" : "touchend", function(){
         document.body.className = "unselectable"
-            document.body.style.overflowY = "scroll"
+        document.body.style.overflowY = "scroll"    
         document.querySelector("#dictionary_body").style.overflowY = "scroll"
         document.removeEventListener(!mobile ? "mousemove" : "touchmove", resize, false);
     }, false);
