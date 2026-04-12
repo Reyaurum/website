@@ -213,8 +213,8 @@ function searchVerb(text, reading="") {
 }
 
 async function search(text, reading="") {
-    text = text.replaceAll(" ", "");
-    reading = reading.replaceAll(" ", "");
+    text = text.replace(/[\s\u200B-\u200D\uFEFF\u3000]/gu, "");
+    reading = reading.replace(/[\s\u200B-\u200D\uFEFF\u3000]/gu, "");
     clear()
     write(text, reading)
     let res = searchReading(text, reading);
