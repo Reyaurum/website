@@ -53,13 +53,17 @@ function initResize() {
         let style = window.getComputedStyle(document.querySelector("#dictionary_navbar"))
         let navbar_height = parseInt(style.marginTop) + parseInt(style.marginBottom) + parseInt(style.height)
         if (window.innerHeight - (mobile ? e.touches[0]["clientY"] : e.y) - document.querySelector("#dictionary_body").offsetHeight + navbar_height > 0) {
+            document.body.className = "unselectable"
+            document.body.style.overflowY = "hidden"
+            document.querySelector("#dictionary_body").style.overflowY = "hidden"
             mobile ? m_pos = e.touches[0]["screenY"] : m_pos = e.y
-            document.querySelector("#dictionary_body").style.overflowY = "clip"
             document.addEventListener(!mobile ? "mousemove" : "touchmove", resize, false);
         }
     }, false);
 
     document.addEventListener(!mobile ? "mouseup" : "touchend", function(){
+        document.body.className = "unselectable"
+            document.body.style.overflowY = "scroll"
         document.querySelector("#dictionary_body").style.overflowY = "scroll"
         document.removeEventListener(!mobile ? "mousemove" : "touchmove", resize, false);
     }, false);
