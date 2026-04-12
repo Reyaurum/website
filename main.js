@@ -284,7 +284,290 @@ function showDictionary(res, text, reading) {
 }
 
 function searchA() {
-    write("a")
+    let a = [
+    {
+        "k": [],
+        "r": [
+            "よー",
+            "よう",
+            "よお"
+        ],
+        "m": [
+            "hey",
+            "yo",
+            "hi",
+            "come on",
+            "hey"
+        ]
+    },
+    {
+        "k": [],
+        "r": [
+            "よう"
+        ],
+        "m": [
+            "(I) will",
+            "(I) shall",
+            "let's",
+            "(I) wonder (if)",
+            "might it be (that)",
+            "maybe",
+            "perhaps",
+            "perchance"
+        ]
+    },
+    {
+        "k": [
+            "用"
+        ],
+        "r": [
+            "よう"
+        ],
+        "m": [
+            "business",
+            "task",
+            "errand",
+            "engagement",
+            "use",
+            "purpose",
+            "for the use of ...",
+            "used for ...",
+            "made for ...",
+            "call of nature",
+            "excretion"
+        ]
+    },
+    {
+        "k": [
+            "様"
+        ],
+        "r": [
+            "よう"
+        ],
+        "m": [
+            "appearing ...",
+            "looking ...",
+            "way to ...",
+            "method of ...ing",
+            "form",
+            "style",
+            "design",
+            "like",
+            "similar to",
+            "thing (thought or spoken)"
+        ]
+    },
+    {
+        "k": [
+            "酔う"
+        ],
+        "r": [
+            "よう",
+            "えう"
+        ],
+        "m": [
+            "to get drunk",
+            "to become intoxicated",
+            "to feel sick (e.g. in a vehicle)",
+            "to become nauseated",
+            "to be elated",
+            "to be exalted",
+            "to be spellbound",
+            "to be in raptures"
+        ]
+    },
+    {
+        "k": [
+            "益"
+        ],
+        "r": [
+            "えき",
+            "やく",
+            "よう"
+        ],
+        "m": [
+            "benefit",
+            "use",
+            "good",
+            "advantage",
+            "gain",
+            "profit",
+            "gains"
+        ]
+    },
+    {
+        "k": [
+            "良う",
+            "善う",
+            "能う"
+        ],
+        "r": [
+            "よう",
+            "よー"
+        ],
+        "m": [
+            "well",
+            "properly",
+            "skillfully",
+            "often",
+            "how (could you)",
+            "why (would you)"
+        ]
+    },
+    {
+        "k": [
+            "形",
+            "容",
+            "貌"
+        ],
+        "r": [
+            "かたち",
+            "よう"
+        ],
+        "m": [
+            "form",
+            "shape",
+            "figure",
+            "visage"
+        ]
+    },
+    {
+        "k": [
+            "要"
+        ],
+        "r": [
+            "よう"
+        ],
+        "m": [
+            "main point",
+            "essential point",
+            "important thing",
+            "necessity",
+            "need",
+            "requirement"
+        ]
+    },
+    {
+        "k": [
+            "洋"
+        ],
+        "r": [
+            "よう"
+        ],
+        "m": [
+            "Occident and Orient (esp. the Occident)",
+            "ocean",
+            "sea",
+            "foreign",
+            "Western",
+            "European"
+        ]
+    },
+    {
+        "k": [
+            "陽"
+        ],
+        "r": [
+            "よう"
+        ],
+        "m": [
+            "(the) positive",
+            "yang (in Chinese divination)",
+            "the open",
+            "visible place",
+            "public place"
+        ]
+    },
+    {
+        "k": [
+            "庸",
+            "力代"
+        ],
+        "r": [
+            "よう",
+            "ちからしろ"
+        ],
+        "m": [
+            "tax paid to avoid forced labor (ritsuryō period)",
+            "tax in kind",
+            "mediocrity"
+        ]
+    },
+    {
+        "k": [
+            "幼"
+        ],
+        "r": [
+            "よう"
+        ],
+        "m": [
+            "infancy",
+            "childhood",
+            "infant",
+            "child"
+        ]
+    },
+    {
+        "k": [
+            "杳"
+        ],
+        "r": [
+            "よう"
+        ],
+        "m": [
+            "dark",
+            "not understood",
+            "unknown"
+        ]
+    },
+    {
+        "k": [
+            "腰"
+        ],
+        "r": [
+            "こし",
+            "よう"
+        ],
+        "m": [
+            "counter for swords, hakama, obi, etc. worn around the waist",
+            "counter for quivers of arrows"
+        ]
+    },
+    {
+        "k": [
+            "葉"
+        ],
+        "r": [
+            "よう"
+        ],
+        "m": [
+            "counter for leaves, pieces of paper, etc.",
+            "counter for boats"
+        ]
+    },
+    {
+        "k": [
+            "癰"
+        ],
+        "r": [
+            "よう"
+        ],
+        "m": [
+            "carbuncle"
+        ]
+    },
+    {
+        "k": [
+            "俑"
+        ],
+        "r": [
+            "よう"
+        ],
+        "m": [
+            "terra-cotta figure (in Qin dynasty tombs in China)"
+        ]
+    }
+]
     return a.filter(entry =>
         entry.k.some(k => write(k, k == "幼") && k == "幼")
     );
