@@ -214,11 +214,17 @@ function searchVerb(text, reading="") {
 async function search(text, reading="") {
     text = text.normalize("NFC");
     reading = reading.normalize("NFC");
+    write(text, reading)
     let res = searchReading(text, reading);
+    write(res.length)
     res.length != 0 ? null : res = searchReading(text)
+    write(res.length)
     res.length != 0 ? null : res = searchParticle(text)
+    write(res.length)
     res.length != 0 ? null : res = searchVerb(text, reading)
+    write(res.length)
     res.length != 0 ? null : res = await searchKanji(text)
+    write(res.length)
     
     return sort(res)
 }
@@ -289,8 +295,8 @@ async function searchDictionary(e) {
     } catch {}
 }
 
-function write(text) {
-    document.getElementById("concepts_holder").innerHTML += text + "<br>"
+function write(text, text2="") {
+    document.getElementById("concepts_holder").innerHTML += text + ", " + text2 + "<br>"
 }
 
 function clear() {
