@@ -270,6 +270,7 @@ function showDictionary(res, text, reading, title) {
     res.forEach((entry) => {
         createConcept(entry, reading, title)
     })
+    document.getElementById("word_amount").innerText = `WORDS - ${document.getElementById("concepts_holder").childElementCount} FOUND`
 }
 
 async function searchDictionary(e) {
