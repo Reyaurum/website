@@ -45,12 +45,10 @@ const replacements = ["う", "く", "ぐ", "す", "つ", "ぬ", "ぶ", "む", "�
 let data = null;
 const index = new Map();
 let m_pos;
-let mobile = window.innerWidth < 600
 
 function initResize() {
     let resize_el = document.getElementById("dictionary_body");
     resize_el.addEventListener("pointerdown", function(e){
-        console.log(e)
         let style = window.getComputedStyle(document.querySelector("#dictionary_navbar"))
         let navbar_height = parseInt(style.marginTop) + parseInt(style.marginBottom) + parseInt(style.height)
         
@@ -70,7 +68,6 @@ function initResize() {
 }
 
 function resize(e){
-    console.log(e)
     e.preventDefault()
     let dx = 0;
     let resize_el = document.getElementById("dictionary_body");
@@ -224,12 +221,8 @@ async function search(text, reading="") {
     return sort(res)
 }
 
-function showDictionary(res) {
-    console.log(res)
-}
-
 async function searchDictionary(e) {
-    var target = e.target || e.srcElement
+    var target = e.target || e.srcElement || e
     let particles = ["。", "、", "・", "『", "』", "「", "」"]
     try {
         if (target.classList[0] == "japanese_word__furigana" || particles.includes(target.innerText))
@@ -238,8 +231,60 @@ async function searchDictionary(e) {
             target = target.parentNode
         }
         let sibling = target.previousElementSibling
-        showDictionary(await search(target.innerText, sibling.innerText))
+        showDictionary(await search(target.innerText, sibling.innerText), target.parentNode.title)
     } catch {}
+}
+
+function createElement(tag, className, id="", text="") {
+    let e = document.createElement(tag)
+    className ? e.className = className : null
+    id ? e.id = id : null
+    text ? e.innerText = text : null
+    return e
+}
+
+function createConcept(entry, title) {
+    let concept = createElement("div", "concept_light clearfix")
+    let concept_wrapper = createElement("div", "concept_light-wrapper")
+    let concept_readings = createElement("div", "concept_light-readings japanese_gothic")
+    let concept_representation = createElement("div", "concept_light-representation")
+    let furigana = createElement("span", "furigana")
+    let kanji = createElement("span", "kanji", "", entry.r[0])
+    let text = createElement("span", "text", "", entry.k[0])
+    let concept_status = createElement("div", "concept_light-status")
+    let concept_tag = createElement("span", "concept_light-tag concept_light-common success label", "", title)
+ 
+    furigana.appendChild(kanji)
+    concept_representation.appendChild(furigana)
+    concept_representation.appendChild(text)
+    concept_readings.appendChild(concept_representation)
+    concept_status.appendChild(concept_tag)
+    concept_wrapper.appendChild(concept_readings)
+    concept_wrapper.appendChild(concept_status)
+
+    let concept_meanings = createElement("div", "concept_light-meanings")
+    let meanings_wrapper = createElement("div", "meanings_wrapper")
+    let meaning_wrapper = createElement("div", "meaning_wrapper")
+    let meaning_definition = createElement("div", "meaning-definition")
+    let meaning_divider = createElement("span", "meaning-definition-section_divider", "", "1. ")
+    let meaning_meaning = createElement("span", "meaning-meaning", "", entry.m.toString().replaceAll(",", ";  "))
+
+    meaning_definition.appendChild(meaning_divider)
+    meaning_definition.appendChild(meaning_meaning)
+    meaning_wrapper.appendChild(meaning_definition)
+    meanings_wrapper.appendChild(meaning_wrapper)
+    concept_meanings.appendChild(meanings_wrapper)
+    
+    concept.appendChild(concept_wrapper)
+    concept.appendChild(concept_meanings)
+
+    document.querySelector("#concepts_holder").appendChild(concept)
+}
+
+function showDictionary(res, title) {
+    res.forEach((entry) => {
+        createConcept(entry, title)
+    })
 }
 
 function main() {

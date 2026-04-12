@@ -219,6 +219,7 @@ body {
     color: #2c2924;
     font-family: 'DM Sans', sans-serif;
     font-weight: 400;
+    white-space: break-spaces;
 }
 
 .kanji_light_block {
