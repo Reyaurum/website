@@ -291,7 +291,8 @@ async function searchDictionary(e) {
             target = target.parentNode
         }
         let sibling = target.previousElementSibling
-        showDictionary(await search(target.innerText, sibling.innerText), target.innerText, sibling.innerText)
+        //showDictionary(await search(target.innerText, sibling.innerText), target.innerText, sibling.innerText)
+        await search(target.innerText, sibling.innerText)
     } catch {}
 }
 
