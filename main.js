@@ -1,0 +1,250 @@
+let m_pos;
+let mobile = screen.width < 600
+
+const kana = [
+"あ","い","う","え","お",
+"か","き","く","け","こ",
+"さ","し","す","せ","そ",
+"た","ち","つ","て","と",
+"な","に","ぬ","ね","の",
+"は","ひ","ふ","へ","ほ",
+"ま","み","む","め","も",
+"や","ゆ","よ",
+"ら","り","る","れ","ろ",
+"わ","を","ん",
+
+"が","ぎ","ぐ","げ","ご",
+"ざ","じ","ず","ぜ","ぞ",
+"だ","ぢ","づ","で","ど",
+"ば","び","ぶ","べ","ぼ",
+"ぱ","ぴ","ぷ","ぺ","ぽ",
+
+"ぁ","ぃ","ぅ","ぇ","ぉ",
+"ゃ","ゅ","ょ","っ","ゎ",
+
+"ア","イ","ウ","エ","オ",
+"カ","キ","ク","ケ","コ",
+"サ","シ","ス","セ","ソ",
+"タ","チ","ツ","テ","ト",
+"ナ","ニ","ヌ","ネ","ノ",
+"ハ","ヒ","フ","ヘ","ホ",
+"マ","ミ","ム","メ","モ",
+"ヤ","ユ","ヨ",
+"ラ","リ","ル","レ","ロ",
+"ワ","ヲ","ン",
+
+"ガ","ギ","グ","ゲ","ゴ",
+"ザ","ジ","ズ","ゼ","ゾ",
+"ダ","ヂ","ヅ","デ","ド",
+"バ","ビ","ブ","ベ","ボ",
+"パ","ピ","プ","ペ","ポ",
+
+"ァ","ィ","ゥ","ェ","ォ",
+"ャ","ュ","ョ","ッ","ヮ",
+
+"ヴ","ヵ","ヶ"
+];
+const replacements = ["う", "く", "ぐ", "す", "つ", "ぬ", "ぶ", "む", "る", "い", ""]
+let data = null;
+const index = new Map();
+
+function initResize() {
+    let resize_el = document.getElementById("dictionary_body");
+    resize_el.addEventListener(!mobile ? "mousedown" : "touchstart", function(e){
+        let style = window.getComputedStyle(document.querySelector("#dictionary_navbar"))
+        let navbar_height = parseInt(style.marginTop) + parseInt(style.marginBottom) + parseInt(style.height)
+        if (window.innerHeight - (mobile ? e.touches[0]["clientY"] : e.y) - document.querySelector("#dictionary_body").offsetHeight + navbar_height > 0) {
+            mobile ? m_pos = e.touches[0]["screenY"] : m_pos = e.y
+            document.body.style.userSelect = "none"
+            document.querySelector("#dictionary_body").style.overflowY = "clip"
+            document.addEventListener(!mobile ? "mousemove" : "touchmove", resize, false);
+        }
+    }, false);
+
+    document.addEventListener(!mobile ? "mouseup" : "touchend", function(){
+        document.body.style.userSelect = ""
+        document.querySelector("#dictionary_body").style.overflowY = "scroll"
+        document.removeEventListener(!mobile ? "mousemove" : "touchmove", resize, false);
+    }, false);
+}
+
+function resize(e){
+    let dx = 0;
+    let resize_el = document.getElementById("dictionary_body");
+    let style = window.getComputedStyle(document.querySelector("#dictionary_navbar"))
+    let navbar_height = parseInt(style.marginTop) + parseInt(style.marginBottom) + parseInt(style.height)
+    mobile ? dx = m_pos - e.touches[0]["screenY"] : dx = m_pos - e.y
+    mobile ? m_pos = e.touches[0]["screenY"] : m_pos = e.y
+    resize_el.style.height = (parseInt(getComputedStyle(resize_el, '').height) + dx) + "px";
+    let height = parseInt(resize_el.style.height);
+    height < navbar_height ? resize_el.style.height = navbar_height + "px" : (height > window.innerHeight ? resize_el.style.height = window.innerHeight + "px" : null)
+}
+
+async function getData() {
+    const res = await fetch("/website/data/data.b64")
+    const base64 = await res.text()
+
+    const binary = atob(base64);
+    const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+
+    const decompressed = await new Response(
+        new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))
+    ).text();
+
+    data = JSON.parse(decompressed);
+
+    data.forEach(entry => {
+        entry.r.forEach(r => index.set(r, entry));
+        entry.k.forEach(k => index.set(k, entry));
+    });
+}
+
+function length(text) {
+    let len = 0
+    for (let i = 0; i < text.length; i++) {
+        if (!kana.includes(text[i]))
+            len += 2
+        else if (text[i] != "っ")
+            len++
+        }
+    return len
+}
+
+function sort(map) {
+    let interupt = 0
+    let current_value = null
+    let next_value = null
+    do {
+        interupt = 0
+        for (let i = 0; i < map.length - 1; i++) {
+            current_value = map[i].k.length + map[i].r.length + map[i].m.length
+            next_value = map[i + 1].k.length + map[i + 1].r.length + map[i + 1].m.length
+            if (next_value > current_value) {
+                current_value = map[i]
+                map[i] = map[i + 1]
+                map[i + 1] = current_value
+                interupt = 1
+            }
+        }
+    } while (interupt)
+    for (let i = map.length - 1; i >= 0; i--) {
+        if (map[i].k.length == 0) {
+            current_value = map[i]
+            for (let k = i; k > 0 ; k--) {
+                map[k] = map[k - 1]
+            }
+            map[0] = current_value
+        }
+    }
+    
+    return map
+}
+
+function searchReading(query, reading="") {
+    return data.filter(entry =>
+        entry.k.some(k => k == query) &&
+        entry.r.some(r => reading ? r.includes(reading) : 1)
+    );
+}
+
+function searchParticle(query) {
+    return data.filter(entry =>
+        entry.r.some(r => r == query)
+    );
+}
+
+function testVariations(query, reading="", len) {
+    read_len = reading.substring(0, len).includes("っ") ? len - 1 : len
+    return data.filter(entry =>
+        entry.k.some(k => k.length <= len + 1 && k.length > 1) &&
+        replacements.some(rep => 
+            entry.k.some(k => k.includes(query + rep)) &&
+            entry.r.some(r => (reading ? r.includes(reading + rep) : 1) && r.length <= length(reading + rep))
+        )
+    );
+}
+
+function testVariationKana(query) {
+    return data.filter(entry =>
+        entry.k.some(k => k.length > 1 && kana.includes(k[1])) &&
+        replacements.some(rep => 
+            entry.r.some(r => r.includes(query + rep) && r.length <= length(query + rep))
+        )
+    );
+}
+
+async function searchKanji(text) {
+    let res = [], char = "", r = null
+    for (let i = 1; i <= text.length; i++) {
+        for (let k = 0; k < i; k++) {
+            char = text.substring(k, k + text.length - i + 1)
+            r = index.get(char)
+            r ? null : r = data.filter(entry => 
+                entry.k.some(k => k[0] == char && kana.includes(k[1]) && (k.length >= 3 ? kana.includes(k[2]) : 1))
+            )[0]
+            r ? res = res.concat(r) : null
+        }
+    }
+    return res
+}
+
+function searchVerb(text, reading="") {
+    let res = [];
+    let len = 0
+    let remove = 0
+    for (let i = 0; i < text.length; i++) {
+        if (kana.includes(text[i]) && (text.length > 3 ? kana.includes(text[i + 1]) : 1))
+            break;
+        len++
+    }
+    while (res.length == 0 && text.length >= 1) {
+        if (res.length == 0) {
+            len ? res = testVariations(text, reading, len + 1) : res = testVariationKana(text)
+        }
+        text.substring(text.length - 3, text.length) == "かった" ? remove = 3 : remove = 1
+        text = text.substring(0, text.length - remove)
+        text[text.length - 1] == "っ" ? text = text.substring(0, text.length - 1) : null
+        reading.substring(reading.length - 3, reading.length) == "かった" ? remove = 3 : remove = 1
+        reading = reading.substring(0, reading.length - remove)
+        reading[reading.length - 1] == "っ" ? reading = reading.substring(0, reading.length - 1) : null
+    }
+    return res
+}
+
+async function search(text, reading="") {
+    let res = searchReading(text, reading);
+    res.length != 0 ? null : res = searchReading(text)
+    res.length != 0 ? null : res = searchParticle(text)
+    res.length != 0 ? null : res = searchVerb(text, reading)
+    res.length != 0 ? null : res = searchKanji(text)
+    
+    return sort(res)
+}
+
+function showDictionary(res) {
+    console.log(res)
+}
+
+async function searchDictionary(e) {
+    var target = e.target || e.srcElement
+    let particles = ["。", "、", "・", "『", "』", "「", "」"]
+    try {
+        if (target.classList[0] == "japanese_word__furigana" || particles.includes(target.innerText))
+            return
+        while (target.classList[0] != "japanese_word__text_wrapper") {
+            target = target.parentNode
+        }
+        let sibling = target.previousElementSibling
+        showDictionary(await search(target.innerText, sibling.innerText))
+    } catch {}
+}
+
+function main() {
+    getData()
+    initResize()
+    document.addEventListener('click', searchDictionary, false);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    main()
+});
