@@ -154,7 +154,6 @@ function searchParticle(query) {
 }
 
 function testVariations(query, reading="", len) {
-    read_len = reading.substring(0, len).includes("っ") ? len - 1 : len
     let found = 0
     return data.filter(entry =>
         entry.k.some(k => k.length <= len + 1 && k.length > 1) &&
@@ -213,11 +212,13 @@ function searchVerb(text, reading="") {
 }
 
 async function search(text, reading="") {
+    text = text.normalize("NFC");
+    reading = reading.normalize("NFC");
     let res = searchReading(text, reading);
     res.length != 0 ? null : res = searchReading(text)
     res.length != 0 ? null : res = searchParticle(text)
     res.length != 0 ? null : res = searchVerb(text, reading)
-    res.length != 0 ? null : res = searchKanji(text)
+    res.length != 0 ? null : res = await searchKanji(text)
     
     return sort(res)
 }
