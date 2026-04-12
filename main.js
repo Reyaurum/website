@@ -216,6 +216,7 @@ async function search(text, reading="") {
     text = text.normalize("NFC");
     reading = reading.normalize("NFC");
     clear()
+    write("a")
     write(text, reading)
     let res = searchReading(text, reading);
     write(res.length)
