@@ -56,6 +56,10 @@ function initResize() {
             document.body.style.backgroundColor = "red"
             document.body.className = "unselectable"
             document.body.style.overflowY = "hidden"
+            document.documentElement.style.overflow = "hidden";
+            document.body.style.position = "fixed";
+            document.body.style.top = `-${window.scrollY}px`;
+            document.body.style.width = "100%";
             document.querySelector("#dictionary_body").style.overflowY = "hidden"
             mobile ? m_pos = e.touches[0]["screenY"] : m_pos = e.y
             document.addEventListener(!mobile ? "mousemove" : "touchmove", resize, false);
@@ -65,7 +69,11 @@ function initResize() {
     document.addEventListener(!mobile ? "mouseup" : "touchend", function(){
         document.body.style.backgroundColor = "blue"
         document.body.className = "unselectable"
-        document.body.style.overflowY = "scroll"    
+        document.body.style.overflowY = ""    
+        document.documentElement.style.overflow = "";
+        document.body.style.position = "";
+        document.body.style.top = "";
+        window.scrollTo(0, window.scrollY);
         document.querySelector("#dictionary_body").style.overflowY = "scroll"
         document.removeEventListener(!mobile ? "mousemove" : "touchmove", resize, false);
     }, false);
