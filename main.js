@@ -569,7 +569,8 @@ function searchA() {
     }
 ]
     return a.filter(entry =>
-        entry.k.some(k => write(k, k == "幼") && k == "幼")
+        entry.k.some(k => write(k, k == "幼") && k == "幼") &&
+        entry.r.some(r => write(r, "よう" ? r.includes("よう") : true) && "よう" ? r.includes("よう") : true)
     );
 }
 
@@ -591,6 +592,7 @@ async function searchDictionary(e) {
 
 function write(text, text2="") {
     document.getElementById("concepts_holder").innerHTML += text + ", " + text2 + "<br>"
+    return 1
 }
 
 function clear() {
