@@ -215,7 +215,6 @@ async function search(text, reading="") {
     text = text.normalize("NFC");
     reading = reading.normalize("NFC");
     clear()
-    write("b")
     write(text, reading)
     let res = searchReading(text, reading);
     write(res.length)
@@ -283,58 +282,23 @@ function showDictionary(res, text, reading) {
     document.getElementById("word_amount").innerText = `WORDS - ${document.getElementById("concepts_holder").childElementCount} FOUND`
 }
 
-function searchA() {
-    let a = [
-    {
-        "k": [
-            "熱い"
-        ],
-        "r": [
-            "あつい",
-            "あっつい"
-        ],
-        "m": [
-            "hot (to the touch)",
-            "passionate (feelings, etc.)",
-            "ardent",
-            "hot (e.g. gaze)",
-            "hot (e.g. temper)",
-            "zealous",
-            "enthusiastic",
-            "fired up",
-            "intense",
-            "severe",
-            "extreme",
-            "hot (topic)",
-            "of interest"
-        ]
-    },
-    {
-        "k": [
-            "熱"
-        ],
-        "r": [
-            "ねち"
-        ],
-        "m": [
-            "fever"
-        ]
-    },
-    {
-        "k": [
-            "委"
-        ],
-        "r": [
-            "い"
-        ],
-        "m": [
-            "committee",
-            "commission",
-            "board",
-            "panel"
-        ]
-    }
-]
+async function searchA() {
+    dp = (async () => {
+      const binary = atob(`H4sICLQL3GkAA3Rlc3QuanNvbgCdUk1KxDAU3g/MHR5djVB6AK8yzCJmvrbBJinJq8iIi4p4Ai8g
+Cq5ceKYiXsO2M9CBV8H6Nkm+7/3n265X1Nvd8RgsuU4uaTu9R+z76bNrH5MJ3aVnEWEmomsfuvZt
+CErnmNcT+UtGO5Ox9Ewb9sQliH2jywuRulYxGu8UgzY5UBlXxJTAOpO+KuzhWMBjFWRFRoU6QIZN
+PMPWCNLjAFX5Jgq8r1Y20ajIRgsyNwF7ampBGMdwEQKPuEGQMG45wEr8tLzaaNmwz2moEhD5/D+O
+1/v0zwpZJo+Prn1Z8v35MPD/+/t6f17W3yJtam+tYYZc/MiMqhTUle81OKNhh2pmzvVq9wMebBk1
+rQMAAA==`);
+      const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+
+      const decompressed = await new Response(
+        new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))
+      ).text();
+
+      return JSON.parse(decompressed);
+    })();
+    a = await dp
     return a.filter(entry =>
         entry.k.some(k => write(k, k == "熱い") && k == "熱い") &&
         entry.r.some(r => write(r, "あつい" ? r.includes("あつい") : true) && "あつい" ? r.includes("あつい") : true)
