@@ -100,127 +100,165 @@ async function getData() {
 }
 
 function length(text) {
-    let len = 0
+    let len = 0;
     for (let i = 0; i < text.length; i++) {
-        if (!kana.includes(text[i]))
-            len += 2
-        else if (text[i] != "っ")
-            len++
-        }
-    return len
+        if (!kana.includes(text[i])) len += 2;
+        else if (text[i] !== "っ") len++;
+    }
+    return len;
 }
 
 function sort(map) {
-    let interupt = 0
-    let current_value = null
-    let next_value = null
-    do {
-        interupt = 0
-        for (let i = 0; i < map.length - 1; i++) {
-            current_value = map[i].k.length + map[i].r.length + map[i].m.length
-            next_value = map[i + 1].k.length + map[i + 1].r.length + map[i + 1].m.length
-            if (next_value > current_value) {
-                current_value = map[i]
-                map[i] = map[i + 1]
-                map[i + 1] = current_value
-                interupt = 1
-            }
-        }
-    } while (interupt)
-    for (let i = map.length - 1; i >= 0; i--) {
-        if (map[i].k.length == 0) {
-            current_value = map[i]
-            for (let k = i; k > 0 ; k--) {
-                map[k] = map[k - 1]
-            }
-            map[0] = current_value
-        }
-    }
-    
-    return map
+    return [...map]
+        .sort((a, b) => {
+            const aVal = a.k.length + a.r.length + a.m.length;
+            const bVal = b.k.length + b.r.length + b.m.length;
+            return bVal - aVal; // descending
+        })
+        .sort((a, b) => {
+            if (a.k.length === 0) return -1;
+            if (b.k.length === 0) return 1;
+            return 0;
+        });
 }
 
-function searchReading(query, reading="") {
+function searchReading(query, reading = "") {
     return data.filter(entry =>
-        entry.k.some(k => k == query) &&
-        entry.r.some(r => reading ? r.includes(reading) : 1)
+        entry.k.some(k => k === query) &&
+        entry.r.some(r => reading ? r.includes(reading) : true)
     );
 }
 
 function searchParticle(query) {
     return data.filter(entry =>
-        entry.r.some(r => r == query)
+        entry.r.some(r => r === query)
     );
 }
 
-function testVariations(query, reading="", len) {
-    let found = 0
-    return data.filter(entry =>
-        entry.k.some(k => k.length <= len + 1 && k.length > 1) &&
-        replacements.some(rep => 
-            entry.k.some(k => k.includes(query + rep)) &&
-            entry.r.some(r => (reading ? r.includes(reading + (rep == "" && found ? "|" : rep)) : 1) && r.length <= length(reading + rep) && ++found)
-        )
-    );
+function testVariations(query, reading = "", len) {
+    return data.filter(entry => {
+        return entry.k.some(k => {
+            if (!(k.length <= len + 1 && k.length > 1)) return false;
+
+            return replacements.some(rep => {
+                const kMatch = k.includes(query + rep);
+
+                const rMatch = entry.r.some(r => {
+                    if (!reading) return true;
+                    return (
+                        r.includes(reading + rep) &&
+                        r.length <= length(reading + rep)
+                    );
+                });
+
+                return kMatch && rMatch;
+            });
+        });
+    });
 }
 
 function testVariationKana(query) {
     return data.filter(entry =>
         entry.k.some(k => k.length > 1 && kana.includes(k[1])) &&
-        replacements.some(rep => 
-            entry.r.some(r => r.includes(query + rep) && r.length <= length(query + rep))
+        replacements.some(rep =>
+            entry.r.some(r =>
+                r.includes(query + rep) &&
+                r.length <= length(query + rep)
+            )
         )
     );
 }
 
 async function searchKanji(text) {
-    let res = [], char = "", r = null
+    let res = [];
+
     for (let i = 1; i <= text.length; i++) {
         for (let k = 0; k < i; k++) {
-            char = text.substring(k, k + text.length - i + 1)
-            r = index.get(char)
-            r ? null : r = data.filter(entry => 
-                entry.k.some(k => k[0] == char && kana.includes(k[1]) && (k.length >= 3 ? kana.includes(k[2]) : 1))
-            )[0]
-            r ? res = res.concat(r) : null
+            const char = text.substring(k, k + text.length - i + 1);
+
+            let r = index.get(char);
+
+            if (!r) {
+                r = data.find(entry =>
+                    entry.k.some(k =>
+                        k[0] === char &&
+                        kana.includes(k[1]) &&
+                        (k.length >= 3 ? kana.includes(k[2]) : true)
+                    )
+                );
+            }
+
+            if (r) res.push(r);
         }
     }
-    return res
+
+    return res;
 }
 
-function searchVerb(text, reading="") {
+function searchVerb(text, reading = "") {
     let res = [];
-    let len = 0
-    let remove = 0
-    for (let i = 0; i < text.length; i++) {
-        if (kana.includes(text[i]) && (text.length > 3 ? kana.includes(text[i + 1]) : 1))
-            break;
-        len++
+
+    let baseText = text;
+    let baseReading = reading;
+
+    let len = 0;
+
+    for (let i = 0; i < baseText.length; i++) {
+        if (
+            kana.includes(baseText[i]) &&
+            (baseText.length > 3 ? kana.includes(baseText[i + 1]) : true)
+        ) break;
+
+        len++;
     }
-    while (res.length == 0 && text.length >= 1) {
-        if (res.length == 0) {
-            len ? res = testVariations(text, reading, len + 1) : res = testVariationKana(text)
+
+    while (res.length === 0 && baseText.length >= 1) {
+        if (len) {
+            res = testVariations(baseText, baseReading, len + 1);
+        } else {
+            res = testVariationKana(baseText);
         }
-        text.substring(text.length - 3, text.length) == "かった" ? remove = 3 : remove = 1
-        text = text.substring(0, text.length - remove)
-        text[text.length - 1] == "っ" ? text = text.substring(0, text.length - 1) : null
-        reading.substring(reading.length - 3, reading.length) == "かった" ? remove = 3 : remove = 1
-        reading = reading.substring(0, reading.length - remove)
-        reading[reading.length - 1] == "っ" ? reading = reading.substring(0, reading.length - 1) : null
+
+        let remove = baseText.endsWith("かった") ? 3 : 1;
+
+        baseText = baseText.slice(0, -remove);
+        if (baseText.endsWith("っ")) {
+            baseText = baseText.slice(0, -1);
+        }
+
+        remove = baseReading.endsWith("かった") ? 3 : 1;
+
+        baseReading = baseReading.slice(0, -remove);
+        if (baseReading.endsWith("っ")) {
+            baseReading = baseReading.slice(0, -1);
+        }
     }
-    return res
+
+    return res;
 }
 
-async function search(text, reading="") {
-    text = text.normalize("NFC");
-    reading = reading.normalize("NFC");
-    let res = searchReading(text, reading);
-    res.length != 0 ? null : res = searchReading(text)
-    res.length != 0 ? null : res = searchParticle(text)
-    res.length != 0 ? null : res = searchVerb(text, reading)
-    res.length != 0 ? null : res = await searchKanji(text)
-    
-    return sort(res)
+async function search(text, reading = "") {
+    let res = [];
+
+    res = searchReading(text, reading);
+
+    if (res.length === 0) {
+        res = searchReading(text);
+    }
+
+    if (res.length === 0) {
+        res = searchParticle(text);
+    }
+
+    if (res.length === 0) {
+        res = searchVerb(text, reading);
+    }
+
+    if (res.length === 0) {
+        res = await searchKanji(text);
+    }
+
+    return sort(res);
 }
 
 function createElement(tag, className, id="", text="") {
