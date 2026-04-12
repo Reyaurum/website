@@ -221,20 +221,6 @@ async function search(text, reading="") {
     return sort(res)
 }
 
-async function searchDictionary(e) {
-    var target = e.target || e.srcElement || e
-    let particles = ["。", "、", "・", "『", "』", "「", "」"]
-    try {
-        if (target.classList[0] == "japanese_word__furigana" || particles.includes(target.innerText))
-            return
-        while (target.classList[0] != "japanese_word__text_wrapper") {
-            target = target.parentNode
-        }
-        let sibling = target.previousElementSibling
-        showDictionary(await search(target.innerText, sibling.innerText), target.parentNode.title)
-    } catch {}
-}
-
 function createElement(tag, className, id="", text="") {
     let e = document.createElement(tag)
     className ? e.className = className : null
@@ -243,14 +229,14 @@ function createElement(tag, className, id="", text="") {
     return e
 }
 
-function createConcept(entry, title) {
+function createConcept(entry, title, reading) {
     let concept = createElement("div", "concept_light clearfix")
     let concept_wrapper = createElement("div", "concept_light-wrapper")
     let concept_readings = createElement("div", "concept_light-readings japanese_gothic")
     let concept_representation = createElement("div", "concept_light-representation")
     let furigana = createElement("span", "furigana")
-    let kanji = createElement("span", "kanji", "", entry.r[0])
-    let text = createElement("span", "text", "", entry.k[0])
+    let kanji = createElement("span", "kanji", "", title == "verb" ? entry.r[0] : reading)
+    let text = createElement("span", "text", "", entry.k[0] ? entry.k[0] : reading)
     let concept_status = createElement("div", "concept_light-status")
     let concept_tag = createElement("span", "concept_light-tag concept_light-common success label", "", title)
  
@@ -281,10 +267,25 @@ function createConcept(entry, title) {
     document.querySelector("#concepts_holder").appendChild(concept)
 }
 
-function showDictionary(res, title) {
+function showDictionary(res, reading, title) {
+    console.log(res)
     res.forEach((entry) => {
-        createConcept(entry, title)
+        createConcept(entry, reading, title)
     })
+}
+
+async function searchDictionary(e) {
+    var target = e.target || e.srcElement
+    let particles = ["。", "、", "・", "『", "』", "「", "」"]
+    try {
+        if (target.classList[0] == "japanese_word__furigana" || particles.includes(target.innerText))
+            return
+        while (target.classList[0] != "japanese_word__text_wrapper") {
+            target = target.parentNode
+        }
+        let sibling = target.previousElementSibling
+        showDictionary(await search(target.innerText, sibling.innerText), sibling.innerText, target.parentNode.title)
+    } catch {}
 }
 
 function main() {
