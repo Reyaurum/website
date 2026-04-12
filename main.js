@@ -53,13 +53,7 @@ function initResize() {
         let style = window.getComputedStyle(document.querySelector("#dictionary_navbar"))
         let navbar_height = parseInt(style.marginTop) + parseInt(style.marginBottom) + parseInt(style.height)
         if (window.innerHeight - (mobile ? e.touches[0]["clientY"] : e.y) - document.querySelector("#dictionary_body").offsetHeight + navbar_height > 0) {
-            document.body.style.backgroundColor = "red"
             document.body.className = "unselectable"
-            document.body.style.overflowY = "hidden"
-            document.documentElement.style.overflow = "hidden";
-            document.body.style.position = "fixed";
-            document.body.style.top = `-${window.scrollY}px`;
-            document.body.style.width = "100%";
             document.querySelector("#dictionary_body").style.overflowY = "hidden"
             mobile ? m_pos = e.touches[0]["screenY"] : m_pos = e.y
             document.addEventListener(!mobile ? "mousemove" : "touchmove", resize, {passive: false}, false);
@@ -67,14 +61,7 @@ function initResize() {
     }, false);
 
     document.addEventListener(!mobile ? "mouseup" : "touchend", function(){
-        document.body.style.backgroundColor = "blue"
-        document.body.className = "unselectable"
-        document.body.style.overflowY = ""
-        document.documentElement.style.overflow = "";    
-        const scrollY = window.scrollY;
-        document.body.style.position = "";
-        document.body.style.top = "";
-        window.scrollTo(0, scrollY);
+        document.body.className = ""
         document.querySelector("#dictionary_body").style.overflowY = "scroll"
         document.removeEventListener(!mobile ? "mousemove" : "touchmove", resize, {passive: false}, false);
     }, false);
