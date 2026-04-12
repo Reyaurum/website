@@ -289,6 +289,14 @@ async function searchDictionary(e) {
     } catch {}
 }
 
+function write(text) {
+    document.getElementById("concepts_holder").innerHTML += text + "<br>"
+}
+
+function clear() {
+    document.getElementById("concepts_holder").innerHTML = ""
+}
+
 function main() {
     getData()
     initResize()
