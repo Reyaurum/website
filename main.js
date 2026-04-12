@@ -62,7 +62,7 @@ function initResize() {
             document.body.style.width = "100%";
             document.querySelector("#dictionary_body").style.overflowY = "hidden"
             mobile ? m_pos = e.touches[0]["screenY"] : m_pos = e.y
-            document.addEventListener(!mobile ? "mousemove" : "touchmove", resize, false);
+            document.addEventListener(!mobile ? "mousemove" : "touchmove", resize, {passive: false}, false);
         }
     }, false);
 
@@ -76,11 +76,12 @@ function initResize() {
         document.body.style.top = "";
         window.scrollTo(0, scrollY);
         document.querySelector("#dictionary_body").style.overflowY = "scroll"
-        document.removeEventListener(!mobile ? "mousemove" : "touchmove", resize, false);
+        document.removeEventListener(!mobile ? "mousemove" : "touchmove", resize, {passive: false}, false);
     }, false);
 }
 
 function resize(e){
+    e.preventDefault()
     let dx = 0;
     let resize_el = document.getElementById("dictionary_body");
     let style = window.getComputedStyle(document.querySelector("#dictionary_navbar"))
