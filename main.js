@@ -69,11 +69,12 @@ function initResize() {
     document.addEventListener(!mobile ? "mouseup" : "touchend", function(){
         document.body.style.backgroundColor = "blue"
         document.body.className = "unselectable"
-        document.body.style.overflowY = ""    
-        document.documentElement.style.overflow = "";
+        document.body.style.overflowY = ""
+        document.documentElement.style.overflow = "";    
+        const scrollY = window.scrollY;
         document.body.style.position = "";
         document.body.style.top = "";
-        window.scrollTo(0, window.scrollY);
+        window.scrollTo(0, scrollY);
         document.querySelector("#dictionary_body").style.overflowY = "scroll"
         document.removeEventListener(!mobile ? "mousemove" : "touchmove", resize, false);
     }, false);
