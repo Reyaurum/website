@@ -283,6 +283,12 @@ function showDictionary(res, text, reading) {
     document.getElementById("word_amount").innerText = `WORDS - ${document.getElementById("concepts_holder").childElementCount} FOUND`
 }
 
+function searchA() {
+    return a.filter(entry =>
+        entry.k.some(k => write(k, k == "幼") && k == "幼")
+    );
+}
+
 async function searchDictionary(e) {
     var target = e.target || e.srcElement
     let particles = ["。", "、", "・", "…", "？", "！", "＊", "：", "『", "』", "「", "」"]
@@ -294,7 +300,8 @@ async function searchDictionary(e) {
         }
         let sibling = target.previousElementSibling
         //showDictionary(await search(target.innerText, sibling.innerText), target.innerText, sibling.innerText)
-        await search(target.innerText, sibling.innerText)
+        //await search(target.innerText, sibling.innerText)
+        searchA()
     } catch {}
 }
 
