@@ -141,6 +141,7 @@ function sort(map) {
 }
 
 function searchReading(query, reading="") {
+    write(query, reading)
     return data.filter(entry =>
         entry.k.some(k => k == query) &&
         entry.r.some(r => reading ? r.includes(reading) : 1)
@@ -212,9 +213,9 @@ function searchVerb(text, reading="") {
 }
 
 async function search(text, reading="") {
-    text = text.normalize("NFC");
-    reading = reading.normalize("NFC");
-    write("--------")
+    text = text.normalize("NFD");
+    reading = reading.normalize("NFD");
+    clear()
     write(text, reading)
     let res = searchReading(text, reading);
     write(res.length)
