@@ -45,6 +45,7 @@ const replacements = ["う", "く", "ぐ", "す", "つ", "ぬ", "ぶ", "む", "�
 let data = null;
 const index = new Map();
 let m_pos;
+let a = null
 
 function initResize() {
     let resize_el = document.getElementById("dictionary_body");
@@ -141,9 +142,9 @@ function sort(map) {
 }
 
 function searchReading(query, reading="") {
-    return data.filter(entry =>
-        entry.k.some(k => k == query) &&
-        entry.r.some(r => reading ? r.includes(reading) : true)
+    return a.filter(entry =>
+        entry.k.some(k => write(k, k == "熱い") && k == query) &&
+        entry.r.some(r => write(r, "あつい" ? r.includes("あつい") : true) && reading ? r.includes(reading) : true)
     );
 }
 
