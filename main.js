@@ -212,6 +212,8 @@ function searchVerb(text, reading="") {
 }
 
 async function search(text, reading="") {
+    text = text.replaceAll(" ", "")
+    reading = reading.replaceAll(" ", "")
     let res = searchReading(text, reading);
     res.length != 0 ? null : res = searchReading(text)
     res.length != 0 ? null : res = searchParticle(text)
