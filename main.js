@@ -229,7 +229,7 @@ function createElement(tag, className, id="", text="") {
     return e
 }
 
-function createConcept(entry, title, reading) {
+function createConcept(entry, reading, title) {
     let concept = createElement("div", "concept_light clearfix")
     let concept_wrapper = createElement("div", "concept_light-wrapper")
     let concept_readings = createElement("div", "concept_light-readings japanese_gothic")
@@ -267,8 +267,9 @@ function createConcept(entry, title, reading) {
     document.querySelector("#concepts_holder").appendChild(concept)
 }
 
-function showDictionary(res, reading, title) {
+function showDictionary(res, text, reading, title) {
     console.log(res)
+    reading ? null : reading = text
     res.forEach((entry) => {
         createConcept(entry, reading, title)
     })
@@ -284,7 +285,7 @@ async function searchDictionary(e) {
             target = target.parentNode
         }
         let sibling = target.previousElementSibling
-        showDictionary(await search(target.innerText, sibling.innerText), sibling.innerText, target.parentNode.title)
+        showDictionary(await search(target.innerText, sibling.innerText), target.innerText, sibling.innerText, target.parentNode.title)
     } catch {}
 }
 
