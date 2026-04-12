@@ -48,28 +48,26 @@ let m_pos;
 let mobile = window.innerWidth < 600
 
 function initResize() {
-    console.log("e")
     let resize_el = document.getElementById("dictionary_body");
     resize_el.addEventListener(!mobile ? "mousedown" : "touchstart", function(e){
         let style = window.getComputedStyle(document.querySelector("#dictionary_navbar"))
         let navbar_height = parseInt(style.marginTop) + parseInt(style.marginBottom) + parseInt(style.height)
         if (window.innerHeight - (mobile ? e.touches[0]["clientY"] : e.y) - document.querySelector("#dictionary_body").offsetHeight + navbar_height > 0) {
             mobile ? m_pos = e.touches[0]["screenY"] : m_pos = e.y
-            document.body.style.userSelect = "none"
+            document.body.className = "unselectable"
             document.querySelector("#dictionary_body").style.overflowY = "clip"
             document.addEventListener(!mobile ? "mousemove" : "touchmove", resize, false);
         }
     }, false);
 
     document.addEventListener(!mobile ? "mouseup" : "touchend", function(){
-        document.body.style.userSelect = ""
+            document.body.className = ""
         document.querySelector("#dictionary_body").style.overflowY = "scroll"
         document.removeEventListener(!mobile ? "mousemove" : "touchmove", resize, false);
     }, false);
 }
 
 function resize(e){
-    console.log(e)
     let dx = 0;
     let resize_el = document.getElementById("dictionary_body");
     let style = window.getComputedStyle(document.querySelector("#dictionary_navbar"))
