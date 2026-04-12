@@ -155,11 +155,12 @@ function searchParticle(query) {
 
 function testVariations(query, reading="", len) {
     read_len = reading.substring(0, len).includes("っ") ? len - 1 : len
+    let found = 0
     return data.filter(entry =>
         entry.k.some(k => k.length <= len + 1 && k.length > 1) &&
         replacements.some(rep => 
             entry.k.some(k => k.includes(query + rep)) &&
-            entry.r.some(r => (reading ? r.includes(reading + rep) : 1) && r.length <= length(reading + rep))
+            entry.r.some(r => (reading ? r.includes(reading + (rep == "" && found ? "|" : rep)) : 1) && r.length <= length(reading + rep) && ++found)
         )
     );
 }
