@@ -143,8 +143,8 @@ function sort(map) {
 
 function searchReading(query, reading="") {
     return a.filter(entry =>
-        entry.k.some(k => write(k, k == query) && k == query) &&
-        entry.r.some(r => write(r, reading ? r.includes(reading) : true) && reading ? r.includes(reading) : true)
+        entry.k.some(k => write(k, query, k == query) && k == query) &&
+        entry.r.some(r => write(r, reading, reading ? r.includes(reading) : true) && reading ? r.includes(reading) : true)
     );
 }
 
@@ -323,8 +323,8 @@ async function searchDictionary(e) {
     } catch {}
 }
 
-function write(text, text2="") {
-    document.getElementById("concepts_holder").innerHTML += text + ", " + text2 + "<br>"
+function write(text, text2="", text3="") {
+    document.getElementById("concepts_holder").innerHTML += text + ", " + text2 + ", " + text3 + "<br>"
     return 1
 }
 
