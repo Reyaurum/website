@@ -45,6 +45,7 @@ const replacements = ["う", "く", "ぐ", "す", "つ", "ぬ", "ぶ", "む", "�
 let data = null;
 const index = new Map();
 let m_pos;
+let a = null
 
 function initResize() {
     let resize_el = document.getElementById("dictionary_body");
@@ -141,9 +142,9 @@ function sort(map) {
 }
 
 function searchReading(query, reading="") {
-    return data.filter(entry =>
-        entry.k.some(k => k == query) &&
-        entry.r.some(r => reading ? r.includes(reading) : true)
+    return a.filter(entry =>
+        entry.k.some(k => write(k, query, k == query) && k == query) &&
+        entry.r.some(r => write(r, reading, reading ? r.includes(reading) : true) && reading ? r.includes(reading) : true)
     );
 }
 
@@ -212,13 +213,20 @@ function searchVerb(text, reading="") {
 }
 
 async function search(text, reading="") {
-    text = text.replaceAll(" ", "")
-    reading = reading.replaceAll(" ", "")
+    text = text.replaceAll(" ", "");
+    reading = reading.replaceAll(" ", "");
+    clear()
+    write(text, reading)
     let res = searchReading(text, reading);
+    write(res.length)
     res.length != 0 ? null : res = searchReading(text)
+    write(res.length)
     res.length != 0 ? null : res = searchParticle(text)
+    write(res.length)
     res.length != 0 ? null : res = searchVerb(text, reading)
+    write(res.length)
     res.length != 0 ? null : res = await searchKanji(text)
+    write(res.length)
     
     return sort(res)
 }
@@ -275,6 +283,29 @@ function showDictionary(res, text, reading) {
     document.getElementById("word_amount").innerText = `WORDS - ${document.getElementById("concepts_holder").childElementCount} FOUND`
 }
 
+async function searchA() {
+    dp = (async () => {
+      const binary = atob(`H4sICLQL3GkAA3Rlc3QuanNvbgCdUk1KxDAU3g/MHR5djVB6AK8yzCJmvrbBJinJq8iIi4p4Ai8g
+Cq5ceKYiXsO2M9CBV8H6Nkm+7/3n265X1Nvd8RgsuU4uaTu9R+z76bNrH5MJ3aVnEWEmomsfuvZt
+CErnmNcT+UtGO5Ox9Ewb9sQliH2jywuRulYxGu8UgzY5UBlXxJTAOpO+KuzhWMBjFWRFRoU6QIZN
+PMPWCNLjAFX5Jgq8r1Y20ajIRgsyNwF7ampBGMdwEQKPuEGQMG45wEr8tLzaaNmwz2moEhD5/D+O
+1/v0zwpZJo+Prn1Z8v35MPD/+/t6f17W3yJtam+tYYZc/MiMqhTUle81OKNhh2pmzvVq9wMebBk1
+rQMAAA==`);
+      const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+
+      const decompressed = await new Response(
+        new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))
+      ).text();
+
+      return JSON.parse(decompressed);
+    })();
+    a = await dp
+    return a.filter(entry =>
+        entry.k.some(k => write(k, k == "熱い") && k == "熱い") &&
+        entry.r.some(r => write(r, "あつい" ? r.includes("あつい") : true) && "あつい" ? r.includes("あつい") : true)
+    );
+}
+
 async function searchDictionary(e) {
     var target = e.target || e.srcElement
     let particles = ["。", "、", "・", "…", "？", "！", "＊", "：", "『", "』", "「", "」"]
@@ -285,8 +316,20 @@ async function searchDictionary(e) {
             target = target.parentNode
         }
         let sibling = target.previousElementSibling
-        showDictionary(await search(target.innerText.replaceAll(" ", ""), sibling.innerText.replaceAll(" ", "")), target.innerText.replaceAll(" ", ""), sibling.innerText.replaceAll(" ", ""))
+        //showDictionary(await search(target.innerText, sibling.innerText), target.innerText, sibling.innerText)
+        
+        searchA()
+        await search(target.innerText, sibling.innerText)
     } catch {}
+}
+
+function write(text, text2="", text3="") {
+    document.getElementById("concepts_holder").innerHTML += text + ", " + text2 + ", " + text3 + "<br>"
+    return 1
+}
+
+function clear() {
+    document.getElementById("concepts_holder").innerHTML = ""
 }
 
 function main() {
