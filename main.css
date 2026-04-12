@@ -102,7 +102,7 @@ body {
 
 .concept_light {
     display: grid;
-    grid-template-columns: 100px auto;
+    grid-template-columns: minmax(160px, auto) auto;
     padding: 0;
     border-bottom: 1px solid #ede9e3;
     justify-content: flex-start;
@@ -329,11 +329,11 @@ body {
     }
 
     .concept_light { 
-        grid-template-columns: 100px auto;
+        grid-template-columns: minmax(100px, auto) auto;
     }
 
     .concept_light-wrapper { 
-        padding: 0.5rem 0.75rem; 
+        padding: 0.5rem 0 0.5rem 0.5rem;
     }
 
     .concept_light-readings .concept_light-representation:first-child {
