@@ -1,0 +1,378 @@
+li {
+    display: inline-block;
+}
+
+ul {
+    display: contents;
+}
+
+section {
+    padding: 8px;
+}
+
+.japanese_word__text_wrapper span {
+    text-decoration: underline;
+    text-decoration-color: #9e9e9e;
+    text-decoration-thickness: 0.1rem;
+    cursor: pointer;
+}
+
+.japanese_word__text_wrapper div {
+    text-decoration: underline;
+    text-decoration-color: #9e9e9e;
+    text-decoration-thickness: 0.1rem;
+    cursor: pointer;
+}
+
+.japanese_word__furigana_wrapper {
+    display: block;
+    min-height: 0.5em;
+    max-height: 0;
+}
+
+.japanese_word__furigana {
+    display: inline-block;
+    text-decoration-thickness: 1px;
+    text-align: center;
+    line-height: 1.15;
+    font-size: 50%;
+    position: relative;
+    top: -1.2em;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box; margin: 0; padding: 0; 
+}
+
+body {
+    background: #f4f3f1;
+    color: #1a1a1a;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.5rem;
+    min-height: 100vh;
+}
+
+#dictionary_body {
+    position: fixed;
+    width: 100vw;
+    height: 22vh;
+    background: #faf9f7;
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid #d8d2c8;
+    border-right: none;
+    border-left: none;
+    border-bottom: none;
+    z-index: 100;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    box-shadow: 0 -6px 32px rgba(0,0,0,0.06), 0 -1px 0 rgba(0,0,0,0.04);
+}
+
+#dictionary_navbar {
+    display: grid;
+    grid-template-columns: 70vw 30vw;
+    margin: 0.75rem 1.25rem 0.5rem;
+    color: #9a9590;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+#dictionary_cover {
+    display: grid;
+    grid-template-columns: 70vw 30vw;
+  }
+
+.japanese_gothic {
+    font-family: "Hiragino Sans", "HiraKakuProN-W3", "Noto Sans CJK JP",
+      "Noto Sans", "メイリオ", Meiryo, "游ゴシック", YuGothic, sans-serif;
+}
+
+.concept_light {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 0;
+    border-bottom: 1px solid #ede9e3;
+    justify-content: flex-start;
+    height: fit-content;
+}
+
+.concept_light-wrapper {
+    padding: 0.75rem 1rem 0.75rem 1.25rem;
+    min-width: 10vw;
+    width: fit-content;
+}
+
+.concept_light-readings {
+    font-size: 22px;
+    padding-left: 0;
+}
+
+.concept_light-readings .concept_light-representation:first-child {
+    font-size: 1.3em;
+}
+
+.concept_light-readings .concept_light-representation {
+    display: block;
+}
+
+.concept_light-readings .concept_light-representation .text {
+    display: block;
+    line-height: 1.15;
+    color: #1a1a1a;
+    letter-spacing: 0.01em;
+}
+
+.concept_light-status {
+    margin-top: 6px;
+    margin-bottom: 8px;
+}
+
+.concept_light-tag {
+    display: inline-block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    padding: 3px 8px;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+.concept_light-tag.concept_light-common.success {
+    background: #eae5f8;
+    color: #5533bb;
+    border: 1px solid #d0c8f2;
+}
+
+.label {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.furigana {
+    display: block;
+    font-size: 45%;
+    min-height: 1.15em;
+    color: #7a756e;
+}
+
+.furigana .kanji {
+    min-width: 2.25em;
+}
+
+.furigana span {
+    display: inline-block;
+    text-align: center;
+    min-width: 2em;
+    line-height: 1.15;
+}
+
+.concept_light-meanings {
+    font-size: 14px;
+    line-height: 1.55;
+    margin-bottom: 8px;
+    padding: 0.75rem 1rem 0.75rem 0.5rem;
+    color: #3a3632;
+}
+
+.meaning-wrapper {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    padding: 1px 0;
+}
+
+.meaning-definition {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.meaning-definition-section_divider {
+    color: #bdb7af;
+    font-size: 11px;
+    font-weight: 500;
+    min-width: 14px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.meaning-meaning {
+    font-size: 14px;
+    color: #2c2924;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+}
+
+.kanji_light_block {
+    padding: 4px 1.25rem 4px 1rem;
+    border-left: 1px solid #ede9e3;
+}
+
+.kanji_light {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    margin-bottom: 14px;
+    margin-top: 8px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ede9e3;
+}
+
+.kanji_light:last-child {
+    border-bottom: none;
+    margin-bottom: 4px;
+}
+
+.kanji_light_content {
+    display: grid;
+    grid-template-columns: 50px auto;
+    align-items: flex-start;
+    gap: 0;
+    width: 100%;
+}
+
+.kanji_light .literal_block {
+    flex-shrink: 0;
+    width: 48px;
+    margin-right: 10px;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.kanji_light .literal_block a {
+    color: #2c2924;
+    font-size: 36px;
+    display: block;
+    text-decoration: none;
+    line-height: 1.1;
+    font-family: "Hiragino Sans", "Noto Sans CJK JP", sans-serif;
+    transition: color 0.15s ease;
+}
+
+.kanji_light .literal_block a:hover {
+    color: #5533bb;
+}
+
+.kanji_light .meanings {
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 1px 0 4px 0;
+    color: #3a3632;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.kanji_light .readings {
+    font-size: 12px;
+    color: #7a756e;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.kanji_light .readings .type {
+    color: #bdb7af;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-right: 3px;
+}
+
+.japanese_gothic a {
+    color: #6655cc;
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.japanese_gothic a:hover {
+    color: #4433aa;
+}
+
+#dictionary_body::-webkit-scrollbar {
+    width: 4px;
+}
+
+#dictionary_body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#dictionary_body::-webkit-scrollbar-thumb {
+    background: #d8d2c8;
+    border-radius: 2px;
+}
+
+@media only screen and (max-width: 600px) {
+    body { 
+        font-size: 1.25rem; 
+    }
+
+    #dictionary_navbar {
+        margin: 8px 12px 6px;
+        font-size: 10px;
+    }
+
+    .concept_light-wrapper { 
+        padding: 0.5rem 0.75rem; 
+    }
+
+    .concept_light-readings .concept_light-representation:first-child {
+        font-size: 26px;
+    }
+
+    .concept_light-status { 
+        display: flex; 
+    }
+
+    .concept_light-tag {
+        font-size: 8px;
+        padding: 2px 6px;
+    }
+
+    .concept_light-meanings {
+        font-size: 7px;
+        padding: 6px 4px 6px 0;
+    }
+
+    .meaning-meaning { 
+        font-size: 10px; 
+    }
+
+    .kanji_light_block {
+        padding: 4px 10px 4px 4px;
+    }
+
+    .kanji_light {
+        margin-bottom: 8px;
+        margin-top: 4px;
+        padding-bottom: 8px;
+    }
+
+    .kanji_light_content {
+        grid-template-columns: 30px auto;
+    }
+
+    .kanji_light .literal_block {
+        width: 28px;
+        margin-right: 6px;
+    }
+
+    .kanji_light .literal_block a { 
+        font-size: 24px; 
+    }
+
+    .kanji_light .meanings { 
+        font-size: 10px; 
+        margin-right: 2px;
+    }
+
+    .kanji_light .readings {
+        font-size: 8px;
+    }
+}
