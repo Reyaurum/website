@@ -91,7 +91,7 @@ async function getData() {
         new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))
     ).text();
 
-    data = JSON.parse(decompressed.normalize("NFC"));
+    data = JSON.parse(decompressed);
 
     data.forEach(entry => {
         entry.r.forEach(r => index.set(r, entry));
@@ -143,7 +143,7 @@ function sort(map) {
 function searchReading(query, reading="") {
     write(query, reading)
     return data.filter(entry =>
-        entry.k.some(k => k == query) &&
+        entry.k.some(k => write(k, k == query) && k == query) &&
         entry.r.some(r => reading ? r.includes(reading) : 1)
     );
 }
