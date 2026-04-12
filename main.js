@@ -229,13 +229,13 @@ function createElement(tag, className, id="", text="") {
     return e
 }
 
-function createConcept(entry, reading, title) {
+function createConcept(entry, reading) {
     let concept = createElement("div", "concept_light clearfix")
     let concept_wrapper = createElement("div", "concept_light-wrapper")
     let concept_readings = createElement("div", "concept_light-readings japanese_gothic")
     let concept_representation = createElement("div", "concept_light-representation")
     let furigana = createElement("span", "furigana")
-    let kanji = createElement("span", "kanji", "", (title == "verb" ? entry.r[0] : reading))
+    let kanji = createElement("span", "kanji", "", entry.r[0])
     let text = createElement("span", "text", "", (entry.k[0] ? entry.k[0] : reading))
 
     furigana.appendChild(kanji)
@@ -263,12 +263,12 @@ function createConcept(entry, reading, title) {
     document.querySelector("#concepts_holder").appendChild(concept)
 }
 
-function showDictionary(res, text, reading, title) {
+function showDictionary(res, text, reading) {
     console.log(res)
     document.getElementById("concepts_holder").innerHTML = ""
     reading ? null : reading = text
     res.forEach((entry) => {
-        createConcept(entry, reading, title)
+        createConcept(entry, reading)
     })
     document.getElementById("word_amount").innerText = `WORDS - ${document.getElementById("concepts_holder").childElementCount} FOUND`
 }
@@ -283,7 +283,7 @@ async function searchDictionary(e) {
             target = target.parentNode
         }
         let sibling = target.previousElementSibling
-        showDictionary(await search(target.innerText, sibling.innerText), target.innerText, sibling.innerText, target.parentNode.title)
+        showDictionary(await search(target.innerText, sibling.innerText), target.innerText, sibling.innerText)
     } catch {}
 }
 
