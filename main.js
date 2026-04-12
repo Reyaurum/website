@@ -1,6 +1,3 @@
-let m_pos;
-let mobile = screen.width < 600
-
 const kana = [
 "あ","い","う","え","お",
 "か","き","く","け","こ",
@@ -47,6 +44,8 @@ const kana = [
 const replacements = ["う", "く", "ぐ", "す", "つ", "ぬ", "ぶ", "む", "る", "い", ""]
 let data = null;
 const index = new Map();
+let m_pos;
+let mobile = window.innerWidth < 600
 
 function initResize() {
     console.log("e")
