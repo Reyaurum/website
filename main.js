@@ -49,6 +49,7 @@ let data = null;
 const index = new Map();
 
 function initResize() {
+    console.log("e")
     let resize_el = document.getElementById("dictionary_body");
     resize_el.addEventListener(!mobile ? "mousedown" : "touchstart", function(e){
         let style = window.getComputedStyle(document.querySelector("#dictionary_navbar"))
@@ -69,6 +70,7 @@ function initResize() {
 }
 
 function resize(e){
+    console.log(e)
     let dx = 0;
     let resize_el = document.getElementById("dictionary_body");
     let style = window.getComputedStyle(document.querySelector("#dictionary_navbar"))
