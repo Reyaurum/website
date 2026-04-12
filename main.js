@@ -213,8 +213,6 @@ function searchVerb(text, reading="") {
 }
 
 async function search(text, reading="") {
-    text = text.replace(/[\s\u200B-\u200D\uFEFF\u3000]/gu, "");
-    reading = reading.replace(/[\s\u200B-\u200D\uFEFF\u3000]/gu, "");
     clear()
     write(text, reading)
     let res = searchReading(text, reading);
@@ -235,7 +233,7 @@ function createElement(tag, className, id="", text="") {
     let e = document.createElement(tag)
     className ? e.className = className : null
     id ? e.id = id : null
-    text ? e.innerText = text : null
+    text ? e.textContent = text : null
     return e
 }
 
@@ -280,7 +278,7 @@ function showDictionary(res, text, reading) {
     res.forEach((entry) => {
         createConcept(entry, reading)
     })
-    document.getElementById("word_amount").innerText = `WORDS - ${document.getElementById("concepts_holder").childElementCount} FOUND`
+    document.getElementById("word_amount").textContent = `WORDS - ${document.getElementById("concepts_holder").childElementCount} FOUND`
 }
 
 async function searchA() {
@@ -310,16 +308,16 @@ async function searchDictionary(e) {
     var target = e.target || e.srcElement
     let particles = ["。", "、", "・", "…", "？", "！", "＊", "：", "『", "』", "「", "」"]
     try {
-        if (target.classList[0] == "japanese_word__furigana" || particles.includes(target.innerText))
+        if (target.classList[0] == "japanese_word__furigana" || particles.includes(target.textContent))
             return
         while (target.classList[0] != "japanese_word__text_wrapper") {
             target = target.parentNode
         }
         let sibling = target.previousElementSibling
-        //showDictionary(await search(target.innerText, sibling.innerText), target.innerText, sibling.innerText)
+        //showDictionary(await search(target.textContent, sibling.textContent), target.textContent, sibling.textContent)
         
         searchA()
-        await search(target.innerText, sibling.innerText)
+        await search(target.textContent, sibling.textContent)
     } catch {}
 }
 
