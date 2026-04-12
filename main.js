@@ -143,8 +143,8 @@ function sort(map) {
 
 function searchReading(query, reading="") {
     return a.filter(entry =>
-        entry.k.some(k => write(k, k == "熱い") && k == query) &&
-        entry.r.some(r => write(r, "あつい" ? r.includes("あつい") : true) && reading ? r.includes(reading) : true)
+        entry.k.some(k => write(k, k == query) && k == query) &&
+        entry.r.some(r => write(r, reading ? r.includes(reading) : true) && reading ? r.includes(reading) : true)
     );
 }
 
