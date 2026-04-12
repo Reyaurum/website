@@ -91,7 +91,7 @@ async function getData() {
         new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))
     ).text();
 
-    data = JSON.parse(decompressed);
+    data = JSON.parse(decompressed.normalize("NFC"));
 
     data.forEach(entry => {
         entry.r.forEach(r => index.set(r, entry));
@@ -213,8 +213,8 @@ function searchVerb(text, reading="") {
 }
 
 async function search(text, reading="") {
-    text = text.normalize("NFD");
-    reading = reading.normalize("NFD");
+    text = text.normalize("NFC");
+    reading = reading.normalize("NFC");
     clear()
     write(text, reading)
     let res = searchReading(text, reading);
