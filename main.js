@@ -214,6 +214,7 @@ function searchVerb(text, reading="") {
 async function search(text, reading="") {
     text = text.normalize("NFC");
     reading = reading.normalize("NFC");
+    write("--------")
     write(text, reading)
     let res = searchReading(text, reading);
     write(res.length)
