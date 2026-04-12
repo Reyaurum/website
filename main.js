@@ -213,8 +213,8 @@ function searchVerb(text, reading="") {
 }
 
 async function search(text, reading="") {
-    text = text.normalize("NFC");
-    reading = reading.normalize("NFC");
+    text = text.replaceAll(" ", "");
+    reading = reading.replaceAll(" ", "");
     clear()
     write(text, reading)
     let res = searchReading(text, reading);
