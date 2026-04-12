@@ -237,16 +237,12 @@ function createConcept(entry, reading, title) {
     let furigana = createElement("span", "furigana")
     let kanji = createElement("span", "kanji", "", (title == "verb" ? entry.r[0] : reading))
     let text = createElement("span", "text", "", (entry.k[0] ? entry.k[0] : reading))
-    let concept_status = createElement("div", "concept_light-status")
-    let concept_tag = createElement("span", "concept_light-tag concept_light-common success label", "", title)
- 
+
     furigana.appendChild(kanji)
     concept_representation.appendChild(furigana)
     concept_representation.appendChild(text)
     concept_readings.appendChild(concept_representation)
-    concept_status.appendChild(concept_tag)
     concept_wrapper.appendChild(concept_readings)
-    concept_wrapper.appendChild(concept_status)
 
     let concept_meanings = createElement("div", "concept_light-meanings")
     let meanings_wrapper = createElement("div", "meanings_wrapper")
@@ -269,6 +265,7 @@ function createConcept(entry, reading, title) {
 
 function showDictionary(res, text, reading, title) {
     console.log(res)
+    document.getElementById("concepts_holder").innerHTML = ""
     reading ? null : reading = text
     res.forEach((entry) => {
         createConcept(entry, reading, title)
@@ -277,7 +274,7 @@ function showDictionary(res, text, reading, title) {
 
 async function searchDictionary(e) {
     var target = e.target || e.srcElement
-    let particles = ["。", "、", "・", "『", "』", "「", "」"]
+    let particles = ["。", "、", "・", "…", "？", "！", "＊", "：", "『", "』", "「", "」"]
     try {
         if (target.classList[0] == "japanese_word__furigana" || particles.includes(target.innerText))
             return

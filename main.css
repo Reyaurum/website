@@ -102,7 +102,7 @@ body {
 
 .concept_light {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 100px auto;
     padding: 0;
     border-bottom: 1px solid #ede9e3;
     justify-content: flex-start;
@@ -326,6 +326,10 @@ body {
     #dictionary_navbar {
         margin: 8px 12px 6px;
         font-size: 10px;
+    }
+
+    .concept_light { 
+        grid-template-columns: 100px auto;
     }
 
     .concept_light-wrapper { 
