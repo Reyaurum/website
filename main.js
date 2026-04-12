@@ -317,8 +317,9 @@ async function searchDictionary(e) {
         }
         let sibling = target.previousElementSibling
         //showDictionary(await search(target.innerText, sibling.innerText), target.innerText, sibling.innerText)
-        await search(target.innerText, sibling.innerText)
+        
         searchA()
+        await search(target.innerText, sibling.innerText)
     } catch {}
 }
 
