@@ -284,6 +284,7 @@ function showDictionary(res, text, reading) {
 }
 
 function searchA() {
+    write("a")
     return a.filter(entry =>
         entry.k.some(k => write(k, k == "幼") && k == "幼")
     );
