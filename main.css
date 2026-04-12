@@ -75,6 +75,7 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
     overscroll-behavior: contain;
+    touch-action: none;
     box-shadow: 0 -6px 32px rgba(0,0,0,0.06), 0 -1px 0 rgba(0,0,0,0.04);
 }
 

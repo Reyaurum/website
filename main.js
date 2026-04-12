@@ -49,32 +49,35 @@ let mobile = window.innerWidth < 600
 
 function initResize() {
     let resize_el = document.getElementById("dictionary_body");
-    resize_el.addEventListener(!mobile ? "mousedown" : "touchstart", function(e){
+    resize_el.addEventListener("pointerdown", function(e){
+        console.log(e)
         let style = window.getComputedStyle(document.querySelector("#dictionary_navbar"))
         let navbar_height = parseInt(style.marginTop) + parseInt(style.marginBottom) + parseInt(style.height)
-        if (window.innerHeight - (mobile ? e.touches[0]["clientY"] : e.y) - document.querySelector("#dictionary_body").offsetHeight + navbar_height > 0) {
+        
+        if (window.innerHeight - e.y - document.querySelector("#dictionary_body").offsetHeight + navbar_height > 0) {
             document.body.className = "unselectable"
             document.querySelector("#dictionary_body").style.overflowY = "hidden"
-            mobile ? m_pos = e.touches[0]["screenY"] : m_pos = e.y
-            document.addEventListener(!mobile ? "mousemove" : "touchmove", resize, {passive: false}, false);
+            m_pos = e.y
+            document.addEventListener("pointermove", resize, {passive: false}, false);
         }
     }, false);
 
-    document.addEventListener(!mobile ? "mouseup" : "touchend", function(){
+    document.addEventListener("pointerup", function(){
         document.body.className = ""
         document.querySelector("#dictionary_body").style.overflowY = "scroll"
-        document.removeEventListener(!mobile ? "mousemove" : "touchmove", resize, {passive: false}, false);
+        document.removeEventListener("pointermove", resize, {passive: false}, false);
     }, false);
 }
 
 function resize(e){
+    console.log(e)
     e.preventDefault()
     let dx = 0;
     let resize_el = document.getElementById("dictionary_body");
     let style = window.getComputedStyle(document.querySelector("#dictionary_navbar"))
     let navbar_height = parseInt(style.marginTop) + parseInt(style.marginBottom) + parseInt(style.height)
-    mobile ? dx = m_pos - e.touches[0]["screenY"] : dx = m_pos - e.y
-    mobile ? m_pos = e.touches[0]["screenY"] : m_pos = e.y
+    dx = m_pos - e.y
+    m_pos = e.y
     resize_el.style.height = (parseInt(getComputedStyle(resize_el, '').height) + dx) + "px";
     let height = parseInt(resize_el.style.height);
     height < navbar_height ? resize_el.style.height = navbar_height + "px" : (height > window.innerHeight ? resize_el.style.height = window.innerHeight + "px" : null)
@@ -242,7 +245,7 @@ async function searchDictionary(e) {
 function main() {
     getData()
     initResize()
-    document.addEventListener('click', searchDictionary, false);
+    document.addEventListener("pointerdown", searchDictionary, false);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
