@@ -75,24 +75,30 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
     overscroll-behavior: contain;
-    touch-action: none;
     box-shadow: 0 -6px 32px rgba(0,0,0,0.06), 0 -1px 0 rgba(0,0,0,0.04);
 }
 
 #dictionary_navbar {
     display: grid;
     grid-template-columns: 70vw 30vw;
-    margin: 0.75rem 1.25rem 0.5rem;
+    padding: 0.75rem 1.25rem 0.5rem;
     color: #9a9590;
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+    position: fixed;
+    touch-action: none;
+    background-color: #faf9f7;
+    border: 1px solid #ede9e3;
+    z-index: 101;
 }
 
 #dictionary_cover {
     display: grid;
     grid-template-columns: 70vw 30vw;
+    top: 24px;
+    position: relative;
   }
 
 .japanese_gothic {
@@ -324,7 +330,7 @@ body {
     }
 
     #dictionary_navbar {
-        margin: 8px 12px 6px;
+        padding: 8px 12px 6px;
         font-size: 10px;
     }
 
