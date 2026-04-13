@@ -173,6 +173,20 @@ function testVariationKana(query) {
     );
 }
 
+function testVariationKanji(query) {
+    return data.filter(entry =>
+        !(entry.k.some(k => 
+            k.length > query.length + 1
+        )) &&
+        entry.k.some(k => 
+            k.length > 1 && kana.includes(k[1])
+        ) &&
+        replacements.some(rep => 
+            entry.k.some(k => k.includes(query + rep) && k.length <= length(query + rep))
+        )
+    );
+}
+
 function searchKanji(text) {
     let res = [], char = "", r = null
     for (let i = 1; i <= text.length; i++) {
