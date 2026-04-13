@@ -173,7 +173,7 @@ function testVariationKana(query) {
     );
 }
 
-async function searchKanji(text) {
+function searchKanji(text) {
     let res = [], char = "", r = null
     for (let i = 1; i <= text.length; i++) {
         for (let k = 0; k < i; k++) {
@@ -185,6 +185,20 @@ async function searchKanji(text) {
             r ? res = res.concat(r) : null
         }
     }
+    return res
+}
+
+function getKanji(entries) {
+    let res = []
+    entries.forEach((e) => {
+        if (!e.k.length)
+           return 0
+        for (let c of e.k[0]) {
+            if (!kana.includes(c)) {
+               res = res.concat(searchKanji(c))
+            }
+        }
+    })
     return res
 }
 
@@ -216,11 +230,11 @@ async function search(text, reading="") {
     res.length != 0 ? null : res = searchReading(text)
     res.length != 0 ? null : res = searchParticle(text)
     res.length != 0 ? null : res = searchVerb(text, reading)
-    res.length != 0 ? null : res = await searchKanji(text)
+    res.length != 0 ? null : res = searchKanji(text)
     return sort(res)
 }
 
-function createElement(tag, className, id="", text="") {
+function createElement(tag, className="", id="", text="") {
     let e = document.createElement(tag)
     className ? e.className = className : null
     id ? e.id = id : null
@@ -228,7 +242,7 @@ function createElement(tag, className, id="", text="") {
     return e
 }
 
-function createConcept(entry, reading) {
+function createConcept(entry) {
     let concept = createElement("div", "concept_light clearfix")
     let concept_wrapper = createElement("div", "concept_light-wrapper")
     let concept_readings = createElement("div", "concept_light-readings japanese_gothic")
@@ -255,19 +269,45 @@ function createConcept(entry, reading) {
     meaning_wrapper.appendChild(meaning_definition)
     meanings_wrapper.appendChild(meaning_wrapper)
     concept_meanings.appendChild(meanings_wrapper)
-    
     concept.appendChild(concept_wrapper)
     concept.appendChild(concept_meanings)
-
     document.querySelector("#concepts_holder").appendChild(concept)
 }
 
-function showDictionary(res, text, reading) {
+function createKanji(entry) {
+    let entry = createElement("div", "entry kanji_light clearfix")
+    let content = createElement("div", "kanji_light_content")
+    let literal_block = createElement("div", "literal_block")
+    let character = createElement("div", "character literal japanese_gothic")
+    character.appendChild(createElement("a", "", "", entry.k[0][0]))
+
+    let meanings = createElement("div", "meanings english sense")
+    meanings.appendChild(createElement("span", "", "", entry.m.toString().replaceAll(",", ",  ")))
+
+    let readings = createElement("div", "kun readings")
+    readings.appendChild("span", "type", "", e)
+    entry.r.forEach((e) => {
+        readings.appendChild(createElement("span", "japanese_gothic ", "", e))
+    })  
+
+    literal_block.appendChild(character)
+    content.appendChild(literal_block)
+    content.appendChild(meanings)
+    content.appendChild(createElement("div"))
+    content.appendChild(readings)
+    entry.appendChild(content)
+    document.querySelector(".kanji_light_block").appendChild(entry)
+}
+
+function showDictionary(res) {
     console.log(res)
     document.getElementById("concepts_holder").innerHTML = ""
-    reading ? null : reading = text
+    document.querySelector(".kanji_light_block").innerHTML = ""
     res.forEach((entry) => {
-        createConcept(entry, reading)
+        createConcept(entry)
+    })
+    getKanji(res).forEach((entry) => {
+        createKanji(entry)
     })
     document.getElementById("word_amount").innerText = `WORDS - ${document.getElementById("concepts_holder").childElementCount} FOUND`
 }
@@ -282,7 +322,7 @@ async function searchDictionary(e) {
             target = target.parentNode
         }
         let sibling = target.previousElementSibling
-        showDictionary(await search(target.innerText.replace(/[\p{White_Space}\p{Cf}]/gu, ""), sibling.innerText.replace(/[\p{White_Space}\p{Cf}]/gu, "")), target.innerText.replace(/[\p{White_Space}\p{Cf}]/gu, ""), sibling.innerText.replace(/[\p{White_Space}\p{Cf}]/gu, ""))
+        showDictionary(await search(target.innerText.replace(/[\p{White_Space}\p{Cf}]/gu, ""), sibling.innerText.replace(/[\p{White_Space}\p{Cf}]/gu, "")))
     } catch {}
 }
 

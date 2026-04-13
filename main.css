@@ -104,6 +104,7 @@ body {
 .japanese_gothic {
     font-family: "Hiragino Sans", "HiraKakuProN-W3", "Noto Sans CJK JP",
       "Noto Sans", "メイリオ", Meiryo, "游ゴシック", YuGothic, sans-serif;
+    white-space: break-spaces;
 }
 
 .concept_light {
@@ -274,10 +275,6 @@ body {
     transition: color 0.15s ease;
 }
 
-.kanji_light .literal_block a:hover {
-    color: #5533bb;
-}
-
 .kanji_light .meanings {
     font-size: 13px;
     line-height: 1.5;
@@ -299,16 +296,6 @@ body {
     letter-spacing: 0.05em;
     text-transform: uppercase;
     margin-right: 3px;
-}
-
-.japanese_gothic a {
-    color: #6655cc;
-    text-decoration: none;
-    transition: color 0.15s;
-}
-
-.japanese_gothic a:hover {
-    color: #4433aa;
 }
 
 #dictionary_body::-webkit-scrollbar {
