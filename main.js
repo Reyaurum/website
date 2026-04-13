@@ -274,21 +274,19 @@ function createConcept(entry) {
     document.querySelector("#concepts_holder").appendChild(concept)
 }
 
-function createKanji(entry) {
+function createKanji(kanji) {
     let entry = createElement("div", "entry kanji_light clearfix")
     let content = createElement("div", "kanji_light_content")
     let literal_block = createElement("div", "literal_block")
     let character = createElement("div", "character literal japanese_gothic")
-    character.appendChild(createElement("a", "", "", entry.k[0][0]))
+    character.appendChild(createElement("a", "", "", kanji.k[0][0]))
 
     let meanings = createElement("div", "meanings english sense")
-    meanings.appendChild(createElement("span", "", "", entry.m.toString().replaceAll(",", ",  ")))
+    meanings.appendChild(createElement("span", "", "", kanji.m.toString().replaceAll(",", ",  ")))
 
     let readings = createElement("div", "kun readings")
-    readings.appendChild("span", "type", "", e)
-    entry.r.forEach((e) => {
-        readings.appendChild(createElement("span", "japanese_gothic ", "", e))
-    })  
+    readings.appendChild(createElement("span", "type", "", "Read: "))
+    readings.appendChild(createElement("span", "japanese_gothic ", "", kanji.r.toString().replaceAll(",", ",  ")))
 
     literal_block.appendChild(character)
     content.appendChild(literal_block)
