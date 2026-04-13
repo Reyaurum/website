@@ -235,7 +235,7 @@ function createConcept(entry, reading) {
     let concept_representation = createElement("div", "concept_light-representation")
     let furigana = createElement("span", "furigana")
     let kanji = createElement("span", "kanji", "", entry.r[0])
-    let text = createElement("span", "text", "", (entry.k[0] ? entry.k[0] : reading))
+    let text = createElement("span", "text", "", (entry.k[0] ? entry.k[0] : entry.r[0]))
 
     furigana.appendChild(kanji)
     concept_representation.appendChild(furigana)
