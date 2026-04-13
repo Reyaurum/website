@@ -193,7 +193,7 @@ function searchVerb(text, reading="") {
     let len = 0
     let remove = 0
     for (let i = 0; i < text.length; i++) {
-        if (kana.includes(text[i]) && (text.length > 3 ? kana.includes(text[i + 1]) : 1))
+        if (kana.includes(text[i]) && (text.length >= 2 ? kana.includes(text[i + 1]) : 1) && (text.length >= 3 ? kana.includes(text[i + 2]) : 1))
             break;
         len++
     }
