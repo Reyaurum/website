@@ -80,7 +80,7 @@ body {
 
 #dictionary_navbar {
     display: grid;
-    grid-template-columns: 70vw 30vw;
+    grid-template-columns: 60vw 40vw;
     padding: 0.75rem 1.25rem 0.5rem;
     color: #9a9590;
     font-size: 11px;

@@ -312,7 +312,7 @@ function createConcept(entry) {
     let meaning_wrapper = createElement("div", "meaning_wrapper")
     let meaning_definition = createElement("div", "meaning-definition")
     let meaning_divider = createElement("span", "meaning-definition-section_divider", "", "1. ")
-    let meaning_meaning = createElement("span", "meaning-meaning", "", entry.m.toString().replaceAll(",", ";  "))
+    let meaning_meaning = createElement("span", "meaning-meaning", "", entry.m.filter(m => m.length <= 26).toString().replaceAll(",", ";  "))
 
     meaning_definition.appendChild(meaning_divider)
     meaning_definition.appendChild(meaning_meaning)
@@ -329,14 +329,14 @@ function createKanji(kanji) {
     let content = createElement("div", "kanji_light_content")
     let literal_block = createElement("div", "literal_block")
     let character = createElement("div", "character literal japanese_gothic")
-    character.appendChild(createElement("a", "", "", kanji.k[0][0]))
+    character.appendChild(createElement("a", "", "", kanji))
 
     let meanings = createElement("div", "meanings english sense")
-    meanings.appendChild(createElement("span", "", "", getMeanings(kanji.k[0][0]).toString().replaceAll(",", ",  ")))
+    meanings.appendChild(createElement("span", "", "", getMeanings(kanji).toString().replaceAll(",", ",  ")))
 
     let readings = createElement("div", "kun readings")
     readings.appendChild(createElement("span", "type", "", "Read: "))
-    readings.appendChild(createElement("span", "japanese_gothic ", "", kanji.r.toString().replaceAll(",", ",  ")))
+    readings.appendChild(createElement("span", "japanese_gothic ", "", kanji.toString().replaceAll(",", ",  ")))
 
     literal_block.appendChild(character)
     content.appendChild(literal_block)
@@ -352,7 +352,11 @@ function showDictionary(res) {
     document.getElementById("concepts_holder").innerHTML = ""
     document.querySelector(".kanji_light_block").innerHTML = ""
     res.forEach((entry) => {
+        if (!entry.m.filter(m => m.length <= 26).toString().length)
+            return
         createConcept(entry)
+        if (!entry.k[0])
+            return
         getKanji(entry.k[0]).forEach((e) => {
             createKanji(e)
         })
