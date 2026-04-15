@@ -41,6 +41,27 @@ let kana = [
 
 "ヴ","ヵ","ヶ"
 ];
+let hiragana = [
+"あ","い","う","え","お",
+"か","き","く","け","こ",
+"さ","し","す","せ","そ",
+"た","ち","つ","て","と",
+"な","に","ぬ","ね","の",
+"は","ひ","ふ","へ","ほ",
+"ま","み","む","め","も",
+"や","ゆ","よ",
+"ら","り","る","れ","ろ",
+"わ","を","ん",
+
+"が","ぎ","ぐ","げ","ご",
+"ざ","じ","ず","ぜ","ぞ",
+"だ","ぢ","づ","で","ど",
+"ば","び","ぶ","べ","ぼ",
+"ぱ","ぴ","ぷ","ぺ","ぽ",
+
+"ぁ","ぃ","ぅ","ぇ","ぉ",
+"ゃ","ゅ","ょ","っ","ゎ",
+]
 const replacements = ["う", "く", "ぐ", "す", "つ", "ぬ", "ぶ", "む", "る", "い", ""]
 let data = null;
 const index = new Map();
@@ -202,18 +223,33 @@ function searchKanji(text) {
     return res
 }
 
-function getKanji(entries) {
+function getKanji(entry) {
     let res = []
-    entries.forEach((e) => {
-        if (!e.k.length)
-           return 0
-        for (let c of e.k[0]) {
-            if (!kana.includes(c)) {
-               res = res.concat(searchKanji(c))
-            }
-        }
-    })
+    for (let c of entry)
+        kana.includes(c) ? null : res = res.concat(c) 
     return res
+}
+
+function getMeanings(query) {
+    let meanings = []
+    let res = data.filter(entry =>
+        !entry.k.some(k => {
+            for (let c of k) {
+                if (!hiragana.includes(c) && query != c)
+                    return true
+            } return false
+        }) &&
+        !entry.k.some(k => k.length >= 4) &&
+        entry.k.some(k => k.includes(query))
+    );
+    res.forEach((e) => {
+        meanings = meanings.concat(e.m)   
+    })
+    meanings = [...new Set(meanings)].filter(m =>
+        !m.includes("...") &&
+        m.length <= 12
+    )
+    return (meanings.length ? meanings : index.get(query).m)
 }
 
 function searchVerb(text, reading="") {
@@ -296,7 +332,7 @@ function createKanji(kanji) {
     character.appendChild(createElement("a", "", "", kanji.k[0][0]))
 
     let meanings = createElement("div", "meanings english sense")
-    meanings.appendChild(createElement("span", "", "", kanji.m.toString().replaceAll(",", ",  ")))
+    meanings.appendChild(createElement("span", "", "", getMeanings(kanji.k[0][0]).toString().replaceAll(",", ",  ")))
 
     let readings = createElement("div", "kun readings")
     readings.appendChild(createElement("span", "type", "", "Read: "))
@@ -317,9 +353,9 @@ function showDictionary(res) {
     document.querySelector(".kanji_light_block").innerHTML = ""
     res.forEach((entry) => {
         createConcept(entry)
-    })
-    getKanji(res).forEach((entry) => {
-        createKanji(entry)
+        getKanji(entry.k[0]).forEach((e) => {
+            createKanji(e)
+        })
     })
     document.getElementById("word_amount").innerText = `WORDS - ${document.getElementById("concepts_holder").childElementCount} FOUND`
 }
