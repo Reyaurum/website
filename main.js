@@ -233,14 +233,14 @@ function getKanji(entry) {
 function getMeanings(query) {
     let meanings = []
     let res = data.filter(entry =>
+        !entry.k.some(k => k.length >= 4) &&
+        entry.k.some(k => k.includes(query)) &&
         !entry.k.some(k => {
             for (let c of k) {
                 if (!hiragana.includes(c) && query != c)
                     return true
             } return false
-        }) &&
-        !entry.k.some(k => k.length >= 4) &&
-        entry.k.some(k => k.includes(query))
+        })
     );
     res.forEach((e) => {
         meanings = meanings.concat(e.m)   
@@ -348,6 +348,7 @@ function createKanji(kanji) {
 }
 
 function showDictionary(res) {
+    let kanji = []
     console.log(res)
     document.getElementById("concepts_holder").innerHTML = ""
     document.querySelector(".kanji_light_block").innerHTML = ""
@@ -358,7 +359,10 @@ function showDictionary(res) {
         if (!entry.k[0])
             return
         getKanji(entry.k[0]).forEach((e) => {
-            createKanji(e)
+            if (!kanji.includes(e)) {
+                createKanji(e)
+                kanji = kanji.concat(e)
+            }
         })
     })
     document.getElementById("word_amount").innerText = `WORDS - ${document.getElementById("concepts_holder").childElementCount} FOUND`
