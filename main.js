@@ -339,6 +339,9 @@ function createConcept(entry) {
 }
 
 function createKanji(kanji) {
+    let m = getMeanings(kanji)
+    if (!m.length)
+        return
     let entry = createElement("div", "entry kanji_light clearfix")
     let content = createElement("div", "kanji_light_content")
     let literal_block = createElement("div", "literal_block")
@@ -346,7 +349,7 @@ function createKanji(kanji) {
     character.appendChild(createElement("a", "", "", kanji))
 
     let meanings = createElement("div", "meanings english sense")
-    meanings.appendChild(createElement("span", "", "", getMeanings(kanji).toString().replaceAll(",", ",  ")))
+    meanings.appendChild(createElement("span", "", "", m.toString().replaceAll(",", ",  ")))
 
     let readings = createElement("div", "kun readings")
     readings.appendChild(createElement("span", "type", "", "Read: "))
