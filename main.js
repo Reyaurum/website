@@ -231,8 +231,8 @@ function getKanji(entry) {
 }
 
 function getMeanings(query) {    
-    console.log(query)
     let meanings = []
+    let r = null
     let res = data.filter(entry =>
         !entry.k.some(k => k.length >= 4) &&
         entry.k.some(k => k.includes(query)) &&
@@ -242,9 +242,7 @@ function getMeanings(query) {
                     return true
             } return false
         }));
-    console.log(res)
-    res.length == 0 ? res = res.concat(index.get(query)) : null
-    console.log(res)
+    res.length == 0 ? r = index.get(query) && r ? res = res.concat(r) : null : null
     res.length == 0 ? res = data.filter(entry =>
         !entry.k.some(k => k.length >= 4) &&
         entry.k.some(k => k.includes(query)) &&
@@ -254,15 +252,18 @@ function getMeanings(query) {
                     return false
             } return true
         })) : null
-    console.log(res)
-    res.forEach((e) => {
-        meanings = meanings.concat(e.m)   
-    })
+    try {
+        res.forEach((e) => {
+            meanings = meanings.concat(e.m)   
+        })
+    } catch {
+        return 0
+    }
     meanings = [...new Set(meanings)].filter(m =>
         !m.includes("...") &&
         m.length <= 12
     )
-    return (meanings.length ? meanings : index.get(query).m)
+    return meanings
 }
 
 function searchVerb(text, reading="") {
