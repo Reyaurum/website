@@ -230,7 +230,8 @@ function getKanji(entry) {
     return res
 }
 
-function getMeanings(query) {
+function getMeanings(query) {    
+    console.log(query)
     let meanings = []
     let res = data.filter(entry =>
         !entry.k.some(k => k.length >= 4) &&
@@ -240,8 +241,20 @@ function getMeanings(query) {
                 if (!hiragana.includes(c) && query != c)
                     return true
             } return false
-        })
-    );
+        }));
+    console.log(res)
+    res.length == 0 ? res = res.concat(index.get(query)) : null
+    console.log(res)
+    res.length == 0 ? res = data.filter(entry =>
+        !entry.k.some(k => k.length >= 4) &&
+        entry.k.some(k => k.includes(query)) &&
+        entry.k.some(k => {
+            for (let c of k) {
+                if (!hiragana.includes(c) && query != c)
+                    return false
+            } return true
+        })) : null
+    console.log(res)
     res.forEach((e) => {
         meanings = meanings.concat(e.m)   
     })
@@ -312,7 +325,7 @@ function createConcept(entry) {
     let meaning_wrapper = createElement("div", "meaning_wrapper")
     let meaning_definition = createElement("div", "meaning-definition")
     let meaning_divider = createElement("span", "meaning-definition-section_divider", "", "1. ")
-    let meaning_meaning = createElement("span", "meaning-meaning", "", entry.m.filter(m => m.length <= 26).toString().replaceAll(",", ";  "))
+    let meaning_meaning = createElement("span", "meaning-meaning", "", entry.m.toString().replaceAll(",", ";  "))
 
     meaning_definition.appendChild(meaning_divider)
     meaning_definition.appendChild(meaning_meaning)
@@ -353,8 +366,6 @@ function showDictionary(res) {
     document.getElementById("concepts_holder").innerHTML = ""
     document.querySelector(".kanji_light_block").innerHTML = ""
     res.forEach((entry) => {
-        if (!entry.m.filter(m => m.length <= 26).toString().length)
-            return
         createConcept(entry)
         if (!entry.k[0])
             return
