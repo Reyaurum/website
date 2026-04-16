@@ -398,9 +398,11 @@ async function searchDictionary(e) {
 }
 
 function main() {
+    window.scrollTo(0, localStorage.getItem("scroll"))
     getData()
     initResize()
     document.addEventListener("pointerdown", searchDictionary, false);
+    window.addEventListener("scrollend", (e) => localStorage.setItem("scroll", window.scrollY))
 }
 
 document.addEventListener("DOMContentLoaded", () => {
