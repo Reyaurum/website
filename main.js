@@ -369,7 +369,7 @@ function showDictionary(res) {
     console.log(res)
     document.getElementById("concepts_holder").innerHTML = ""
     document.querySelector(".kanji_light_block").innerHTML = ""
-    document.querySelector(".kanji_light_block").scrollTop(0)
+    document.querySelector("#dictionary_body").scrollTo(0, 0)
     res.forEach((entry) => {
         createConcept(entry)
         if (!entry.k[0])
