@@ -96,7 +96,7 @@ body {
 
 #dictionary_cover {
     display: grid;
-    grid-template-columns: 70vw 30vw;
+    grid-template-columns: 60vw 40vw;
     top: 24px;
     position: relative;
   }
@@ -319,10 +319,6 @@ body {
     #dictionary_navbar {
         padding: 8px 12px 6px;
         font-size: 10px;
-    }
-
-    .concept_light { 
-        grid-template-columns: minmax(100px, auto) auto;
     }
 
     .concept_light-wrapper { 
