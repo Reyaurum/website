@@ -399,6 +399,7 @@ function switchTheme() {
     let data = document.documentElement.dataset
     data.colorTheme == "dark" ? data.colorTheme = "light" : data.colorTheme = "dark"
     localStorage.setItem("theme", data.colorTheme)
+    document.getElementById("dictionary_body").innerHTML = data.colorTheme
 }
 
 function click(e) {
