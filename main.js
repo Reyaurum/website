@@ -285,8 +285,9 @@ function getMeanings(query) {
     }
     meanings = [...new Set(meanings)].filter(m =>
         !m.includes("...") &&
-        m.length <= 12
-    )
+        m.length <= 30
+    ).slice().sort((a, b) => a.length - b.length).slice(0, 10);
+    
     return meanings
 }
 
@@ -395,12 +396,12 @@ function showDictionary(res, text) {
     document.getElementById("concepts_holder").innerHTML = ""
     document.querySelector(".kanji_light_block").innerHTML = ""
     document.querySelector("#dictionary_body").scrollTo(0, 0)
-    for (let k of text) {
+    getKanji(text).forEach((k) => {
         if (!kanji.includes(k)) {
             createKanji(k)
             kanji = kanji.concat(k)
         }
-    }
+    })
     res.forEach((entry) => {
         createConcept(entry)
         if (!entry.k[0])
