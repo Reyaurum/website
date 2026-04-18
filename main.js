@@ -385,7 +385,6 @@ function showDictionary(res) {
 }
 
 async function searchDictionary(target) {
-    switchTheme()
     try {
         while (target.classList[0] != "japanese_word__text_wrapper") {
             target = target.parentNode
