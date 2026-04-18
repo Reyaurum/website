@@ -385,11 +385,7 @@ function showDictionary(res) {
 }
 
 async function searchDictionary(e) {
-    var target = e.target || e.srcElement
-    let particles = ["。", "、", "・", "…", "？", "！", "＊", "：", "『", "』", "「", "」"]
     try {
-        if (target.classList[0] == "japanese_word__furigana" || particles.includes(target.innerText))
-            return
         while (target.classList[0] != "japanese_word__text_wrapper") {
             target = target.parentNode
         }
@@ -398,11 +394,20 @@ async function searchDictionary(e) {
     } catch {}
 }
 
+function click(e) {
+    var target = e.target || e.srcElement
+    let particles = ["。", "、", "・", "…", "？", "！", "＊", "：", "『", "』", "「", "」"]
+    if (target.id == "kanji_amount")
+        switchTheme()
+    else if (target.classList[0] != "japanese_word__furigana" && !particles.includes(target.innerText))
+        searchDictionary(e)
+}
+
 function main() {
     window.scrollTo(0, localStorage.getItem("scroll"))
     getData()
     initResize()
-    document.addEventListener("pointerdown", searchDictionary, false);
+    document.addEventListener("pointerdown", click, false);
     window.addEventListener("scrollend", (e) => localStorage.setItem("scroll", window.scrollY))
 }
 
