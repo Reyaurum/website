@@ -230,6 +230,14 @@ function getKanji(entry) {
     return res
 }
 
+function getMeaningsAmount(res) {
+    let amount = 0
+    res.forEach(entry => 
+        amount += entry.m.length
+    )
+    return amount
+}
+
 function getMeanings(query) {    
     let meanings = []
     let r = null
@@ -241,7 +249,8 @@ function getMeanings(query) {
                 if (!hiragana.includes(c) && query != c)
                     return true
             } return false
-        }));
+        })
+    );
     res.length == 0 ? r = index.get(query) && r ? res = res.concat(r) : null : null
     res.length == 0 ? res = data.filter(entry =>
         !entry.k.some(k => k.length >= 4) &&
@@ -251,7 +260,22 @@ function getMeanings(query) {
                 if (!hiragana.includes(c) && query != c)
                     return false
             } return true
-        })) : null
+        })
+    ) : null
+
+    if (getMeaningsAmount(res) <= 3) {
+        res = data.filter(entry =>
+            !entry.k.some(k => k.length >= 4) &&
+            entry.k.some(k => k.includes(query)) &&
+            entry.k.some(k => {
+                for (let c of k) {
+                    if (!hiragana.includes(c) && query != c)
+                        return false
+                } return true
+            })
+        );
+    }
+    
     try {
         res.forEach((e) => {
             meanings = meanings.concat(e.m)   
@@ -294,8 +318,9 @@ async function search(text, reading="") {
     res.length != 0 ? null : res = searchReading(text)
     res.length != 0 ? null : res = searchParticle(text)
     res.length != 0 ? null : res = searchVerb(text, reading)
+    res = sort(res)
     res.length != 0 ? null : res = searchKanji(text)
-    return sort(res)
+    return res
 }
 
 function createElement(tag, className="", id="", text="") {
@@ -364,20 +389,26 @@ function createKanji(kanji) {
     document.querySelector(".kanji_light_block").appendChild(entry)
 }
 
-function showDictionary(res) {
+function showDictionary(res, text) {
     let kanji = []
     console.log(res)
     document.getElementById("concepts_holder").innerHTML = ""
     document.querySelector(".kanji_light_block").innerHTML = ""
     document.querySelector("#dictionary_body").scrollTo(0, 0)
+    for (let k of text) {
+        if (!kanji.includes(k)) {
+            createKanji(k)
+            kanji = kanji.concat(k)
+        }
+    }
     res.forEach((entry) => {
         createConcept(entry)
         if (!entry.k[0])
             return
-        getKanji(entry.k[0]).forEach((e) => {
-            if (!kanji.includes(e)) {
-                createKanji(e)
-                kanji = kanji.concat(e)
+        getKanji(entry.k[0]).forEach((k) => {
+            if (!kanji.includes(k)) {
+                createKanji(k)
+                kanji = kanji.concat(k)
             }
         })
     })
@@ -392,7 +423,7 @@ async function searchDictionary(target) {
             target = target.parentNode
         }
         target.classList[0] == "japanese_word__text_wrapper" ? (text = target.innerText, furigana = target.previousElementSibling.innerText) : (text = target.nextElementSibling.innerText, furigana = target.innerText)
-        showDictionary(await search(text.replace(/[\p{White_Space}\p{Cf}]/gu, ""), furigana.replace(/[\p{White_Space}\p{Cf}]/gu, "")))
+        showDictionary(await search(text.replace(/[\p{White_Space}\p{Cf}]/gu, ""), furigana.replace(/[\p{White_Space}\p{Cf}]/gu, "")), text.replace(/[\p{White_Space}\p{Cf}]/gu, ""))
     } catch {}
 }
 
