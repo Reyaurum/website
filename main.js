@@ -400,6 +400,9 @@ function switchTheme() {
     data.colorTheme == "dark" ? data.colorTheme = "light" : data.colorTheme = "dark"
     localStorage.setItem("theme", data.colorTheme)
     document.getElementById("dictionary_body").innerHTML = data.colorTheme
+    document.body.style.display = "none";
+    document.body.offsetHeight; // trigger reflow
+    document.body.style.display = "";
 }
 
 function click(e) {
