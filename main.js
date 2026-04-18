@@ -286,7 +286,7 @@ function getMeanings(query) {
     meanings = [...new Set(meanings)].filter(m =>
         !m.includes("...") &&
         m.length <= 30
-    ).slice().sort((a, b) => a.length - b.length).slice(0, 10);
+    ).sort((a, b) => a.length - b.length).slice(0, 10);
     
     return meanings
 }
@@ -352,7 +352,7 @@ function createConcept(entry) {
     let meaning_wrapper = createElement("div", "meaning_wrapper")
     let meaning_definition = createElement("div", "meaning-definition")
     let meaning_divider = createElement("span", "meaning-definition-section_divider", "", "1. ")
-    let meaning_meaning = createElement("span", "meaning-meaning", "", entry.m.toString().replaceAll(",", ";  "))
+    let meaning_meaning = createElement("span", "meaning-meaning", "", entry.m.sort((a, b) => a.length - b.length).slice(0, 10).toString().replaceAll(",", ";  "))
 
     meaning_definition.appendChild(meaning_divider)
     meaning_definition.appendChild(meaning_meaning)
