@@ -315,6 +315,10 @@ section {
     border-radius: 2px;
 }
 
+#dictionary_body::-webkit-scrollbar-thumb {
+    display: none;
+}
+
 @media only screen and (max-width: 600px) {
     body { 
         font-size: 1.25rem; 
@@ -389,18 +393,18 @@ section {
 }
 
 html[data-color-theme="dark"] body {
-    background: #1a1917;
+    background: #1a1a1a;
     color: #e8e4de;
 }
 
 html[data-color-theme="dark"] #dictionary_body {
-    background: #222120;
+    background: #1f1f1f;
     border-top-color: #333028;
     box-shadow: 0 -6px 32px rgba(0,0,0,0.3), 0 -1px 0 rgba(0,0,0,0.2);
 }
 
 html[data-color-theme="dark"] #dictionary_navbar {
-    background-color: #222120;
+    background-color: #1f1f1f;
     border-color: #2e2c28;
     color: #6b6660;
 }
@@ -414,7 +418,7 @@ html[data-color-theme="dark"] .concept_light-readings .concept_light-representat
 }
 
 html[data-color-theme="dark"] .concept_light-tag.concept_light-common.success {
-    background: #1e1a38;
+    background: #1f1f1f;
     color: #a48ff5;
     border-color: #2e2756;
 }
@@ -462,8 +466,4 @@ html[data-color-theme="dark"] .kanji_light .readings .type {
 html[data-color-theme="dark"] .japanese_word__text_wrapper span,
 html[data-color-theme="dark"] .japanese_word__text_wrapper div {
     text-decoration-color: #4a4640;
-}
-
-html[data-color-theme="dark"] #dictionary_body::-webkit-scrollbar-thumb {
-    background: #3a3632;
 }
