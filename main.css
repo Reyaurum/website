@@ -432,3 +432,8 @@ html[data-color-theme="dark"] .kanji_light .readings {
 html[data-color-theme="dark"] .kanji_light .readings .type {
     color: #777;
 }
+
+html[data-color-theme="dark"] .japanese_word__text_wrapper span,
+html[data-color-theme="dark"] .japanese_word__text_wrapper div {
+    text-decoration-color: #777;
+}
