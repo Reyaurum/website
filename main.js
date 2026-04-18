@@ -384,7 +384,7 @@ function showDictionary(res) {
     document.getElementById("word_amount").innerText = `WORDS - ${document.getElementById("concepts_holder").childElementCount} FOUND`
 }
 
-async function searchDictionary(e) {
+async function searchDictionary(target) {
     try {
         while (target.classList[0] != "japanese_word__text_wrapper") {
             target = target.parentNode
@@ -400,7 +400,7 @@ function click(e) {
     if (target.id == "kanji_amount")
         switchTheme()
     else if (target.classList[0] != "japanese_word__furigana" && !particles.includes(target.innerText))
-        searchDictionary(e)
+        searchDictionary(target)
 }
 
 function main() {
