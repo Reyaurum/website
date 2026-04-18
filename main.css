@@ -414,7 +414,7 @@ html[data-color-theme="dark"] .concept_light {
 }
 
 html[data-color-theme="dark"] .concept_light-readings .concept_light-representation .text {
-    color: #eee;
+    color: #e8e4de;
 }
 
 html[data-color-theme="dark"] .concept_light-tag.concept_light-common.success {
@@ -427,7 +427,7 @@ html[data-color-theme="dark"] .furigana {
 }
 
 html[data-color-theme="dark"] .concept_light-meanings {
-    color: #eee;
+    color: #c4bfb8;
 }
 
 html[data-color-theme="dark"] .meaning-definition-section_divider {
@@ -435,7 +435,7 @@ html[data-color-theme="dark"] .meaning-definition-section_divider {
 }
 
 html[data-color-theme="dark"] .meaning-meaning {
-    color: #eee;
+    color: #d4cfc8;
 }
 
 html[data-color-theme="dark"] .kanji_light_block {
@@ -447,11 +447,11 @@ html[data-color-theme="dark"] .kanji_light {
 }
 
 html[data-color-theme="dark"] .kanji_light .literal_block a {
-    color: #eee;
+    color: #e8e4de;
 }
 
 html[data-color-theme="dark"] .kanji_light .meanings {
-    color: #eee;
+    color: #c4bfb8;
 }
 
 html[data-color-theme="dark"] .kanji_light .readings {
