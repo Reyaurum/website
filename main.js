@@ -385,12 +385,14 @@ function showDictionary(res) {
 }
 
 async function searchDictionary(target) {
+    let furigana = "";
+    let text = "";
     try {
-        while (target.classList[0] != "japanese_word__text_wrapper") {
+        while (target.classList[0] != "japanese_word__text_wrapper" && target.classList[0] != "japanese_word__furigana_wrapper") {
             target = target.parentNode
         }
-        let sibling = target.previousElementSibling
-        showDictionary(await search(target.innerText.replace(/[\p{White_Space}\p{Cf}]/gu, ""), sibling.innerText.replace(/[\p{White_Space}\p{Cf}]/gu, "")))
+        target.classList[0] == "japanese_word__text_wrapper" ? (text = target.innerText, furigana = target.previousElementSibling.innerText) : (text = target.nextElementSibling.innerText, furigana = target.innerText)
+        showDictionary(await search(text.replace(/[\p{White_Space}\p{Cf}]/gu, ""), furigana.replace(/[\p{White_Space}\p{Cf}]/gu, "")))
     } catch {}
 }
 
