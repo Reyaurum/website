@@ -393,24 +393,22 @@ section {
 }
 
 html[data-color-theme="dark"] body {
-    background: #1a1a1a;
+    background: #2a2a2a;
     color: #e8e4de;
 }
 
 html[data-color-theme="dark"] #dictionary_body {
-    background: #1f1f1f;
-    border-top-color: #333028;
+    border-top-color: #4a4a4a;
     box-shadow: 0 -6px 32px rgba(0,0,0,0.3), 0 -1px 0 rgba(0,0,0,0.2);
 }
 
 html[data-color-theme="dark"] #dictionary_navbar {
-    background-color: #1f1f1f;
-    border-color: #2e2c28;
+    border-color: #3a3a3a;
     color: #6b6660;
 }
 
 html[data-color-theme="dark"] .concept_light {
-    border-bottom-color: #2e2c28;
+    border-bottom-color: #3a3a3a;
 }
 
 html[data-color-theme="dark"] .concept_light-readings .concept_light-representation .text {
@@ -418,7 +416,6 @@ html[data-color-theme="dark"] .concept_light-readings .concept_light-representat
 }
 
 html[data-color-theme="dark"] .concept_light-tag.concept_light-common.success {
-    background: #1f1f1f;
     color: #a48ff5;
     border-color: #2e2756;
 }
@@ -440,11 +437,11 @@ html[data-color-theme="dark"] .meaning-meaning {
 }
 
 html[data-color-theme="dark"] .kanji_light_block {
-    border-left-color: #2e2c28;
+    border-left-color: #3a3a3a;
 }
 
 html[data-color-theme="dark"] .kanji_light {
-    border-bottom-color: #2e2c28;
+    border-bottom-color: #3a3a3a;
 }
 
 html[data-color-theme="dark"] .kanji_light .literal_block a {
