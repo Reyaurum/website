@@ -399,6 +399,9 @@ function switchTheme() {
     let data = document.documentElement.dataset
     data.colorTheme == "dark" ? data.colorTheme = "light" : data.colorTheme = "dark"
     localStorage.setItem("theme", data.colorTheme)
+    document.body.style.display = "none";
+    document.body.offsetHeight;
+    document.body.style.display = "";
 }
 
 function click(e) {
