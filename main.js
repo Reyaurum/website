@@ -405,7 +405,7 @@ function click(e) {
     let particles = ["。", "、", "・", "…", "？", "！", "＊", "：", "『", "』", "「", "」"]
     if (target.parentNode.id == "kanji_amount")
         switchTheme()
-    else if (target.classList[0] != "japanese_word__furigana" && !particles.includes(target.innerText))
+    else if (!particles.includes(target.innerText))
         searchDictionary(target)
 }
 
