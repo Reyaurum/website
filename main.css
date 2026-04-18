@@ -2,6 +2,23 @@
   color-scheme: light dark;
 }
 
+*, *::before, *::after {
+    box-sizing: border-box; margin: 0; padding: 0; 
+}
+
+body {
+    background: #f4f3f1;
+    color: #1a1a1a;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.5rem;
+    min-height: 100vh;
+}
+
+body[data-color-theme="dark"] {
+    background: #1a1917;
+    color: #e8e4de;
+}
+
 li {
     display: inline-block;
 }
@@ -50,18 +67,6 @@ section {
     font-size: 50%;
     position: relative;
     top: -1.2em;
-}
-
-*, *::before, *::after {
-    box-sizing: border-box; margin: 0; padding: 0; 
-}
-
-body {
-    background: #f4f3f1;
-    color: #1a1a1a;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1.5rem;
-    min-height: 100vh;
 }
 
 #dictionary_body {
