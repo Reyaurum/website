@@ -397,7 +397,7 @@ async function searchDictionary(target) {
 function click(e) {
     var target = e.target || e.srcElement
     let particles = ["。", "、", "・", "…", "？", "！", "＊", "：", "『", "』", "「", "」"]
-    if (target.id == "kanji_amount")
+    if (target.parentNode.id == "kanji_amount")
         switchTheme()
     else if (target.classList[0] != "japanese_word__furigana" && !particles.includes(target.innerText))
         searchDictionary(target)
