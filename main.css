@@ -383,3 +383,85 @@ body {
         font-size: 10px;
     }
 }
+
+@media (prefers-color-scheme: dark) {
+    [data-color-theme*="a"] body {
+        background: #1a1917;
+        color: #e8e4de;
+    }
+
+    [data-color-theme*="a"] #dictionary_body {
+        background: #222120;
+        border-top-color: #333028;
+        box-shadow: 0 -6px 32px rgba(0,0,0,0.3), 0 -1px 0 rgba(0,0,0,0.2);
+    }
+
+    [data-color-theme*="a"] #dictionary_navbar {
+        background-color: #222120;
+        border-color: #2e2c28;
+        color: #6b6660;
+    }
+
+    [data-color-theme*="a"] .concept_light {
+        border-bottom-color: #2e2c28;
+    }
+
+    [data-color-theme*="a"] .concept_light-readings .concept_light-representation .text {
+        color: #e8e4de;
+    }
+
+    [data-color-theme*="a"] .concept_light-tag.concept_light-common.success {
+        background: #1e1a38;
+        color: #a48ff5;
+        border-color: #2e2756;
+    }
+
+    [data-color-theme*="a"] .furigana {
+        color: #5e5a54;
+    }
+
+    [data-color-theme*="a"] .concept_light-meanings {
+        color: #c4bfb8;
+    }
+
+    [data-color-theme*="a"] .meaning-definition-section_divider {
+        color: #3e3b36;
+    }
+
+    [data-color-theme*="a"] .meaning-meaning {
+        color: #d4cfc8;
+    }
+
+    [data-color-theme*="a"] .kanji_light_block {
+        border-left-color: #2e2c28;
+    }
+
+    [data-color-theme*="a"] .kanji_light {
+        border-bottom-color: #2e2c28;
+    }
+
+    [data-color-theme*="a"] .kanji_light .literal_block a {
+        color: #e8e4de;
+    }
+
+    [data-color-theme*="a"] .kanji_light .meanings {
+        color: #c4bfb8;
+    }
+
+    [data-color-theme*="a"] .kanji_light .readings {
+        color: #5e5a54;
+    }
+
+    [data-color-theme*="a"] .kanji_light .readings .type {
+        color: #3e3b36;
+    }
+
+    [data-color-theme*="a"] .japanese_word__text_wrapper span,
+    [data-color-theme*="a"] .japanese_word__text_wrapper div {
+        text-decoration-color: #4a4640;
+    }
+
+    [data-color-theme*="a"] #dictionary_body::-webkit-scrollbar-thumb {
+        background: #3a3632;
+    }
+}

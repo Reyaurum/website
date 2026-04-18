@@ -394,6 +394,12 @@ async function searchDictionary(target) {
     } catch {}
 }
 
+function switchTheme() {
+    let data = document.documentElement.dataset
+    data.colorTheme == "dark" ? data.colorTheme = "light" : data.colorTheme = "dark"
+    localStorage.setItem("theme", data.colorTheme)
+}
+
 function click(e) {
     var target = e.target || e.srcElement
     let particles = ["。", "、", "・", "…", "？", "！", "＊", "：", "『", "』", "「", "」"]
@@ -403,12 +409,17 @@ function click(e) {
         searchDictionary(target)
 }
 
-function main() {
+function initPreferences() {
+    document.documentElement.dataset.colorTheme = localStorage.getItem("theme")
     window.scrollTo(0, localStorage.getItem("scroll"))
+    window.addEventListener("scrollend", (e) => localStorage.setItem("scroll", window.scrollY))
+}
+
+function main() {
+    initPreferences()
     getData()
     initResize()
     document.addEventListener("pointerdown", click, false);
-    window.addEventListener("scrollend", (e) => localStorage.setItem("scroll", window.scrollY))
 }
 
 document.addEventListener("DOMContentLoaded", () => {
