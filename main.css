@@ -404,6 +404,7 @@ html[data-color-theme="dark"] #dictionary_body {
 }
 
 html[data-color-theme="dark"] #dictionary_navbar {
+    background: #2a2a2a;
     border-color: #3a3a3a;
     color: #6b6660;
 }
