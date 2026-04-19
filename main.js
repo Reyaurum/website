@@ -101,6 +101,8 @@ function resize(e){
     let height = parseInt(dict_body.style.height);
     height < navbar_height ? dict_body.style.height = navbar_height + "px" : (height > window.innerHeight ? dict_body.style.height = window.innerHeight + "px" : null)
     section.style.height = window.innerHeight - parseInt(dict_body.style.height) + "px"
+    localStorage.setItem("dict_height", dict_body.style.height)
+    localStorage.setItem("section_height", section.style.height)
 }
 
 async function getData() {
@@ -447,6 +449,8 @@ function click(e) {
 
 function initPreferences() {
     document.documentElement.dataset.colorTheme = localStorage.getItem("theme") || "light"
+    document.querySelector("section").style.height = localStorage.getItem("section_height")
+    document.querySelector("#dictionary_body").style.height = localStorage.getItem("dict_height")
     window.scrollTo(0, localStorage.getItem("scroll"))
     window.addEventListener("scrollend", (e) => localStorage.setItem("scroll", window.scrollY))
 }
