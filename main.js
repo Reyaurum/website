@@ -91,14 +91,16 @@ function initResize() {
 function resize(e){
     e.preventDefault()
     let dx = 0;
-    let resize_el = document.getElementById("dictionary_body");
+    let dict_body = document.getElementById("dictionary_body");
+    let section = document.querySelector("section")
     let style = window.getComputedStyle(document.querySelector("#dictionary_navbar"))
     let navbar_height = parseInt(style.marginTop) + parseInt(style.marginBottom) + parseInt(style.height)
     dx = m_pos - e.y
     m_pos = e.y
-    resize_el.style.height = (parseInt(getComputedStyle(resize_el, '').height) + dx) + "px";
-    let height = parseInt(resize_el.style.height);
-    height < navbar_height ? resize_el.style.height = navbar_height + "px" : (height > window.innerHeight ? resize_el.style.height = window.innerHeight + "px" : null)
+    dict_body.style.height = (parseInt(getComputedStyle(dict_body, '').height) + dx) + "px";
+    let height = parseInt(dict_body.style.height);
+    height < navbar_height ? dict_body.style.height = navbar_height + "px" : (height > window.innerHeight ? dict_body.style.height = window.innerHeight + "px" : null)
+    section.style.height = window.innerHeight - parseInt(dict_body.style.height) + "px"
 }
 
 async function getData() {

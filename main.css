@@ -24,6 +24,8 @@ ul {
 
 section {
     padding: 8px;
+    overflow-y: scroll;
+    height: 78vh;
 }
 
 .unselectable {
