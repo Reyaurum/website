@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html data-color-theme="dark">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../main.css">
+        <script src="../main.js"></script>
+    </head>
+    <body>
+        <div id="dictionary_body">
+            <div id="dictionary_navbar">
+                <div id="word_amount">
+                    <span>Words - 1 found</span>
+                </div>
+                <div id="kanji_amount">
+                    <span>Kanji - 1 found</span>
+                </div>
+            </div>
+            <div id="dictionary_cover" lang="ja">
+                <div id="concepts_holder"></div>
+                <div class="kanji_light_block"></div>
+            </div>
+        </div>
+        <section lang="ja">
+
+        </section>
+    </body>
+</html>

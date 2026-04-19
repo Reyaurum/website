@@ -88,7 +88,7 @@ function initResize() {
     }, false);
 }
 
-function resize(e){
+function resize(e) {
     e.preventDefault()
     let dx = 0;
     let dict_body = document.getElementById("dictionary_body");
@@ -448,8 +448,8 @@ function click(e) {
 }
 
 function initPreferences() {
-    document.querySelector("section").style.height = localStorage.getItem("section_height") || "78vh"
     document.querySelector("#dictionary_body").style.height = localStorage.getItem("dict_height") || "22vh"
+    document.querySelector("section").style.height = localStorage.getItem("section_height") || "78vh"
     document.documentElement.dataset.colorTheme = localStorage.getItem("theme") || "light"
     window.scrollTo(0, localStorage.getItem("scroll"))
     window.addEventListener("scrollend", (e) => localStorage.setItem("scroll", window.scrollY))
