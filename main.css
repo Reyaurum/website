@@ -235,8 +235,7 @@ section {
 }
 
 .kanji_light:last-child {
-    border-bottom: none;
-    margin-bottom: 4px;
+    margin-bottom: 0px;
 }
 
 .kanji_light_content {
