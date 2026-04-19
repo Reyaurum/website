@@ -448,9 +448,9 @@ function click(e) {
 }
 
 function initPreferences() {
+    document.querySelector("section").style.height = localStorage.getItem("section_height") || "78vh"
+    document.querySelector("#dictionary_body").style.height = localStorage.getItem("dict_height") || "22vh"
     document.documentElement.dataset.colorTheme = localStorage.getItem("theme") || "light"
-    document.querySelector("section").style.height = localStorage.getItem("section_height")
-    document.querySelector("#dictionary_body").style.height = localStorage.getItem("dict_height")
     window.scrollTo(0, localStorage.getItem("scroll"))
     window.addEventListener("scrollend", (e) => localStorage.setItem("scroll", window.scrollY))
 }
