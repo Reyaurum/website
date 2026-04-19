@@ -220,7 +220,7 @@ section {
 }
 
 .kanji_light_block {
-    padding: 4px 1.25rem 4px 1rem;
+    padding: 4px 1.25rem 0px 1rem;
     border-left: 1px solid #ede9e3;
 }
 
@@ -341,7 +341,7 @@ section {
     }
 
     .kanji_light_block {
-        padding: 4px 10px 4px 4px;
+        padding: 4px 10px 0px 4px;
     }
 
     .kanji_light {
