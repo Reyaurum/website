@@ -452,7 +452,7 @@ function initPreferences() {
     document.querySelector("section").style.height = localStorage.getItem("section_height") || "78vh"
     document.documentElement.dataset.colorTheme = localStorage.getItem("theme") || "light"
     document.querySelector("section").scrollTo(0, localStorage.getItem("scroll"))
-    document.querySelector("section").addEventListener("scrollend", (e) => localStorage.setItem("scroll", window.scrollY))
+    document.querySelector("section").addEventListener("scrollend", (e) => localStorage.setItem("scroll", document.querySelector("section").scrollY))
 }
 
 function main() {
