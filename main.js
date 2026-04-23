@@ -441,8 +441,10 @@ function switchTheme() {
 function click(e) {
     var target = e.target || e.srcElement
     let particles = ["。", "、", "・", "…", "？", "！", "＊", "：", "『", "』", "「", "」"]
-    if (target.parentNode.id == "kanji_amount")
+    if (target.parentNode.id == "word_amount")
         switchTheme()
+    else if (target.parentNode.id == "kanji_amount")
+        document.querySelector("section").className ? document.querySelector("section").className = "hide" : document.querySelector("section").className = ""
     else if (!particles.includes(target.innerText))
         searchDictionary(target)
 }

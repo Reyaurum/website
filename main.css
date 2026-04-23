@@ -69,6 +69,10 @@ section {
     top: -1.2em;
 }
 
+section.hide .japanese_word__furigana {
+    display: none; 
+}
+
 #dictionary_body {
     position: fixed;
     width: 100vw;
