@@ -417,7 +417,8 @@ function showDictionary(res, text) {
             }
         })
     })
-    document.getElementById("word_amount").innerText = `WORDS - ${document.getElementById("concepts_holder").childElementCount} FOUND`
+    document.getElementById("word_amount").firstElementChild.innerText = `WORDS - ${document.getElementById("concepts_holder").childElementCount} FOUND`
+    document.getElementById("kanji_amount").firstElementChild.innerText = `KANJI - ${document.querySelector(".kanji_light_block").childElementCount} FOUND`
 }
 
 async function searchDictionary(target) {

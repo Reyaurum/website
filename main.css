@@ -107,6 +107,10 @@ section.hide .japanese_word__furigana {
     z-index: 101;
 }
 
+#word_amount span, #kanji_amount span {
+    padding: 0.75rem;
+}
+
 #dictionary_cover {
     display: grid;
     grid-template-columns: 60vw 40vw;
