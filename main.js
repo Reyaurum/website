@@ -444,7 +444,7 @@ function click(e) {
     if (target.parentNode.id == "word_amount")
         switchTheme()
     else if (target.parentNode.id == "kanji_amount")
-        document.querySelector("section").className ? document.querySelector("section").className = "hide" : document.querySelector("section").className = ""
+        document.querySelector("section").className ? document.querySelector("section").className = "" : document.querySelector("section").className = "hide"
     else if (!particles.includes(target.innerText))
         searchDictionary(target)
 }
