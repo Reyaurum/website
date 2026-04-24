@@ -332,7 +332,7 @@ function createElement(tag, className="", id="", text="") {
     let e = document.createElement(tag)
     className ? e.className = className : null
     id ? e.id = id : null
-    text ? e.innerText = text : null
+    text ? e.textContent.replaceAll("\n", "") = text : null
     return e
 }
 
@@ -417,8 +417,8 @@ function showDictionary(res, text) {
             }
         })
     })
-    document.getElementById("word_amount").firstElementChild.innerText = `WORDS - ${document.getElementById("concepts_holder").childElementCount} FOUND`
-    document.getElementById("kanji_amount").firstElementChild.innerText = `KANJI - ${document.querySelector(".kanji_light_block").childElementCount} FOUND`
+    document.getElementById("word_amount").firstElementChild.textContent.replaceAll("\n", "") = `WORDS - ${document.getElementById("concepts_holder").childElementCount} FOUND`
+    document.getElementById("kanji_amount").firstElementChild.textContent.replaceAll("\n", "") = `KANJI - ${document.querySelector(".kanji_light_block").childElementCount} FOUND`
 }
 
 async function searchDictionary(target) {
@@ -428,7 +428,7 @@ async function searchDictionary(target) {
         while (target.classList[0] != "japanese_word__text_wrapper" && target.classList[0] != "japanese_word__furigana_wrapper") {
             target = target.parentNode
         }
-        target.classList[0] == "japanese_word__text_wrapper" ? (text = target.innerText, furigana = target.previousElementSibling.innerText) : (text = target.nextElementSibling.innerText, furigana = target.innerText)
+        target.classList[0] == "japanese_word__text_wrapper" ? (text = target.textContent.replaceAll("\n", ""), furigana = target.previousElementSibling.textContent.replaceAll("\n", "")) : (text = target.nextElementSibling.textContent.replaceAll("\n", ""), furigana = target.textContent.replaceAll("\n", ""))
         showDictionary(await search(text.replace(/[\p{White_Space}\p{Cf}]/gu, ""), furigana.replace(/[\p{White_Space}\p{Cf}]/gu, "")), text.replace(/[\p{White_Space}\p{Cf}]/gu, ""))
     } catch {}
 }
@@ -446,7 +446,7 @@ function click(e) {
         switchTheme()
     else if (target.parentNode.id == "kanji_amount")
         document.querySelector("section").className ? document.querySelector("section").className = "" : document.querySelector("section").className = "hide"
-    else if (!particles.includes(target.innerText))
+    else if (!particles.includes(target.textContent.replaceAll("\n", "")))
         searchDictionary(target)
 }
 
