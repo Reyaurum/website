@@ -332,7 +332,7 @@ function createElement(tag, className="", id="", text="") {
     let e = document.createElement(tag)
     className ? e.className = className : null
     id ? e.id = id : null
-    text ? e.textContent.replaceAll("\n", "") = text : null
+    text ? e.textContent = text : null
     return e
 }
 
@@ -417,8 +417,8 @@ function showDictionary(res, text) {
             }
         })
     })
-    document.getElementById("word_amount").firstElementChild.textContent.replaceAll("\n", "") = `WORDS - ${document.getElementById("concepts_holder").childElementCount} FOUND`
-    document.getElementById("kanji_amount").firstElementChild.textContent.replaceAll("\n", "") = `KANJI - ${document.querySelector(".kanji_light_block").childElementCount} FOUND`
+    document.getElementById("word_amount").firstElementChild.textContent = `WORDS - ${document.getElementById("concepts_holder").childElementCount} FOUND`
+    document.getElementById("kanji_amount").firstElementChild.textContent = `KANJI - ${document.querySelector(".kanji_light_block").childElementCount} FOUND`
 }
 
 async function searchDictionary(target) {
@@ -446,7 +446,7 @@ function click(e) {
         switchTheme()
     else if (target.parentNode.id == "kanji_amount")
         document.querySelector("section").className ? document.querySelector("section").className = "" : document.querySelector("section").className = "hide"
-    else if (!particles.includes(target.textContent.replaceAll("\n", "")))
+    else if (!particles.includes(target.innerText.replaceAll("\n", "")))
         searchDictionary(target)
 }
 
