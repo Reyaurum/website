@@ -47,12 +47,12 @@ def searchText(text : str):
 def getBody(text : str):
     sentences = []
     pos_start = 0
-    pos_end = 1600
+    pos_end = 1500
     while text.find("\n", pos_end+1) != -1:
         pos_end = text.find("\n", pos_end+1)
         sentences.extend(searchText(text[pos_start : pos_end].replace("\n", "").replace(" ", "")))
         pos_start = pos_end
-        pos_end += 1600
+        pos_end += 1500
     pos_end = len(text)
     sentences.extend(searchText(text[pos_start : pos_end].replace("\n", "").replace(" ", "")))
     return sentences
@@ -98,7 +98,7 @@ def getFile(start : int, end : int):
     boilerplate = getBoilerPlate()
     for ch in range(start, end + 1):
         createFile(addBody(boilerplate, ch), ch)
-        print(f"{ch} / {end}")
+        print(f"Chapter {ch} complete")
 
 if __name__ == "__main__":
     start_ch = int(input("Starting Chapter: "))
