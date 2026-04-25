@@ -67,6 +67,12 @@ section {
     background: #2d2d2d; 
 }
 
+.nav-btn:disabled { 
+    opacity: 0.3; 
+    cursor: default; 
+    pointer-events: none; 
+}
+
 .arrow { 
     font-size: 15px; 
     line-height: 1; 

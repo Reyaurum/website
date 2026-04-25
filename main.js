@@ -67,7 +67,6 @@ let data = null;
 const index = new Map();
 let m_pos;
 const max_ch = 26
-const min_ch = 19
 const cur_ch = parseInt(window.location.pathname.match(/\/ch-(\d+)\//)[1])
 
 function initResize(e) {
@@ -439,9 +438,9 @@ function click(e) {
     let particles = ["。", "、", "・", "…", "？", "！", "＊", "：", "『", "』", "「", "」"]
     
     if (target.id == "previous_chapter" || target.parentNode.id == "previous_chapter")
-        cur_ch < max_ch ? window.location.href = "/website/ch-" + (cur_ch + 1) : null
+        cur_ch > 1 ? window.location.href = "/website/ch-" + (cur_ch - 1) : null
     else if (target.id == "next_chapter" || target.parentNode.id == "next_chapter")
-        cur_ch > min_ch ? window.location.href = "/website/ch-" + (cur_ch - 1) : null
+        cur_ch < max_ch ? window.location.href = "/website/ch-" + (cur_ch + 1) : null
     else if (target.parentNode.id == "word_amount")
         switchTheme()
     else if (target.parentNode.id == "kanji_amount")
@@ -456,17 +455,17 @@ function initPreferences() {
     document.documentElement.dataset.colorTheme = localStorage.getItem("theme") || "light"
     document.querySelector("section").scrollTo(0, localStorage.getItem("scroll"))
     document.querySelector("section").addEventListener("scrollend", (e) => localStorage.setItem("scroll", document.querySelector("section").scrollTop))
-}
 
-function initListeners() {
     document.getElementById("dictionary_navbar").addEventListener("pointerdown", initResize)
     document.addEventListener("pointerdown", click, false);
+
+    document.getElementById("previous_chapter").disabled = cur_ch <= 1;
+    document.getElementById("next_chapter").disabled = cur_ch >= max_ch;
 }
 
 function main() {
-    initPreferences()
+    init()
     getData()
-    initListeners()
 }
 
 document.addEventListener("DOMContentLoaded", () => {

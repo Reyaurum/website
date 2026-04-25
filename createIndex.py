@@ -59,7 +59,7 @@ def getBody(text : str):
 def getText(ch : int):
     with open(dir.joinpath("text", f"Ch-{ch}.txt"), "r", encoding="utf-8") as f:
         text = f.read()
-    return text.replace(" ", "")
+    return text.replace(" ", "").replace(".", "")
 
 def addBody(html : str, ch : int):
     text = getText(ch)
@@ -81,7 +81,9 @@ def addBody(html : str, ch : int):
     for s in sentences:
         body += str(s)
     body = body.replace("<a", "<div").replace("</a>", "</div>")
-    body_pos = html.find('<section lang="ja">') + 20
+    html = html.replace('Ch-1', f'Ch-{ch}')
+    html = html.replace('id="Numeral">1', f'id="Numeral">{ch}')
+    body_pos = html.find('<div class="text_content">') + 26
     return html[:body_pos] + body + html[body_pos:]
 
 def createFile(html : str, ch : int):
@@ -97,4 +99,6 @@ def getFile(start : int, end : int):
         createFile(addBody(boilerplate, ch), ch)
 
 if __name__ == "__main__":
-    getFile(25, 26)
+    start_ch = int(input("Starting Chapter: "))
+    end_ch = int(input("Ending Chapter: "))
+    getFile(start_ch, end_ch)
