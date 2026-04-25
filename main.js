@@ -444,7 +444,7 @@ function click(e) {
     else if (target.parentNode.id == "word_amount")
         switchTheme()
     else if (target.parentNode.id == "kanji_amount")
-        document.querySelector("section").className ? document.querySelector("section").className = "" : document.querySelector("section").className = "hide"
+        document.querySelector("section").className ? (document.querySelector("section").className = "", localStorage.setItem("furigana", "")) : (document.querySelector("section").className = "hide", localStorage.setItem("furigana", "hide"))
     else if (!particles.includes(target.innerText.replaceAll("\n", "")))
         searchDictionary(target)
 }
@@ -453,6 +453,7 @@ function init() {
     document.querySelector("#dictionary_body").style.height = localStorage.getItem("dict_height") || "22vh"
     document.querySelector("section").style.height = localStorage.getItem("section_height") || "78vh"
     document.documentElement.dataset.colorTheme = localStorage.getItem("theme") || "light"
+    document.querySelector("section").className = localStorage.getItem("furigana") || ""
     document.querySelector("section").scrollTo(0, localStorage.getItem("scroll"))
     document.querySelector("section").addEventListener("scrollend", (e) => localStorage.setItem("scroll", document.querySelector("section").scrollTop))
 

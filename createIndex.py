@@ -96,7 +96,9 @@ def createFile(html : str, ch : int):
 def getFile(start : int, end : int):
     boilerplate = getBoilerPlate()
     for ch in range(start, end + 1):
+        print(f"Creating Chapter-{ch}")
         createFile(addBody(boilerplate, ch), ch)
+        print(f"Chapter-{ch} complete")
 
 if __name__ == "__main__":
     start_ch = int(input("Starting Chapter: "))
