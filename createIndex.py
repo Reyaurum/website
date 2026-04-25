@@ -2,7 +2,6 @@ from bs4 import BeautifulSoup
 from requests import Session, RequestException
 from pathlib import Path
 
-sentences = []
 dir = Path().resolve()
 
 def searchJisho(query):
@@ -43,18 +42,20 @@ def searchText(text : str):
     text = text.replace("\n", "").replace(" ", "")
     html = searchJisho(text)
     soup = BeautifulSoup(html, "html.parser")
-    sentences.extend(soup.find("section", {"id": "zen_bar"}).find_all("ul", recursive=False))
+    return soup.find("section", {"id": "zen_bar"}).find_all("ul", recursive=False)
     
 def getBody(text : str):
+    sentences = []
     pos_start = 0
     pos_end = 1600
     while text.find("\n", pos_end+1) != -1:
         pos_end = text.find("\n", pos_end+1)
-        searchText(text[pos_start : pos_end].replace("\n", "").replace(" ", ""))
+        sentences.extend(searchText(text[pos_start : pos_end].replace("\n", "").replace(" ", "")))
         pos_start = pos_end
         pos_end += 1600
     pos_end = len(text)
-    searchText(text[pos_start : pos_end].replace("\n", "").replace(" ", ""))
+    sentences.extend(searchText(text[pos_start : pos_end].replace("\n", "").replace(" ", "")))
+    return sentences
 
 def getText(ch : int):
     with open(dir.joinpath("text", f"Ch-{ch}.txt"), "r", encoding="utf-8") as f:
@@ -63,7 +64,7 @@ def getText(ch : int):
 
 def addBody(html : str, ch : int):
     text = getText(ch)
-    getBody(text)
+    sentences = getBody(text)
     newlines = getNewlines(text)
     body = ""
     insertions = []
@@ -96,9 +97,8 @@ def createFile(html : str, ch : int):
 def getFile(start : int, end : int):
     boilerplate = getBoilerPlate()
     for ch in range(start, end + 1):
-        print(f"Creating Chapter-{ch}")
         createFile(addBody(boilerplate, ch), ch)
-        print(f"Chapter-{ch} complete")
+        print(f"{ch} / {end}")
 
 if __name__ == "__main__":
     start_ch = int(input("Starting Chapter: "))
