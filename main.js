@@ -459,7 +459,7 @@ function initPreferences() {
 }
 
 function initListeners() {
-    document.getElementById("dictionary_navbar").addEventListener("pointerdown", initResize(e))
+    document.getElementById("dictionary_navbar").addEventListener("pointerdown", initResize)
     document.addEventListener("pointerdown", click, false);
 }
 
