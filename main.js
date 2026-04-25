@@ -466,7 +466,7 @@ function initListeners() {
 function main() {
     initPreferences()
     getData()
-    initResize()
+    initListeners()
 }
 
 document.addEventListener("DOMContentLoaded", () => {
