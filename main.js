@@ -449,7 +449,7 @@ function click(e) {
         searchDictionary(target)
 }
 
-function initPreferences() {
+function init() {
     document.querySelector("#dictionary_body").style.height = localStorage.getItem("dict_height") || "22vh"
     document.querySelector("section").style.height = localStorage.getItem("section_height") || "78vh"
     document.documentElement.dataset.colorTheme = localStorage.getItem("theme") || "light"
