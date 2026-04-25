@@ -438,9 +438,9 @@ function click(e) {
     let particles = ["。", "、", "・", "…", "？", "！", "＊", "：", "『", "』", "「", "」"]
     
     if (target.id == "previous_chapter" || target.parentNode.id == "previous_chapter")
-        cur_ch > 1 ? window.location.href = "/website/ch-" + (cur_ch - 1) : null
+        cur_ch > 1 ? (localStorage.setItem("scroll", "0px"), window.location.href = "/website/ch-" + (cur_ch - 1)) : null
     else if (target.id == "next_chapter" || target.parentNode.id == "next_chapter")
-        cur_ch < max_ch ? window.location.href = "/website/ch-" + (cur_ch + 1) : null
+        cur_ch < max_ch ? (localStorage.setItem("scroll", "0px"), window.location.href = "/website/ch-" + (cur_ch + 1)) : null
     else if (target.parentNode.id == "word_amount")
         switchTheme()
     else if (target.parentNode.id == "kanji_amount")

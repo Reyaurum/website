@@ -468,6 +468,7 @@ html[data-color-theme="light"] .chapter-numeral {
 
 html[data-color-theme="light"] .nav-btn {
     color: #3a3a3a;
+    border-color: #ccc;
 }
 
 html[data-color-theme="dark"] #dictionary_body {
