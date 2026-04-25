@@ -66,20 +66,15 @@ const replacements = ["う", "く", "ぐ", "す", "つ", "ぬ", "ぶ", "む", "�
 let data = null;
 const index = new Map();
 let m_pos;
+const max_ch = 26
+const min_ch = 19
+const cur_ch = parseInt(window.location.pathname.match(/\/ch-(\d+)\//)[1])
 
-function initResize() {
-    let resize_el = document.getElementById("dictionary_body");
-    resize_el.addEventListener("pointerdown", function(e){
-        let style = window.getComputedStyle(document.querySelector("#dictionary_navbar"))
-        let navbar_height = parseInt(style.marginTop) + parseInt(style.marginBottom) + parseInt(style.height)
-        
-        if (window.innerHeight - e.y - document.querySelector("#dictionary_body").offsetHeight + navbar_height > 0) {
-            document.body.className = "unselectable"
-            document.querySelector("#dictionary_body").style.overflowY = "hidden"
-            m_pos = e.y
-            document.addEventListener("pointermove", resize, {passive: false}, false);
-        }
-    }, false);
+function initResize(e) {
+    document.body.className = "unselectable"
+    document.querySelector("#dictionary_body").style.overflowY = "hidden"
+    m_pos = e.y
+    document.addEventListener("pointermove", resize, {passive: false}, false);
 
     document.addEventListener("pointerup", function(){
         document.body.className = ""
@@ -442,7 +437,12 @@ function switchTheme() {
 function click(e) {
     var target = e.target || e.srcElement
     let particles = ["。", "、", "・", "…", "？", "！", "＊", "：", "『", "』", "「", "」"]
-    if (target.parentNode.id == "word_amount")
+    
+    if (target.id == "previous_chapter" || target.parentNode.id == "previous_chapter")
+        cur_ch < max_ch ? window.location.href = "/website/ch-" + (cur_ch + 1) : null
+    else if (target.id == "next_chapter" || target.parentNode.id == "next_chapter")
+        cur_ch > min_ch ? window.location.href = "/website/ch-" + (cur_ch - 1) : null
+    else if (target.parentNode.id == "word_amount")
         switchTheme()
     else if (target.parentNode.id == "kanji_amount")
         document.querySelector("section").className ? document.querySelector("section").className = "" : document.querySelector("section").className = "hide"
@@ -458,11 +458,15 @@ function initPreferences() {
     document.querySelector("section").addEventListener("scrollend", (e) => localStorage.setItem("scroll", document.querySelector("section").scrollTop))
 }
 
+function initListeners() {
+    document.getElementById("dictionary_navbar").addEventListener("pointerdown", initResize(e))
+    document.addEventListener("pointerdown", click, false);
+}
+
 function main() {
     initPreferences()
     getData()
     initResize()
-    document.addEventListener("pointerdown", click, false);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
