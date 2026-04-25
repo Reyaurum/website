@@ -458,15 +458,15 @@ html[data-color-theme="dark"] body {
     color: #eee;
 }
 
-html[data-color-theme="dark"] .nav {
+html[data-color-theme="light"] .nav {
     border-color: #9e9e9e;
 }
 
-html[data-color-theme="dark"] .chapter-numeral {
+html[data-color-theme="light"] .chapter-numeral {
     color: #3a3a3a;
 }
 
-html[data-color-theme="dark"] .nav-btn {
+html[data-color-theme="light"] .nav-btn {
     color: #3a3a3a;
 }
 
