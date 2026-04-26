@@ -451,7 +451,7 @@ section .japanese_word__furigana {
     }
 
     .chapter-badge {
-        width: 60px;
+        min-width: 50px;
     }
 
     .nav-btn {
