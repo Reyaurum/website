@@ -450,6 +450,10 @@ section .japanese_word__furigana {
         gap: 0rem;
     }
 
+    .chapter-badge {
+        min-width: 60px;
+    }
+
     .nav-btn {
         width: 90px;
     }
