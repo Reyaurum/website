@@ -453,11 +453,6 @@ section.hide .japanese_word__furigana {
     }
 }
 
-html[data-color-theme="dark"] body {
-    background: #2a2a2a;
-    color: #eee;
-}
-
 html[data-color-theme="light"] .nav {
     border-color: #ccc;
 }
@@ -471,14 +466,19 @@ html[data-color-theme="light"] .nav-btn {
     border-color: #ccc;
 }
 
+html[data-color-theme="dark"] body {
+    background: #0d0c0b;
+    color: #ede9e2;
+}
+
 html[data-color-theme="dark"] #dictionary_body {
-    background: #2a2a2a;
+    background: #161616;
     border-top-color: #4a4a4a;
     box-shadow: 0 -6px 32px rgba(0,0,0,0.3), 0 -1px 0 rgba(0,0,0,0.2);
 }
 
 html[data-color-theme="dark"] #dictionary_navbar {
-    background: #2a2a2a;
+    background: #161616;
     border-color: #3a3a3a;
     color: #777;
 }
