@@ -1,7 +1,7 @@
 const PAGE_SIZE = 20;
 const CHAPTER_TITLES = {};
 
-async function getTotalChapters() { return await fetch("/website/data/data.json") }
+async function getTotalChapters() { return JSON.parse(await (await fetch("/website/data/data.json")).text()).total_chapters }
 function getTitle(n) { return CHAPTER_TITLES[n] || null }
 function chapterHref(n) { return `/website/ch-${n}/` }
 function getLastRead() { try { return parseInt(localStorage.getItem("lrc") || "0", 10) } catch { return 0 } }
@@ -136,7 +136,9 @@ function jumpTo() {
     }, 80);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+async function main() {
+    TOTAL_CHAPTERS = await getTotalChapters()
+
     buildAll();
     renderPage();
 
@@ -147,7 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
         renderPage();
     });
     document.getElementById("searchInput").addEventListener("keydown", e => { if (e.key === "Enter") jumpTo(); });
-
     document.getElementById("totalDisplay").textContent = TOTAL_CHAPTERS.toLocaleString();
     document.getElementById("readDisplay").textContent = lastRead.toLocaleString();
     document.getElementById("pctDisplay").textContent = Math.floor(lastRead / TOTAL_CHAPTERS * 100) + '%';
@@ -163,4 +164,8 @@ document.addEventListener("DOMContentLoaded", () => {
         band.style.display = 'flex';
         band.onclick = () => { setLastRead(next); window.location.href = chapterHref(next); };
     }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    main()
 });
