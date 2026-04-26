@@ -451,10 +451,6 @@ section .japanese_word__furigana {
     .nav-btn {
         width: 90px;
     }
-    
-    .chapter-badge {
-        min-width: 40px;
-    }
 
     .concept_light {
         grid-template-columns: auto auto;
