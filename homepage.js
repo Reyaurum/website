@@ -1,5 +1,5 @@
 
-const TOTAL_CHAPTERS = 1847;
+const TOTAL_CHAPTERS = 26;
 const PAGE_SIZE = 20;
 
 const CHAPTER_TITLES = {};
@@ -97,7 +97,7 @@ function renderPagination(totalPages){
   html+='<div class="page-btns">';
   html+=`<button class="page-btn nav" onclick="goPage(${currentPage-1})" ${currentPage===0?'disabled style="opacity:.3;cursor:default"':''}>← Prev</button>`;
 
-  const windowSize=5;
+  const windowSize=3;
   let pStart=Math.max(0,currentPage-Math.floor(windowSize/2));
   let pEnd=Math.min(totalPages-1,pStart+windowSize-1);
   if(pEnd-pStart<windowSize-1) pStart=Math.max(0,pEnd-windowSize+1);
@@ -127,7 +127,7 @@ function goPage(p){
 }
 
 function jumpTo(){
-  const val=parseInt(document.getElementById("jumpInput").value,10);
+  const val=parseInt(document.getElementById("searchInput").value,10);
   if(isNaN(val)||val<1||val>TOTAL_CHAPTERS) return;
   document.getElementById("searchInput").value='';
   buildAll();
@@ -139,32 +139,31 @@ function jumpTo(){
   },80);
 }
 
-document.getElementById("searchInput").addEventListener("input",()=>{
-  const q=document.getElementById("searchInput").value;
-  applySearch(q);
-  currentPage=0;
-  renderPage();
-});
-
-document.getElementById("jumpInput").addEventListener("keydown",e=>{if(e.key==="Enter")jumpTo();});
-
-document.getElementById("totalDisplay").textContent=TOTAL_CHAPTERS.toLocaleString();
-document.getElementById("readDisplay").textContent=lastRead.toLocaleString();
-document.getElementById("pctDisplay").textContent=Math.round(lastRead/TOTAL_CHAPTERS*100)+'%';
-
-if(lastRead>0&&lastRead<=TOTAL_CHAPTERS){
-  const next=Math.min(lastRead+1,TOTAL_CHAPTERS);
-  const t=getTitle(next);
-  const pct=Math.round(lastRead/TOTAL_CHAPTERS*100);
-  const band=document.getElementById("continueBand");
-  document.getElementById("cbTitle").textContent=`Chapter ${next}${t?' — '+t:''}`;
-  document.getElementById("cbBar").style.width=pct+'%';
-  document.getElementById("cbPct").textContent=pct+'% complete';
-  band.style.display='flex';
-  band.onclick=()=>{ setLastRead(next); window.location.href=chapterHref(next); };
-}
-
 document.addEventListener("DOMContentLoaded", () => {
     buildAll();
     renderPage();
+
+    document.getElementById("searchInput").addEventListener("input",()=>{
+        const q=document.getElementById("searchInput").value;
+        applySearch(q);
+        currentPage=0;
+        renderPage();
+    });
+    document.getElementById("searchInput").addEventListener("keydown",e=>{if(e.key==="Enter")jumpTo();});
+
+    document.getElementById("totalDisplay").textContent=TOTAL_CHAPTERS.toLocaleString();
+    document.getElementById("readDisplay").textContent=lastRead.toLocaleString();
+    document.getElementById("pctDisplay").textContent=Math.floor(lastRead/TOTAL_CHAPTERS*100)+'%';
+
+    if(lastRead>0&&lastRead<=TOTAL_CHAPTERS){
+        const next=Math.min(lastRead,TOTAL_CHAPTERS);
+        const t=getTitle(next);
+        const pct=Math.floor(lastRead/TOTAL_CHAPTERS*100);
+        const band=document.getElementById("continueBand");
+        document.getElementById("cbTitle").textContent=`Chapter ${next}${t?' — '+t:''}`;
+        document.getElementById("cbBar").style.width=pct+'%';
+        document.getElementById("cbPct").textContent=pct+'% complete';
+        band.style.display='flex';
+        band.onclick=()=>{ setLastRead(next); window.location.href=chapterHref(next); };
+    }
 });
