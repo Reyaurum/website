@@ -24,7 +24,8 @@ ul {
 
 section {
     overflow-y: scroll;
-    height: 78vh;
+    height: var(--section-height, 78vh);
+    scrollbar-width: none;
 }
 
 .nav { 
@@ -54,7 +55,6 @@ section {
     background: none; 
     border: 1px solid rgba(255,255,255,0.1); 
     color: #a8a29b; 
-    cursor: pointer; 
     padding: 7px 14px; 
     border-radius: 6px; 
     font-size: 13px; 
@@ -63,16 +63,22 @@ section {
     white-space: nowrap; 
 }
 
+#previous_chapter {
+    opacity: var(--previous-nav-btn-opacity, 1); 
+    cursor: var(--previous-nav-btn-cursor, pointer); 
+    pointer-events: var(--previous-nav-btn-pointer-events, default); 
+}
+
+#next_chapter {
+    opacity: var(--next-nav-btn-opacity, 1); 
+    cursor: var(--next-nav-btn-cursor, pointer); 
+    pointer-events: var(--next-nav-btn-pointer-events, default); 
+}
+
 .nav-btn:hover { 
     border-color: #555; 
     color: #ccc; 
     background: #2d2d2d; 
-}
-
-.nav-btn:disabled { 
-    opacity: 0.3; 
-    cursor: default; 
-    pointer-events: none; 
 }
 
 .arrow { 
@@ -142,14 +148,14 @@ section {
     top: -1.2em;
 }
 
-section.hide .japanese_word__furigana {
-    display: none; 
+section .japanese_word__furigana {
+    display: var(--display-furigana); 
 }
 
 #dictionary_body {
     position: fixed;
     width: 100vw;
-    height: 22vh;
+    height: var(--dict-height, 22vh);
     background: #faf9f7;
     bottom: 0;
     left: 0;

@@ -438,24 +438,29 @@ function click(e) {
     let particles = ["。", "、", "・", "…", "？", "！", "＊", "：", "『", "』", "「", "」"]
     
     if (target.id == "previous_chapter" || target.parentNode.id == "previous_chapter")
-        cur_ch > 1 ? (localStorage.setItem("scroll", "0px"), window.location.href = "/website/ch-" + (cur_ch - 1)) : null
+        cur_ch > 1 ? (localStorage.setItem("scroll", "0px"), window.location.href = "../ch-" + (cur_ch - 1)) : null
     else if (target.id == "next_chapter" || target.parentNode.id == "next_chapter")
-        cur_ch < max_ch ? (localStorage.setItem("scroll", "0px"), window.location.href = "/website/ch-" + (cur_ch + 1)) : null
+        cur_ch < max_ch ? (localStorage.setItem("scroll", "0px"), window.location.href = "../ch-" + (cur_ch + 1)) : null
     else if (target.parentNode.id == "word_amount")
         switchTheme()
     else if (target.parentNode.id == "kanji_amount")
-        document.querySelector("section").className ? (document.querySelector("section").className = "", localStorage.setItem("furigana", "")) : (document.querySelector("section").className = "hide", localStorage.setItem("furigana", "hide"))
+        document.documentElement.style.getPropertyValue("--display-furigana") == "display" ? (document.documentElement.style.setProperty("--display-furigana", "none"), localStorage.setItem("furigana", "")) : (document.documentElement.style.setProperty("--display-furigana", "display"), localStorage.setItem("furigana", "display"))
     else if (!particles.includes(target.innerText.replaceAll("\n", "")))
         searchDictionary(target)
 }
 
 function preLoadInit() {
-    document.querySelector("section").className = localStorage.getItem("furigana") || ""
-    document.querySelector("#dictionary_body").style.height = localStorage.getItem("dict_height") || "22vh"
-    document.querySelector("section").style.height = localStorage.getItem("section_height") || "78vh"
-    document.getElementById("previous_chapter").disabled = cur_ch <= 1;
-    document.getElementById("next_chapter").disabled = cur_ch >= max_ch;
-    document.documentElement.dataset.colorTheme = localStorage.getItem("theme") || "light"
+    let root = document.documentElement;
+    root.style.setProperty("--dict-height", localStorage.getItem("dict_height") || "22vh");
+    root.style.setProperty("--section-height", localStorage.getItem("section_height") || "78vh");
+    root.style.setProperty("--display-furigana", localStorage.getItem("furigana") || "none");
+    root.style.setProperty("--previous-nav-btn-opacity", cur_ch <= 1 ? 0.3 : 1);
+    root.style.setProperty("--previous-nav-btn-cursor", cur_ch <= 1 ? "cursor" : "pointer");
+    root.style.setProperty("--previous-nav-btn-pointer-events", cur_ch <= 1 ? "none" : "default");
+    root.style.setProperty("--next-nav-btn-opacity", cur_ch >= max_ch ? 0.3 : 1);
+    root.style.setProperty("--next-nav-btn-cursor", cur_ch >= max_ch ? "cursor" : "pointer");
+    root.style.setProperty("--next-nav-btn-pointer-events", cur_ch >= max_ch ? "none" : "default");
+    root.dataset.colorTheme = localStorage.getItem("theme") || "dark";
 }
 
 function init() {
@@ -471,7 +476,6 @@ function main() {
 }
 
 preLoadInit()
-
 document.addEventListener("DOMContentLoaded", () => {
     main()
 });
