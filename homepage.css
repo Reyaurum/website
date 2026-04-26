@@ -9,16 +9,16 @@
 :root {
     color-scheme: light dark;
     --mint: #409c75;
-    --mint-dim: #161616;
-    --mint-border: #222;
-    --mint-hover: #255c4733;
-    --mint-border-hover: #2b9f7333;
-    --mint-text-hover: #4eb28c;
-    --bg: #0d0c0b;
-    --bg2: #0f0f0f;
-    --bg2-hover: #1a1916;
+    --mint-dim: #262626;
+    --mint-border: #333;
+    --mint-hover: #356c5733;
+    --mint-border-hover: #3baf8333;
+    --mint-text-hover: #5ec29c;
+    --bg: #1d1c1b;
+    --bg2: #1f1f1f;
+    --bg2-hover: #2a2926;
     --text: #e2ddd6;
-    --muted: #7a7570;
+    --muted: #8a8580;
     --line: rgba(255, 255, 255, 0.07);
     --faint: rgba(255, 255, 255, 0.04)
 }

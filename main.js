@@ -429,12 +429,6 @@ async function searchDictionary(target) {
     } catch { }
 }
 
-function switchTheme() {
-    let data = document.documentElement.dataset
-    data.colorTheme == "dark" ? data.colorTheme = "light" : data.colorTheme = "dark"
-    localStorage.setItem("theme", data.colorTheme)
-}
-
 function click(e) {
     var target = e.target || e.srcElement
     let particles = ["。", "、", "・", "…", "？", "！", "＊", "：", "『", "』", "「", "」"]
@@ -445,8 +439,6 @@ function click(e) {
         cur_ch < max_ch ? (localStorage.setItem("scroll", "0px"), window.location.href = "/website/ch-" + (cur_ch + 1)) : null
     else if (target.id == "menu_page")
         window.location.href = "/website/"
-    else if (target.parentNode.id == "word_amount")
-        switchTheme()
     else if (target.parentNode.id == "kanji_amount")
         document.documentElement.style.getPropertyValue("--display-furigana") == "display" ? (document.documentElement.style.setProperty("--display-furigana", "none"), localStorage.setItem("furigana", "")) : (document.documentElement.style.setProperty("--display-furigana", "display"), localStorage.setItem("furigana", "display"))
     else if (!particles.includes(target.innerText.replaceAll("\n", "")))
@@ -461,7 +453,7 @@ async function preLoadInit() {
     root.style.setProperty("--previous-nav-btn-opacity", cur_ch <= 1 ? 0.3 : 1);
     root.style.setProperty("--previous-nav-btn-cursor", cur_ch <= 1 ? "cursor" : "pointer");
     root.style.setProperty("--previous-nav-btn-pointer-events", cur_ch <= 1 ? "none" : "default");
-    root.dataset.colorTheme = localStorage.getItem("theme") || "dark";
+    root.dataset.colorTheme = "dark";
     max_ch = await getTotalChapters()
     root.style.setProperty("--next-nav-btn-opacity", cur_ch >= max_ch ? 0.3 : 1);
     root.style.setProperty("--next-nav-btn-cursor", cur_ch >= max_ch ? "cursor" : "pointer");
