@@ -1,12 +1,13 @@
-const TOTAL_CHAPTERS = 27;
 const PAGE_SIZE = 20;
 const CHAPTER_TITLES = {};
 
+async function getTotalChapters() { return await fetch("/website/data/data.json") }
 function getTitle(n) { return CHAPTER_TITLES[n] || null }
 function chapterHref(n) { return `/website/ch-${n}/` }
 function getLastRead() { try { return parseInt(localStorage.getItem("lrc") || "0", 10) } catch { return 0 } }
 function setLastRead(n) { try { localStorage.setItem("lrc", n) } catch { } }
 
+let TOTAL_CHAPTERS = 0;
 let lastRead = getLastRead();
 let filteredChapters = [];
 let currentPage = 0;
