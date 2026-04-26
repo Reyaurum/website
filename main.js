@@ -449,16 +449,18 @@ function click(e) {
         searchDictionary(target)
 }
 
-function init() {
+function preLoadInit() {
     document.querySelector("section").className = localStorage.getItem("furigana") || ""
     document.querySelector("#dictionary_body").style.height = localStorage.getItem("dict_height") || "22vh"
     document.querySelector("section").style.height = localStorage.getItem("section_height") || "78vh"
     document.getElementById("previous_chapter").disabled = cur_ch <= 1;
     document.getElementById("next_chapter").disabled = cur_ch >= max_ch;
     document.documentElement.dataset.colorTheme = localStorage.getItem("theme") || "light"
+}
+
+function init() {
     document.querySelector("section").scrollTo(0, localStorage.getItem("scroll"))
     document.querySelector("section").addEventListener("scrollend", (e) => localStorage.setItem("scroll", document.querySelector("section").scrollTop))
-
     document.getElementById("dictionary_navbar").addEventListener("pointerdown", initResize)
     document.addEventListener("pointerdown", click, false);
 }
@@ -467,6 +469,8 @@ function main() {
     init()
     getData()
 }
+
+preLoadInit()
 
 document.addEventListener("DOMContentLoaded", () => {
     main()
