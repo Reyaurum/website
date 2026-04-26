@@ -345,7 +345,7 @@ section .japanese_word__furigana {
 }
 
 .kanji_light_block {
-    padding: 4px 1.25rem 0px 1rem;
+    padding: 4px 1.25rem 0px 0rem;
     border-left: 1px solid #ede9e3;
 }
 
@@ -356,6 +356,7 @@ section .japanese_word__furigana {
     margin-bottom: 14px;
     margin-top: 8px;
     padding-bottom: 12px;
+    padding-left: 1rem;
     border-bottom: 1px solid #ede9e3;
 }
 
@@ -465,13 +466,14 @@ section .japanese_word__furigana {
     }
 
     .kanji_light_block {
-        padding: 4px 10px 0px 4px;
+        padding: 4px 10px 0px 0px;
     }
 
     .kanji_light {
         margin-bottom: 8px;
         margin-top: 4px;
         padding-bottom: 8px;
+        padding-left: 4px;
     }
 
     .kanji_light_content {
