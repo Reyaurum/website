@@ -454,7 +454,6 @@ function click(e) {
 }
 
 async function preLoadInit() {
-    max_ch = await getTotalChapters()
     let root = document.documentElement;
     root.style.setProperty("--dict-height", localStorage.getItem("dict_height") || "22vh");
     root.style.setProperty("--section-height", localStorage.getItem("section_height") || "78vh");
@@ -462,10 +461,11 @@ async function preLoadInit() {
     root.style.setProperty("--previous-nav-btn-opacity", cur_ch <= 1 ? 0.3 : 1);
     root.style.setProperty("--previous-nav-btn-cursor", cur_ch <= 1 ? "cursor" : "pointer");
     root.style.setProperty("--previous-nav-btn-pointer-events", cur_ch <= 1 ? "none" : "default");
+    root.dataset.colorTheme = localStorage.getItem("theme") || "dark";
+    max_ch = await getTotalChapters()
     root.style.setProperty("--next-nav-btn-opacity", cur_ch >= max_ch ? 0.3 : 1);
     root.style.setProperty("--next-nav-btn-cursor", cur_ch >= max_ch ? "cursor" : "pointer");
     root.style.setProperty("--next-nav-btn-pointer-events", cur_ch >= max_ch ? "none" : "default");
-    root.dataset.colorTheme = localStorage.getItem("theme") || "dark";
 }
 
 function init() {
