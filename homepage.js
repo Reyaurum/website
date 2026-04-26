@@ -1,4 +1,4 @@
-const TOTAL_CHAPTERS = 26;
+const TOTAL_CHAPTERS = 27;
 const PAGE_SIZE = 20;
 const CHAPTER_TITLES = {};
 
