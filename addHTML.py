@@ -2,13 +2,7 @@ from pathlib import Path
 
 dir = Path().resolve()
 
-REPLACEMENT = [["""<nav class="nav">""", """<nav class="nav">
-                <button class="menu-btn" id="menu_page">⇐</button>"""], ["""Next <span class="arrow">→</span>
-                </button>
-                </div>""", """Next <span class="arrow">→</span>
-                </button>
-                </div>
-                <div class="menu-btn"></button>"""]]
+REPLACEMENT = [["""""", """"""]]
 
 def writeFile(html : str, ch : int):
     with open(dir.joinpath(f"ch-{ch}").joinpath(f"index.html"), "w", encoding="utf-8") as f:
