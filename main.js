@@ -66,8 +66,10 @@ const replacements = ["う", "く", "ぐ", "す", "つ", "ぬ", "ぶ", "む", "�
 let data = null;
 const index = new Map();
 let m_pos;
-const max_ch = 26
+let max_ch = 0
 const cur_ch = parseInt(window.location.pathname.match(/\/ch-(\d+)\//)[1])
+
+async function getTotalChapters() { return JSON.parse(await (await fetch("/website/data/data.json")).text()).total_chapters }
 
 function initResize(e) {
     document.body.className = "unselectable"
@@ -451,7 +453,8 @@ function click(e) {
         searchDictionary(target)
 }
 
-function preLoadInit() {
+async function preLoadInit() {
+    max_ch = getTotalChapters()
     let root = document.documentElement;
     root.style.setProperty("--dict-height", localStorage.getItem("dict_height") || "22vh");
     root.style.setProperty("--section-height", localStorage.getItem("section_height") || "78vh");
