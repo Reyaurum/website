@@ -454,7 +454,7 @@ function click(e) {
 }
 
 async function preLoadInit() {
-    max_ch = getTotalChapters()
+    max_ch = await getTotalChapters()
     let root = document.documentElement;
     root.style.setProperty("--dict-height", localStorage.getItem("dict_height") || "22vh");
     root.style.setProperty("--section-height", localStorage.getItem("section_height") || "78vh");
