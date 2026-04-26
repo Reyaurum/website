@@ -466,6 +466,7 @@ function preLoadInit() {
 }
 
 function init() {
+    localStorage.setItem("lrc", cur_ch)
     document.querySelector("section").scrollTo(0, localStorage.getItem("scroll"))
     document.querySelector("section").addEventListener("scrollend", (e) => localStorage.setItem("scroll", document.querySelector("section").scrollTop))
     document.getElementById("dictionary_navbar").addEventListener("pointerdown", initResize)
