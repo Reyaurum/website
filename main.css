@@ -441,11 +441,6 @@ section .japanese_word__furigana {
         font-size: 1.25rem;
     }
 
-    #dictionary_navbar {
-        padding: 8px 12px 6px;
-        font-size: 10px;
-    }
-
     .chapter-core {
         gap: 0rem;
     }
@@ -456,6 +451,15 @@ section .japanese_word__furigana {
 
     .nav-btn {
         width: 90px;
+    }
+
+    .nav {
+        padding: 0 0.5rem;
+    }
+
+    #dictionary_navbar {
+        padding: 8px 12px 6px;
+        font-size: 10px;
     }
 
     .concept_light {
