@@ -1,63 +1,72 @@
 <!DOCTYPE html>
 <html data-color-theme="dark">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Homepage</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="mobile-web-app-capable" content="yes">
-        <link rel="stylesheet" href="homepage.css">
-        <script src="homepage.js"></script>
-    </head>
-    <body><div class="page">
-  <header class="masthead">
-    
-    <h1 class="book-name">シャドウ・スレイブ</h1>
-    
-    <div class="meta-row">
-      <div class="meta-item"><span class="meta-val" id="totalDisplay">1,847</span><span class="meta-lbl">Chapters</span></div>
-      <div class="meta-sep"></div>
-      <div class="meta-item"><span class="meta-val" id="readDisplay">406</span><span class="meta-lbl">Read</span></div>
-      <div class="meta-sep"></div>
-      <div class="meta-item"><span class="meta-val" id="pctDisplay">22%</span><span class="meta-lbl">Complete</span></div>
-    </div>
-  </header>
 
-  <div class="continue-band" id="continueBand" style="display: flex;">
-    <div>
-      <div class="cb-eyebrow">Continue Reading</div>
-      <div class="cb-title" id="cbTitle">Chapter 407</div>
-      <div class="cb-progress">
-        <div class="cb-bar-wrap"><div class="cb-bar" id="cbBar" style="width: 22%;"></div></div>
-        <span class="cb-pct" id="cbPct">22% complete</span>
-      </div>
-    </div>
-    <div class="cb-arrow">→</div>
-  </div>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Homepage</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="homepage.css">
+    <script src="homepage.js"></script>
+</head>
 
-  <div class="toolbar">
-    <div class="search-wrap">
-      <span class="search-icon">⌕</span>
-      <input type="text" id="searchInput" placeholder="Chapter…">
-    </div>
-    <div class="jump-wrap">
-      <button class="jump-btn" onclick="jumpTo()">Jump →</button>
-    </div>
-  </div>
+<body>
+    <div class="page">
+        <header class="masthead">
+            <div class="meta-row">
+                <div class="meta-item"><span class="meta-val" id="totalDisplay">1,847</span><span
+                        class="meta-lbl">Chapters</span></div>
+                <div class="meta-sep"></div>
+                <div class="meta-item"><span class="meta-val" id="readDisplay">406</span><span
+                        class="meta-lbl">Read</span></div>
+                <div class="meta-sep"></div>
+                <div class="meta-item"><span class="meta-val" id="pctDisplay">22%</span><span
+                        class="meta-lbl">Complete</span></div>
+            </div>
+        </header>
 
-  <div class="section-head">
-    <span class="section-label">All Chapters</span>
-    <div class="section-rule"></div>
-    <span class="result-count" id="resultCount"></span>
-  </div>
+        <div class="continue-band" id="continueBand" style="display: flex;">
+            <div>
+                <div class="cb-eyebrow">Continue Reading</div>
+                <div class="cb-title" id="cbTitle">Chapter 407</div>
+                <div class="cb-progress">
+                    <div class="cb-bar-wrap">
+                        <div class="cb-bar" id="cbBar" style="width: 22%;"></div>
+                    </div>
+                    <span class="cb-pct" id="cbPct">22% complete</span>
+                </div>
+            </div>
+            <div class="cb-arrow">→</div>
+        </div>
 
-  <div class="pagination" id="paginationBar"></div>
-  <div id="listContainer"><div class="ch-list">
-    </div></div>
-  <div class="pagination" id="paginationBar"></div></div>
-</div>
+        <div class="toolbar">
+            <div class="search-wrap">
+                <span class="search-icon">⌕</span>
+                <input type="text" id="searchInput" placeholder="Chapter…">
+            </div>
+            <div class="jump-wrap">
+                <button class="jump-btn" onclick="jumpTo()">Jump →</button>
+            </div>
+        </div>
+
+        <div class="section-head">
+            <span class="section-label">All Chapters</span>
+            <div class="section-rule"></div>
+            <span class="result-count" id="resultCount"></span>
+        </div>
+
+        <div class="pagination" id="paginationBar"></div>
+        <div id="listContainer">
+            <div class="ch-list">
+            </div>
+        </div>
+        <div class="pagination" id="paginationBar"></div>
+    </div>
+    </div>
 
 
 </body>
+
 </html>

@@ -1,66 +1,66 @@
 let kana = [
-"あ","い","う","え","お",
-"か","き","く","け","こ",
-"さ","し","す","せ","そ",
-"た","ち","つ","て","と",
-"な","に","ぬ","ね","の",
-"は","ひ","ふ","へ","ほ",
-"ま","み","む","め","も",
-"や","ゆ","よ",
-"ら","り","る","れ","ろ",
-"わ","を","ん",
+    "あ", "い", "う", "え", "お",
+    "か", "き", "く", "け", "こ",
+    "さ", "し", "す", "せ", "そ",
+    "た", "ち", "つ", "て", "と",
+    "な", "に", "ぬ", "ね", "の",
+    "は", "ひ", "ふ", "へ", "ほ",
+    "ま", "み", "む", "め", "も",
+    "や", "ゆ", "よ",
+    "ら", "り", "る", "れ", "ろ",
+    "わ", "を", "ん",
 
-"が","ぎ","ぐ","げ","ご",
-"ざ","じ","ず","ぜ","ぞ",
-"だ","ぢ","づ","で","ど",
-"ば","び","ぶ","べ","ぼ",
-"ぱ","ぴ","ぷ","ぺ","ぽ",
+    "が", "ぎ", "ぐ", "げ", "ご",
+    "ざ", "じ", "ず", "ぜ", "ぞ",
+    "だ", "ぢ", "づ", "で", "ど",
+    "ば", "び", "ぶ", "べ", "ぼ",
+    "ぱ", "ぴ", "ぷ", "ぺ", "ぽ",
 
-"ぁ","ぃ","ぅ","ぇ","ぉ",
-"ゃ","ゅ","ょ","っ","ゎ",
+    "ぁ", "ぃ", "ぅ", "ぇ", "ぉ",
+    "ゃ", "ゅ", "ょ", "っ", "ゎ",
 
-"ア","イ","ウ","エ","オ",
-"カ","キ","ク","ケ","コ",
-"サ","シ","ス","セ","ソ",
-"タ","チ","ツ","テ","ト",
-"ナ","ニ","ヌ","ネ","ノ",
-"ハ","ヒ","フ","ヘ","ホ",
-"マ","ミ","ム","メ","モ",
-"ヤ","ユ","ヨ",
-"ラ","リ","ル","レ","ロ",
-"ワ","ヲ","ン",
+    "ア", "イ", "ウ", "エ", "オ",
+    "カ", "キ", "ク", "ケ", "コ",
+    "サ", "シ", "ス", "セ", "ソ",
+    "タ", "チ", "ツ", "テ", "ト",
+    "ナ", "ニ", "ヌ", "ネ", "ノ",
+    "ハ", "ヒ", "フ", "ヘ", "ホ",
+    "マ", "ミ", "ム", "メ", "モ",
+    "ヤ", "ユ", "ヨ",
+    "ラ", "リ", "ル", "レ", "ロ",
+    "ワ", "ヲ", "ン",
 
-"ガ","ギ","グ","ゲ","ゴ",
-"ザ","ジ","ズ","ゼ","ゾ",
-"ダ","ヂ","ヅ","デ","ド",
-"バ","ビ","ブ","ベ","ボ",
-"パ","ピ","プ","ペ","ポ",
+    "ガ", "ギ", "グ", "ゲ", "ゴ",
+    "ザ", "ジ", "ズ", "ゼ", "ゾ",
+    "ダ", "ヂ", "ヅ", "デ", "ド",
+    "バ", "ビ", "ブ", "ベ", "ボ",
+    "パ", "ピ", "プ", "ペ", "ポ",
 
-"ァ","ィ","ゥ","ェ","ォ",
-"ャ","ュ","ョ","ッ","ヮ",
+    "ァ", "ィ", "ゥ", "ェ", "ォ",
+    "ャ", "ュ", "ョ", "ッ", "ヮ",
 
-"ヴ","ヵ","ヶ"
+    "ヴ", "ヵ", "ヶ"
 ];
 let hiragana = [
-"あ","い","う","え","お",
-"か","き","く","け","こ",
-"さ","し","す","せ","そ",
-"た","ち","つ","て","と",
-"な","に","ぬ","ね","の",
-"は","ひ","ふ","へ","ほ",
-"ま","み","む","め","も",
-"や","ゆ","よ",
-"ら","り","る","れ","ろ",
-"わ","を","ん",
+    "あ", "い", "う", "え", "お",
+    "か", "き", "く", "け", "こ",
+    "さ", "し", "す", "せ", "そ",
+    "た", "ち", "つ", "て", "と",
+    "な", "に", "ぬ", "ね", "の",
+    "は", "ひ", "ふ", "へ", "ほ",
+    "ま", "み", "む", "め", "も",
+    "や", "ゆ", "よ",
+    "ら", "り", "る", "れ", "ろ",
+    "わ", "を", "ん",
 
-"が","ぎ","ぐ","げ","ご",
-"ざ","じ","ず","ぜ","ぞ",
-"だ","ぢ","づ","で","ど",
-"ば","び","ぶ","べ","ぼ",
-"ぱ","ぴ","ぷ","ぺ","ぽ",
+    "が", "ぎ", "ぐ", "げ", "ご",
+    "ざ", "じ", "ず", "ぜ", "ぞ",
+    "だ", "ぢ", "づ", "で", "ど",
+    "ば", "び", "ぶ", "べ", "ぼ",
+    "ぱ", "ぴ", "ぷ", "ぺ", "ぽ",
 
-"ぁ","ぃ","ぅ","ぇ","ぉ",
-"ゃ","ゅ","ょ","っ","ゎ",
+    "ぁ", "ぃ", "ぅ", "ぇ", "ぉ",
+    "ゃ", "ゅ", "ょ", "っ", "ゎ",
 ]
 const replacements = ["う", "く", "ぐ", "す", "つ", "ぬ", "ぶ", "む", "る", "い", ""]
 let data = null;
@@ -73,12 +73,12 @@ function initResize(e) {
     document.body.className = "unselectable"
     document.querySelector("#dictionary_body").style.overflowY = "hidden"
     m_pos = e.y
-    document.addEventListener("pointermove", resize, {passive: false}, false);
+    document.addEventListener("pointermove", resize, { passive: false }, false);
 
-    document.addEventListener("pointerup", function(){
+    document.addEventListener("pointerup", function () {
         document.body.className = ""
         document.querySelector("#dictionary_body").style.overflowY = "scroll"
-        document.removeEventListener("pointermove", resize, {passive: false}, false);
+        document.removeEventListener("pointermove", resize, { passive: false }, false);
     }, false);
 }
 
@@ -125,7 +125,7 @@ function length(text) {
             len += 2
         else if (text[i] != "っ")
             len++
-        }
+    }
     return len
 }
 
@@ -149,17 +149,17 @@ function sort(map) {
     for (let i = map.length - 1; i >= 0; i--) {
         if (map[i].k.length == 0) {
             current_value = map[i]
-            for (let k = i; k > 0 ; k--) {
+            for (let k = i; k > 0; k--) {
                 map[k] = map[k - 1]
             }
             map[0] = current_value
         }
     }
-    
+
     return map
 }
 
-function searchReading(query, reading="") {
+function searchReading(query, reading = "") {
     return data.filter(entry =>
         entry.k.some(k => k == query) &&
         entry.r.some(r => reading ? r.includes(reading) : true)
@@ -172,11 +172,11 @@ function searchParticle(query) {
     );
 }
 
-function testVariations(query, reading="", len) {
+function testVariations(query, reading = "", len) {
     let found = 0
     return data.filter(entry =>
         entry.k.some(k => k.length <= len + 1 && k.length > 1) &&
-        replacements.some(rep => 
+        replacements.some(rep =>
             entry.k.some(k => k.includes(query + rep)) &&
             entry.r.some(r => (reading ? r.includes(reading + (rep == "" && found ? "|" : rep)) : 1) && r.length <= length(reading + rep) && ++found)
         )
@@ -186,7 +186,7 @@ function testVariations(query, reading="", len) {
 function testVariationKana(query) {
     return data.filter(entry =>
         entry.k.some(k => k.length > 1 && kana.includes(k[1])) &&
-        replacements.some(rep => 
+        replacements.some(rep =>
             entry.r.some(r => r.includes(query + rep) && r.length <= length(query + rep))
         )
     );
@@ -194,13 +194,13 @@ function testVariationKana(query) {
 
 function testVariationKanji(query) {
     return data.filter(entry =>
-        !(entry.k.some(k => 
+        !(entry.k.some(k =>
             k.length > query.length + 1
         )) &&
-        entry.k.some(k => 
+        entry.k.some(k =>
             k.length > 1 && kana.includes(k[1])
         ) &&
-        replacements.some(rep => 
+        replacements.some(rep =>
             entry.k.some(k => k.includes(query + rep) && k.length <= length(query + rep))
         )
     );
@@ -212,7 +212,7 @@ function searchKanji(text) {
         for (let k = 0; k < i; k++) {
             char = text.substring(k, k + text.length - i + 1)
             r = index.get(char)
-            r ? null : r = data.filter(entry => 
+            r ? null : r = data.filter(entry =>
                 entry.k.some(k => k[0] == char && kana.includes(k[1]) && (k.length >= 3 ? kana.includes(k[2]) : 1))
             )[0]
             r ? res = res.concat(r) : null
@@ -224,19 +224,19 @@ function searchKanji(text) {
 function getKanji(entry) {
     let res = []
     for (let c of entry)
-        kana.includes(c) ? null : res = res.concat(c) 
+        kana.includes(c) ? null : res = res.concat(c)
     return res
 }
 
 function getMeaningsAmount(res) {
     let amount = 0
-    res.forEach(entry => 
+    res.forEach(entry =>
         amount += entry.m.length
     )
     return amount
 }
 
-function getMeanings(query) {    
+function getMeanings(query) {
     let meanings = []
     let r = null
     let res = data.filter(entry =>
@@ -273,10 +273,10 @@ function getMeanings(query) {
             })
         );
     }
-    
+
     try {
         res.forEach((e) => {
-            meanings = meanings.concat(e.m)   
+            meanings = meanings.concat(e.m)
         })
     } catch {
         return 0
@@ -285,11 +285,11 @@ function getMeanings(query) {
         !m.includes("...") &&
         m.length <= 30
     ).sort((a, b) => a.length - b.length).slice(0, 10);
-    
+
     return meanings
 }
 
-function searchVerb(text, reading="") {
+function searchVerb(text, reading = "") {
     let res = [];
     let len = 0
     let remove = 0
@@ -312,7 +312,7 @@ function searchVerb(text, reading="") {
     return res
 }
 
-async function search(text, reading="") {
+async function search(text, reading = "") {
     let res = searchReading(text, reading);
     res.length != 0 ? null : res = searchReading(text)
     res.length != 0 ? null : res = searchParticle(text)
@@ -322,7 +322,7 @@ async function search(text, reading="") {
     return res
 }
 
-function createElement(tag, className="", id="", text="") {
+function createElement(tag, className = "", id = "", text = "") {
     let e = document.createElement(tag)
     className ? e.className = className : null
     id ? e.id = id : null
@@ -424,7 +424,7 @@ async function searchDictionary(target) {
         }
         target.classList[0] == "japanese_word__text_wrapper" ? (text = target.textContent.replaceAll("\n", ""), furigana = target.previousElementSibling.textContent.replaceAll("\n", "")) : (text = target.nextElementSibling.textContent.replaceAll("\n", ""), furigana = target.textContent.replaceAll("\n", ""))
         showDictionary(await search(text.replace(/[\p{White_Space}\p{Cf}]/gu, ""), furigana.replace(/[\p{White_Space}\p{Cf}]/gu, "")), text.replace(/[\p{White_Space}\p{Cf}]/gu, ""))
-    } catch {}
+    } catch { }
 }
 
 function switchTheme() {
@@ -436,7 +436,7 @@ function switchTheme() {
 function click(e) {
     var target = e.target || e.srcElement
     let particles = ["。", "、", "・", "…", "？", "！", "＊", "：", "『", "』", "「", "」"]
-    
+
     if (target.id == "previous_chapter" || target.parentNode.id == "previous_chapter")
         cur_ch > 1 ? (localStorage.setItem("scroll", "0px"), window.location.href = "../ch-" + (cur_ch - 1)) : null
     else if (target.id == "next_chapter" || target.parentNode.id == "next_chapter")

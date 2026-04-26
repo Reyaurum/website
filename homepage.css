@@ -7,12 +7,16 @@
 }
 
 :root {
-    --amber: #409c75;
-    --amber-dim: #161616;
-    --amber-border: #222;
+    color-scheme: light dark;
+    --mint: #409c75;
+    --mint-dim: #161616;
+    --mint-border: #222;
+    --mint-hover: #255c4733;
+    --mint-border-hover: #2b9f7333;
+    --mint-text-hover: #4eb28c;
     --bg: #0d0c0b;
     --bg2: #0f0f0f;
-    --bg3: #1a1916;
+    --bg2-hover: #1a1916;
     --text: #e2ddd6;
     --muted: #7a7570;
     --line: rgba(255, 255, 255, 0.07);
@@ -29,7 +33,7 @@ body {
 .page {
     max-width: 860px;
     margin: 0 auto;
-    padding: 2.5rem 1.5rem 4rem
+    padding: 0.5rem 1.5rem 4rem
 }
 
 .masthead {
@@ -43,7 +47,7 @@ body {
     font-size: 10px;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--amber);
+    color: var(--mint);
     margin-bottom: .75rem
 }
 
@@ -80,7 +84,7 @@ body {
 .meta-val {
     font-family: 'Playfair Display', serif;
     font-size: 20px;
-    color: var(--amber)
+    color: var(--mint)
 }
 
 .meta-lbl {
@@ -98,8 +102,8 @@ body {
 
 .continue-band {
     margin-bottom: 1.75rem;
-    background: var(--amber-dim);
-    border: 1px solid var(--amber-border);
+    background: var(--mint-dim);
+    border: 1px solid var(--mint-border);
     border-radius: 10px;
     padding: .9rem 1.25rem;
     display: none;
@@ -111,14 +115,16 @@ body {
 }
 
 .continue-band:hover {
-    background: rgba(200, 144, 58, 0.2)
+    color: var(--mint-text-hover);
+    border-color: var(--mint-border-hover);
+    background: var(--mint-hover)
 }
 
 .cb-eyebrow {
     font-size: 10px;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: var(--amber);
+    color: var(--mint);
     margin-bottom: 3px
 }
 
@@ -145,7 +151,7 @@ body {
 
 .cb-bar {
     height: 100%;
-    background: var(--amber);
+    background: var(--mint);
     border-radius: 2px
 }
 
@@ -156,7 +162,7 @@ body {
 
 .cb-arrow {
     font-size: 20px;
-    color: var(--amber);
+    color: var(--mint);
     flex-shrink: 0
 }
 
@@ -187,7 +193,7 @@ body {
 }
 
 .search-wrap input:focus {
-    border-color: var(--amber-border)
+    border-color: var(--mint-border)
 }
 
 .search-wrap input::placeholder {
@@ -224,7 +230,7 @@ body {
 }
 
 .jump-wrap input:focus {
-    border-color: var(--amber-border)
+    border-color: var(--mint-border)
 }
 
 .jump-wrap input::placeholder {
@@ -232,9 +238,9 @@ body {
 }
 
 .jump-btn {
-    background: var(--amber-dim);
-    border: 1px solid var(--amber-border);
-    color: var(--amber);
+    background: var(--mint-dim);
+    border: 1px solid var(--mint-border);
+    color: var(--mint);
     font-family: 'Crimson Pro', serif;
     font-size: 14px;
     padding: 8px 14px;
@@ -245,7 +251,9 @@ body {
 }
 
 .jump-btn:hover {
-    background: rgba(200, 144, 58, 0.22)
+    color: var(--mint-text-hover);
+    border-color: var(--mint-border-hover);
+    background: var(--mint-hover)
 }
 
 .section-head {
@@ -297,7 +305,7 @@ body {
 }
 
 .ch-row:hover {
-    background: var(--bg3)
+    background: var(--bg2-hover)
 }
 
 .ch-row:hover .ch-arrow {
@@ -306,7 +314,7 @@ body {
 }
 
 .ch-row:hover .ch-num-col {
-    color: var(--amber)
+    color: var(--mint)
 }
 
 .ch-num-col {
@@ -339,7 +347,7 @@ body {
 }
 
 .ch-title-col em {
-    color: var(--amber);
+    color: var(--mint);
     font-style: normal
 }
 
@@ -349,7 +357,7 @@ body {
     top: 50%;
     transform: translateY(-50%) translateX(-4px);
     font-size: 12px;
-    color: var(--amber);
+    color: var(--mint);
     opacity: 0;
     transition: opacity .12s, transform .12s
 }
@@ -395,14 +403,14 @@ body {
 }
 
 .page-btn:hover {
-    border-color: var(--amber-border);
-    color: var(--amber)
+    border-color: var(--mint-border);
+    color: var(--mint)
 }
 
 .page-btn.active {
-    background: var(--amber-dim);
-    border-color: var(--amber-border);
-    color: var(--amber)
+    background: var(--mint-dim);
+    border-color: var(--mint-border);
+    color: var(--mint)
 }
 
 .page-btn.nav {

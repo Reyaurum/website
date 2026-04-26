@@ -1,9 +1,26 @@
 :root {
-  color-scheme: light dark;
+    color-scheme: light dark;
+    --mint: #409c75;
+    --mint-dim: #161616;
+    --mint-border: #222;
+    --mint-hover: #255c4733;
+    --mint-border-hover: #2b9f7333;
+    --mint-text-hover: #4eb28c;
+    --bg: #0d0c0b;
+    --bg2: #0f0f0f;
+    --bg2-hover: #1a1916;
+    --text: #e2ddd6;
+    --muted: #7a7570;
+    --line: rgba(255, 255, 255, 0.07);
+    --faint: rgba(255, 255, 255, 0.04)
 }
 
-*, *::before, *::after {
-    box-sizing: border-box; margin: 0; padding: 0; 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
@@ -28,79 +45,103 @@ section {
     scrollbar-width: none;
 }
 
-.nav { 
-    display: flex; 
-    align-items: center; 
-    justify-content: space-between; 
-    padding: 0 1.5rem; 
-    height: 56px; 
-    border: 1px solid rgba(255,255,255,0.07); 
-    gap: 1rem; 
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    height: 72px;
+    border: 1px solid var(--line);;
+    gap: 1rem;
 }
 
-.chapter-core { 
-    display: flex; 
-    align-items: center; 
-    gap: 1.25rem; 
-    flex: 1; 
-    justify-content: center; 
+.chapter-core {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex: 1;
+    justify-content: center;
 }
 
-.nav-btn { 
-    display: flex; 
-    align-items: center; 
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px
+}
+
+.meta-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--mint)
+}
+
+.meta-lbl {
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted)
+}
+
+.meta-sep {
+    width: 1px;
+    height: 32px;
+    background: var(--line)
+}
+
+.nav-btn {
+    display: flex;
+    align-items: center;
     width: 100px;
     justify-content: center;
-    gap: 7px; 
-    background: none; 
-    border: 1px solid rgba(255,255,255,0.1); 
-    color: #a8a29b; 
-    padding: 7px 14px; 
-    border-radius: 6px; 
-    font-size: 13px; 
-    font-family: var(--font-sans); 
-    transition: border-color 0.15s, color 0.15s, background-color 0.15s; 
-    white-space: nowrap; 
+    gap: 7px;
+    background: var(--bg2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--muted);
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: var(--font-sans);
+    transition: border-color 0.15s, color 0.15s, background-color 0.15s;
+    white-space: nowrap;
+}
+
+.nav-btn:hover {
+    color: var(--mint-text-hover);
 }
 
 #previous_chapter {
-    opacity: var(--previous-nav-btn-opacity, 1); 
-    cursor: var(--previous-nav-btn-cursor, pointer); 
-    pointer-events: var(--previous-nav-btn-pointer-events, default); 
+    opacity: var(--previous-nav-btn-opacity, 1);
+    cursor: var(--previous-nav-btn-cursor, pointer);
+    pointer-events: var(--previous-nav-btn-pointer-events, default);
 }
 
 #next_chapter {
-    opacity: var(--next-nav-btn-opacity, 1); 
-    cursor: var(--next-nav-btn-cursor, pointer); 
-    pointer-events: var(--next-nav-btn-pointer-events, default); 
+    opacity: var(--next-nav-btn-opacity, 1);
+    cursor: var(--next-nav-btn-cursor, pointer);
+    pointer-events: var(--next-nav-btn-pointer-events, default);
 }
 
-.nav-btn:hover { 
-    border-color: #555; 
-    color: #ccc; 
-    background: #2d2d2d; 
-}
-
-.arrow { 
-    font-size: 15px; 
-    line-height: 1; 
-}
-
-.chapter-badge { 
-    display: flex;
-     flex-direction: column; 
-     align-items: center; 
-     gap: 3px; 
-     min-width: 80px; 
-}
-
-.chapter-numeral { 
-    font-size: 22px; 
-    font-weight: 500; 
-    color: #999; 
-    letter-spacing: 0.04em; 
+.arrow {
+    font-size: 15px;
     line-height: 1;
-    font-family: Georgia, 'Times New Roman', serif; 
+}
+
+.chapter-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    min-width: 80px;
+}
+
+.chapter-numeral {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--mint);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    line-height: 1;
 }
 
 .text_content {
@@ -108,11 +149,11 @@ section {
 }
 
 .unselectable {
-  -webkit-user-select: none; 
-  -moz-user-select: none; 
-  -ms-user-select: none;
-  -webkit-touch-callout: none;
-  user-select: none;   
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-touch-callout: none;
+    user-select: none;
 }
 
 .japanese_word {
@@ -149,7 +190,7 @@ section {
 }
 
 section .japanese_word__furigana {
-    display: var(--display-furigana); 
+    display: var(--display-furigana);
 }
 
 #dictionary_body {
@@ -159,15 +200,12 @@ section .japanese_word__furigana {
     background: #faf9f7;
     bottom: 0;
     left: 0;
-    border-top: 1px solid #d8d2c8;
-    border-right: none;
-    border-left: none;
-    border-bottom: none;
+    border-top: 1px solid var(--line);
     z-index: 100;
     overflow-y: scroll;
     overflow-x: hidden;
     overscroll-behavior: contain;
-    box-shadow: 0 -6px 32px rgba(0,0,0,0.06), 0 -1px 0 rgba(0,0,0,0.04);
+    box-shadow: 0 -6px 32px rgba(0, 0, 0, 0.06), 0 -1px 0 rgba(0, 0, 0, 0.04);
 }
 
 #dictionary_navbar {
@@ -182,11 +220,11 @@ section .japanese_word__furigana {
     position: fixed;
     touch-action: none;
     background-color: #faf9f7;
-    border: 1px solid #ede9e3;
+    border-bottom: 1px solid var(--line);;
     z-index: 101;
 }
 
-#word_amount span, #kanji_amount span {
+#dictionary_navbar span {
     padding: 0.75rem 0;
 }
 
@@ -195,11 +233,11 @@ section .japanese_word__furigana {
     grid-template-columns: 60vw 40vw;
     top: 24px;
     position: relative;
-  }
+}
 
 .japanese_gothic {
     font-family: "Hiragino Sans", "HiraKakuProN-W3", "Noto Sans CJK JP",
-      "Noto Sans", "メイリオ", Meiryo, "游ゴシック", YuGothic, sans-serif;
+        "Noto Sans", "メイリオ", Meiryo, "游ゴシック", YuGothic, sans-serif;
     white-space: break-spaces;
 }
 
@@ -392,8 +430,8 @@ section .japanese_word__furigana {
 }
 
 @media only screen and (max-width: 600px) {
-    body { 
-        font-size: 1.25rem; 
+    body {
+        font-size: 1.25rem;
     }
 
     #dictionary_navbar {
@@ -405,7 +443,7 @@ section .japanese_word__furigana {
         grid-template-columns: auto auto;
     }
 
-    .concept_light-wrapper { 
+    .concept_light-wrapper {
         padding: 0.5rem 0 0.5rem 0.5rem;
     }
 
@@ -413,8 +451,8 @@ section .japanese_word__furigana {
         font-size: 26px;
     }
 
-    .concept_light-status { 
-        display: flex; 
+    .concept_light-status {
+        display: flex;
     }
 
     .concept_light-meanings {
@@ -422,8 +460,8 @@ section .japanese_word__furigana {
         padding: 6px 4px 6px 0;
     }
 
-    .meaning-meaning { 
-        font-size: 10px; 
+    .meaning-meaning {
+        font-size: 10px;
     }
 
     .kanji_light_block {
@@ -445,12 +483,12 @@ section .japanese_word__furigana {
         margin-right: 6px;
     }
 
-    .kanji_light .literal_block a { 
-        font-size: 24px; 
+    .kanji_light .literal_block a {
+        font-size: 24px;
     }
 
-    .kanji_light .meanings { 
-        font-size: 10px; 
+    .kanji_light .meanings {
+        font-size: 10px;
         margin-right: 2px;
     }
 
@@ -473,24 +511,24 @@ html[data-color-theme="light"] .nav-btn {
 }
 
 html[data-color-theme="dark"] body {
-    background: #0d0c0b;
-    color: #ede9e2;
+    background: var(--bg);
+    color: var(--text);
 }
 
 html[data-color-theme="dark"] #dictionary_body {
-    background: #161616;
-    border-top-color: #4a4a4a;
-    box-shadow: 0 -6px 32px rgba(0,0,0,0.3), 0 -1px 0 rgba(0,0,0,0.2);
+    background: var(--bg2);
+    border-top-color: var(--line);
+    box-shadow: 0 -6px 32px rgba(0, 0, 0, 0.3), 0 -1px 0 rgba(0, 0, 0, 0.2);
 }
 
 html[data-color-theme="dark"] #dictionary_navbar {
-    background: #161616;
-    border-color: #3a3a3a;
-    color: #777;
+    background: var(--bg2);
+    border-bottom-color: var(--line);
+    color: var(--muted);
 }
 
 html[data-color-theme="dark"] .concept_light {
-    border-bottom-color: #3a3a3a;
+    border-bottom-color: var(--line);
 }
 
 html[data-color-theme="dark"] .concept_light-readings .concept_light-representation .text {
@@ -514,11 +552,11 @@ html[data-color-theme="dark"] .meaning-meaning {
 }
 
 html[data-color-theme="dark"] .kanji_light_block {
-    border-left-color: #3a3a3a;
+    border-left-color: var(--line);
 }
 
 html[data-color-theme="dark"] .kanji_light {
-    border-bottom-color: #3a3a3a;
+    border-bottom-color: var(--line);
 }
 
 html[data-color-theme="dark"] .kanji_light .literal_block a {
@@ -539,5 +577,5 @@ html[data-color-theme="dark"] .kanji_light .readings .type {
 
 html[data-color-theme="dark"] .japanese_word__text_wrapper span,
 html[data-color-theme="dark"] .japanese_word__text_wrapper div {
-    text-decoration-color: #777;
+    text-decoration-color: var(--line);
 }
