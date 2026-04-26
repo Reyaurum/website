@@ -45,24 +45,6 @@ section {
     scrollbar-width: none;
 }
 
-.nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 1.5rem;
-    height: 72px;
-    border: 1px solid var(--line);;
-    gap: 1rem;
-}
-
-.chapter-core {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    flex: 1;
-    justify-content: center;
-}
-
 .meta-item {
     display: flex;
     flex-direction: column;
@@ -89,25 +71,47 @@ section {
     background: var(--line)
 }
 
-.nav-btn {
+.nav {
     display: flex;
     align-items: center;
-    width: 100px;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    height: 72px;
+    border: 1px solid var(--line);;
+    gap: 1rem;
+}
+
+.chapter-core {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex: 1;
     justify-content: center;
-    gap: 7px;
+}
+
+.nav button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
     background: var(--bg2);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--line);
+    cursor: pointer;
     color: var(--muted);
     padding: 7px 14px;
     border-radius: 6px;
     font-size: 13px;
     font-family: var(--font-sans);
     transition: border-color 0.15s, color 0.15s, background-color 0.15s;
-    white-space: nowrap;
 }
 
-.nav-btn:hover {
+.nav button:hover {
     color: var(--mint-text-hover);
+}
+
+.menu-btn {
+    width: 40px;
+    max-width: 40px;
 }
 
 #previous_chapter {
@@ -438,6 +442,18 @@ section .japanese_word__furigana {
     #dictionary_navbar {
         padding: 8px 12px 6px;
         font-size: 10px;
+    }
+
+    .chapter-core {
+        gap: 0rem;
+    }
+
+    .nav-btn {
+        width: 90px;
+    }
+    
+    .chapter-badge {
+        min-width: 40px;
     }
 
     .concept_light {
