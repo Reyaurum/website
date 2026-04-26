@@ -152,19 +152,22 @@ document.getElementById("totalDisplay").textContent=TOTAL_CHAPTERS.toLocaleStrin
 document.getElementById("readDisplay").textContent=lastRead.toLocaleString();
 document.getElementById("pctDisplay").textContent=Math.round(lastRead/TOTAL_CHAPTERS*100)+'%';
 
-if(lastRead>0&&lastRead<=TOTAL_CHAPTERS){
-  const next=Math.min(lastRead+1,TOTAL_CHAPTERS);
-  const t=getTitle(next);
-  const pct=Math.round(lastRead/TOTAL_CHAPTERS*100);
-  const band=document.getElementById("continueBand");
-  document.getElementById("cbTitle").textContent=`Chapter ${next}${t?' — '+t:''}`;
-  document.getElementById("cbBar").style.width=pct+'%';
-  document.getElementById("cbPct").textContent=pct+'% complete';
-  band.style.display='flex';
-  band.onclick=()=>{ setLastRead(next); window.location.href=chapterHref(next); };
+function initNext() {
+    if(lastRead>0&&lastRead<=TOTAL_CHAPTERS){
+        const next=Math.min(lastRead,TOTAL_CHAPTERS);
+        const t=getTitle(next);
+        const pct=Math.round(lastRead/TOTAL_CHAPTERS*100);
+        const band=document.getElementById("continueBand");
+        document.getElementById("cbTitle").textContent=`Chapter ${next}${t?' — '+t:''}`;
+        document.getElementById("cbBar").style.width=pct+'%';
+        document.getElementById("cbPct").textContent=pct+'% complete';
+        band.style.display='flex';
+        band.onclick=()=>{ setLastRead(next); window.location.href=chapterHref(next); };
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     buildAll();
     renderPage();
+    initNext()
 });
