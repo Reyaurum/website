@@ -2,20 +2,11 @@
 const TOTAL_CHAPTERS = 1847;
 const PAGE_SIZE = 50;
 
-const CHAPTER_TITLES = {
-  1:"The Mortal Who Refused to Die",2:"First Breath of Qi",3:"The Elder's Gaze",
-  4:"Cracks in the Foundation",5:"A Secret in the Cellar",10:"The Outer Sect",
-  15:"Storm Over Bronze Peak",20:"Blood Oath",25:"The First Kill",
-  50:"Gates of the Inner Sect",100:"A Hundred Years of Solitude",
-  200:"The Sovereign's Shadow",300:"War at the Jade Gate",
-  500:"The Immortal's Gambit",750:"Ascension Denied",
-  1000:"A Thousand Lifetimes",1200:"The Shattered Realm",
-  1500:"Edge of the Divine",1800:"What Remains",1847:"The Final Binding",
-};
+const CHAPTER_TITLES = {};
 
 function getTitle(n){return CHAPTER_TITLES[n]||null}
 
-function chapterHref(n){return `/ch-${n}/`}
+function chapterHref(n){return `/website/ch-${n}/`}
 
 function getLastRead(){try{return parseInt(localStorage.getItem("lrc")||"0",10)}catch{return 0}}
 function setLastRead(n){try{localStorage.setItem("lrc",n)}catch{}}
@@ -173,5 +164,7 @@ if(lastRead>0&&lastRead<=TOTAL_CHAPTERS){
   band.onclick=()=>{ setLastRead(next); window.location.href=chapterHref(next); };
 }
 
-buildAll();
-renderPage();
+document.addEventListener("DOMContentLoaded", () => {
+    buildAll();
+    renderPage();
+});
