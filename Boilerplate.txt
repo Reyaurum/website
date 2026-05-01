@@ -27,6 +27,7 @@
         </div>
         <section lang="ja">
             <nav class="nav">
+                <button class="menu-btn" id="menu_page">⇐</button>
                 <div class="chapter-core">
                 <button class="nav-btn" id="previous_chapter">
                     <span class="arrow">←</span> Previous
@@ -38,6 +39,7 @@
                     Next <span class="arrow">→</span>
                 </button>
                 </div>
+                <div class="menu-btn"></button>
             </nav>
             <div class="text_content"></div>
             <nav class="nav">
@@ -47,7 +49,7 @@
                     <span class="arrow">←</span> Previous
                 </button>
                 <div class="chapter-badge">
-                    <span class="chapter-numeral" id="Numeral">25</span>
+                    <span class="chapter-numeral" id="Numeral">1</span>
                 </div>
                 <button class="nav-btn" id="next_chapter">
                     Next <span class="arrow">→</span>

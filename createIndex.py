@@ -82,8 +82,8 @@ def addBody(html : str, ch : int):
     for s in sentences:
         body += str(s)
     body = body.replace("<a", "<div").replace("</a>", "</div>")
-    html = html.replace('Ch-1', f'Ch-{ch}')
-    html = html.replace('id="Numeral">1', f'id="Numeral">{ch}')
+    html = html.replace('Ch-', f'Ch-{ch}')
+    html = html.replace('id="Numeral">', f'id="Numeral">{ch}')
     body_pos = html.find('<div class="text_content">') + 26
     return html[:body_pos] + body + html[body_pos:]
 
