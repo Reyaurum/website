@@ -32,10 +32,10 @@ def getNewlines(text : str):
     pos = 0
     amount = 0
     newlines = []
-    while text.find("\n", pos+2) != -1:
-        pos = text.find("\n", pos+2)
+    while text.find("\n", pos+1) != -1:
+        pos = text.find("\n", pos+1)
         newlines.append(pos - amount)
-        amount += 2
+        amount += 1
     return newlines
 
 def searchText(text : str):
