@@ -47,12 +47,12 @@ def searchText(text : str):
 def getBody(text : str):
     sentences = []
     pos_start = 0
-    pos_end = 1300
+    pos_end = 1200
     while text.find("\n", pos_end+1) != -1:
         pos_end = text.find("\n", pos_end+1)
         sentences.extend(searchText(text[pos_start : pos_end].replace("\n", "").replace(" ", "")))
         pos_start = pos_end
-        pos_end += 1300
+        pos_end += 1200
     pos_end = len(text)
     sentences.extend(searchText(text[pos_start : pos_end].replace("\n", "").replace(" ", "")))
     return sentences
