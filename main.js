@@ -102,6 +102,7 @@ function resize(e) {
 }
 
 async function getData() {
+    console.log(data)
     if (!data) {
         const res = await fetch("/website/data/data.b64")
         const base64 = await res.text()
