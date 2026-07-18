@@ -1,3 +1,5 @@
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('/website/sw.js');
+
 const PAGE_SIZE = 20;
 const CHAPTER_TITLES = {};
 
@@ -11,6 +13,13 @@ let TOTAL_CHAPTERS = 0;
 let lastRead = getLastRead();
 let filteredChapters = [];
 let currentPage = 0;
+
+async function downloadAllForOffline() {
+  await navigator.serviceWorker.ready;
+  const total = await getTotalChapters();
+  const urls = Array.from({ length: total }, (_, i) => `/website/ch-${i + 1}`);
+  navigator.serviceWorker.controller.postMessage({ type: 'CACHE_CHAPTERS', urls });
+}
 
 function buildAll() {
     filteredChapters = [];

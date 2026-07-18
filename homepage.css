@@ -209,6 +209,52 @@ body {
     pointer-events: none
 }
 
+.download-wrap {
+    display: flex;
+    gap: 6px
+}
+
+.download-wrap input {
+    width: 90px;
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    color: var(--text);
+    font-family: 'Crimson Pro', serif;
+    font-size: 15px;
+    padding: 8px 10px;
+    border-radius: 7px;
+    outline: none;
+    transition: border-color .15s;
+    text-align: center
+}
+
+.download-wrap input:focus {
+    border-color: var(--mint-border)
+}
+
+.download-wrap input::placeholder {
+    color: var(--muted)
+}
+
+.download-btn {
+    background: var(--mint-dim);
+    border: 1px solid var(--mint-border);
+    color: var(--mint);
+    font-family: 'Crimson Pro', serif;
+    font-size: 14px;
+    padding: 8px 14px;
+    border-radius: 7px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background .15s
+}
+
+.download-btn:hover {
+    color: var(--mint-text-hover);
+    border-color: var(--mint-border-hover);
+    background: var(--mint-hover)
+}
+
 .jump-wrap {
     display: flex;
     gap: 6px
