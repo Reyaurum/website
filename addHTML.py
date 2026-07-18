@@ -2,7 +2,8 @@ from pathlib import Path
 
 dir = Path().resolve()
 
-REPLACEMENT = [["""""", """"""]]
+REPLACEMENT = [["""<meta name="mobile-web-app-capable" content="yes">""", """<link rel="manifest" href="/website/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">"""]]
 
 def writeFile(html : str, ch : int):
     with open(dir.joinpath(f"ch-{ch}").joinpath(f"index.html"), "w", encoding="utf-8") as f:
