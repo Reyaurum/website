@@ -67,7 +67,7 @@ let data = null;
 const index = new Map();
 let m_pos;
 let max_ch = 0
-const cur_ch = parseInt(window.location.pathname.match(/\/ch-(\d+)\//)[1])
+const cur_ch = parseInt(window.location.pathname.match(/\/ch-(\d+)/)[1])
 
 async function getTotalChapters() { return JSON.parse(await (await fetch("/website/data/data.json")).text()).total_chapters }
 

@@ -17,7 +17,7 @@ let currentPage = 0;
 async function downloadAllForOffline() {
   await navigator.serviceWorker.ready;
   const total = await getTotalChapters();
-  const urls = Array.from({ length: total }, (_, i) => `/website/ch-${i + 1}`);
+  const urls = Array.from({ length: total }, (_, i) => `/website/ch-${i + 1}/`);
   navigator.serviceWorker.controller.postMessage({ type: 'CACHE_CHAPTERS', urls });
 }
 
