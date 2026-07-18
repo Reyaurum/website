@@ -63,7 +63,7 @@ let hiragana = [
     "ゃ", "ゅ", "ょ", "っ", "ゎ",
 ]
 const replacements = ["う", "く", "ぐ", "す", "つ", "ぬ", "ぶ", "む", "る", "い", ""]
-let data = localStorage.getItem("data");
+let data = null;
 const index = new Map();
 let m_pos;
 let max_ch = 0
@@ -102,28 +102,22 @@ function resize(e) {
 }
 
 async function getData() {
-    console.log(data)
-    if (!data) {
-        const res = await fetch("/website/data/data.b64")
-        const base64 = await res.text()
+    const res = await fetch("/website/data/data.b64")
+    const base64 = await res.text()
 
-        const binary = atob(base64);
-        const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+    const binary = atob(base64);
+    const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
 
-        const decompressed = await new Response(
-            new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))
-        ).text();
+    const decompressed = await new Response(
+        new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))
+    ).text();
 
-        data = JSON.parse(decompressed)
-        localStorage.setItem("data", data)
-    }
+    data = JSON.parse(decompressed);
 
     data.forEach(entry => {
         entry.r.forEach(r => index.set(r, entry));
         entry.k.forEach(k => index.set(k, entry));
     });
-
-
 }
 
 function length(text) {
