@@ -1,5 +1,5 @@
 // Place at /website/sw.js — its default scope covers everything under /website/
-const CACHE_NAME = 'novel-offline-v1';
+const CACHE_NAME = 'novel-offline-v2'; // bump this any time cached assets or fetch logic change
 
 // Files every page needs — including the big data.b64 payload
 const CORE_ASSETS = [
@@ -8,6 +8,17 @@ const CORE_ASSETS = [
   '/website/data/data.json',
   '/website/data/data.b64'
 ];
+
+// event.respondWith() MUST resolve to a real Response — resolving to undefined
+// (e.g. from a naive .catch(() => cached) when cached is also undefined) is what
+// produces "FetchEvent.respondWith() received an error: Returned response is null."
+// Every code path below funnels through this instead of ever returning nothing.
+const offlineFallback = () =>
+  new Response('Not available offline.', {
+    status: 503,
+    statusText: 'Offline',
+    headers: { 'Content-Type': 'text/plain' }
+  });
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
@@ -36,6 +47,24 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin || event.request.method !== 'GET') return;
 
+  // Navigations get special handling: never resolve one with a response that
+  // internally followed a redirect (cached.redirected / response.redirected).
+  // Safari hard-fails the load if we do — the redirect has to happen at the
+  // navigation level, not be swallowed by the service worker.
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      caches.match(event.request)
+        .then((cached) => {
+          if (cached && !cached.redirected) return cached;
+          return fetch(event.request); // request.redirect is 'manual' here, so a
+                                        // 3xx comes back as an opaqueredirect the
+                                        // browser is allowed to act on directly.
+        })
+        .catch(async () => (await caches.match(event.request)) || offlineFallback())
+    );
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then((cached) => {
       if (cached) return cached;
@@ -47,7 +76,7 @@ self.addEventListener('fetch', (event) => {
           }
           return response;
         })
-        .catch(() => cached); // offline + not cached: nothing more we can do
+        .catch(() => cached || offlineFallback()); // always a real Response, never undefined
     })
   );
 });

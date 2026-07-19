@@ -1,3 +1,5 @@
+navigator.storage?.persist?.().then((granted) => console.log('Persistent storage granted:', granted));
+
 let kana = [
     "あ", "い", "う", "え", "お",
     "か", "き", "く", "け", "こ",
