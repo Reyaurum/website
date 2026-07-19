@@ -49,7 +49,7 @@ self.addEventListener('activate', (event) => {
 // chapter pages the first time they're visited online.
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
-  if (url.origin !== self.location.origin || event.request.method !== 'GET') return;
+  if (event.request.method !== 'GET') return;
 
   // Navigations get special handling: never resolve one with a response that
   // internally followed a redirect (cached.redirected / response.redirected).
