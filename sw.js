@@ -1,8 +1,12 @@
 // Place at /website/sw.js — its default scope covers everything under /website/
-const CACHE_NAME = 'novel-offline-v2'; // bump this any time cached assets or fetch logic change
+const CACHE_NAME = 'novel-offline-v3'; // bump this any time cached assets or fetch logic change
 
 // Files every page needs — including the big data.b64 payload
 const CORE_ASSETS = [
+  '/website/index.html',               // manifest start_url — must be cached or offline launches fail immediately
+  '/website/homepage.js',
+  '/website/homepage.css',
+  '/website/manifest.json',
   '/website/main.js',
   '/website/main.css',
   '/website/data/data.json',
@@ -56,9 +60,14 @@ self.addEventListener('fetch', (event) => {
       caches.match(event.request)
         .then((cached) => {
           if (cached && !cached.redirected) return cached;
-          return fetch(event.request); // request.redirect is 'manual' here, so a
-                                        // 3xx comes back as an opaqueredirect the
-                                        // browser is allowed to act on directly.
+          return fetch(event.request).then((response) => {
+            // Cache it for next time — but never a redirected response (same rule as before).
+            if (response.ok && !response.redirected) {
+              const clone = response.clone();
+              caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+            }
+            return response;
+          });
         })
         .catch(async () => (await caches.match(event.request)) || offlineFallback())
     );
