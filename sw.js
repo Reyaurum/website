@@ -59,7 +59,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       caches.match(event.request)
         .then((cached) => {
-          if (cached && !cached.redirected) return cached;
+          if (cached) return cached;
           return fetch(event.request).then((response) => {
             // Cache it for next time — but never a redirected response (same rule as before).
             if (response.ok && !response.redirected) {
