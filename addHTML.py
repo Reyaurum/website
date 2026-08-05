@@ -2,7 +2,7 @@ from pathlib import Path
 
 dir = Path().resolve()
 
-REPLACEMENT = [["""""", """"""]]
+REPLACEMENT = ["""""", """"""]
 
 def writeFile(html : str, ch : int):
     with open(dir.joinpath(f"ch-{ch}").joinpath(f"index.html"), "w", encoding="utf-8") as f:
@@ -14,9 +14,7 @@ def getHtml(ch : int):
 
 def replaceHtml(ch : int):
     html = getHtml(ch)
-    for rep in REPLACEMENT:
-        if html.find(rep[1]) == -1:
-            html = html.replace(rep[0], rep[1])
+    html = html.replace(REPLACEMENT[0], REPLACEMENT[1])
     writeFile(html, ch)
 
 def main():
