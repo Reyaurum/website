@@ -1,15 +1,15 @@
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('/website/sw.js');
 
 const PAGE_SIZE = 20;
-const CHAPTER_TITLES = {};
 
 async function getTotalChapters() { return JSON.parse(await (await fetch("/website/data/data.json")).text()).total_chapters }
-function getTitle(n) { return CHAPTER_TITLES[n] || null }
+function getTitles(n) { return JSON.parse(await (await fetch("/website/data/data.json")).text()).chapter_titels }
 function chapterHref(n) { return `/website/ch-${n}/` }
 function getLastRead() { try { return parseInt(localStorage.getItem("lrc") || "0", 10) } catch { return 0 } }
 function setLastRead(n) { try { localStorage.setItem("lrc", n) } catch { } }
 
 let TOTAL_CHAPTERS = 0;
+let TITLES = {};
 let lastRead = getLastRead();
 let filteredChapters = [];
 let currentPage = 0;
@@ -32,9 +32,8 @@ function applySearch(q) {
     const num = parseInt(q, 10);
     filteredChapters = [];
     for (let i = 1; i <= TOTAL_CHAPTERS; i++) {
-        const t = getTitle(i);
         const numMatch = !isNaN(num) && i === num;
-        const titleMatch = t && t.toLowerCase().includes(q);
+        const titleMatch = TITLES && TITLES.toLowerCase().includes(q);
         const numStrMatch = String(i).includes(q);
         if (numMatch || titleMatch || numStrMatch) filteredChapters.push(i);
     }
@@ -147,6 +146,7 @@ function jumpTo() {
 
 async function main() {
     TOTAL_CHAPTERS = await getTotalChapters()
+    TITLES = await getTitles()
 
     buildAll();
     renderPage();
