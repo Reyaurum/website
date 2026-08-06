@@ -3,13 +3,13 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('/website/sw.
 const PAGE_SIZE = 20;
 
 async function getTotalChapters() { return JSON.parse(await (await fetch("/website/data/data.json")).text()).total_chapters }
-async function getTitles(n) { return JSON.parse(await (await fetch("/website/data/data.json")).text()).chapter_titels }
+async function getTitles() { return JSON.parse(await (await fetch("/website/data/data.json")).text()).chapter_titels }
 function chapterHref(n) { return `/website/ch-${n}/` }
 function getLastRead() { try { return parseInt(localStorage.getItem("lrc") || "0", 10) } catch { return 0 } }
 function setLastRead(n) { try { localStorage.setItem("lrc", n) } catch { } }
 
 let TOTAL_CHAPTERS = 0;
-let TITLES = {};
+let TITLES = [];
 let lastRead = getLastRead();
 let filteredChapters = [];
 let currentPage = 0;
@@ -67,8 +67,7 @@ function renderPage() {
 
     let html = '<div class="ch-list">';
     for (const n of slice) {
-        const rawTitle = getTitle(n);
-        const titleStr = rawTitle ? highlight(rawTitle, q) : '';
+        const titleStr = TITLES[n] ? highlight(TITLES[n], q) : '';
         const numStr = q ? highlight(String(n), q) : String(n);
         html += `<a class="ch-row" href="${chapterHref(n)}" data-n="${n}">
       <span class="ch-num-col">Ch. ${numStr}</span>
@@ -164,10 +163,9 @@ async function main() {
 
     if (lastRead > 0 && lastRead <= TOTAL_CHAPTERS) {
         const next = Math.min(lastRead, TOTAL_CHAPTERS);
-        const t = getTitle(next);
         const pct = Math.floor(lastRead / TOTAL_CHAPTERS * 100);
         const band = document.getElementById("continueBand");
-        document.getElementById("cbTitle").textContent = `Chapter ${next}${t ? ' — ' + t : ''}`;
+        document.getElementById("cbTitle").textContent = `Chapter ${next}${TITLES[next] ? ' — ' + TITLES[next] : ''}`;
         document.getElementById("cbBar").style.width = pct + '%';
         document.getElementById("cbPct").textContent = pct + '% complete';
         band.style.display = 'flex';
