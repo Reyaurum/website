@@ -3,7 +3,7 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('/website/sw.
 const PAGE_SIZE = 20;
 
 async function getTotalChapters() { return JSON.parse(await (await fetch("/website/data/data.json")).text()).total_chapters }
-async function getTitles() { return JSON.parse(await (await fetch("/website/data/data.json")).text()).chapter_titels }
+async function getTitles() { return JSON.parse(await (await fetch("/website/data/data.json")).text()).chapter_titles }
 function chapterHref(n) { return `/website/ch-${n}/` }
 function getLastRead() { try { return parseInt(localStorage.getItem("lrc") || "0", 10) } catch { return 0 } }
 function setLastRead(n) { try { localStorage.setItem("lrc", n) } catch { } }
