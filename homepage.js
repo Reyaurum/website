@@ -67,7 +67,7 @@ function renderPage() {
 
     let html = '<div class="ch-list">';
     for (const n of slice) {
-        const titleStr = TITLES[n] ? highlight(TITLES[n], q) : '';
+        const titleStr = n < TITLES.length ? (TITLES[n] ? highlight(TITLES[n], q) : '') : '';
         const numStr = q ? highlight(String(n), q) : String(n);
         html += `<a class="ch-row" href="${chapterHref(n)}" data-n="${n}">
       <span class="ch-num-col">Ch. ${numStr}</span>
