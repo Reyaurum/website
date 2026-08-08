@@ -72,7 +72,7 @@ function renderPage() {
         html += `<a class="ch-row" href="${chapterHref(n)}" data-n="${n}">
       <span class="ch-num-col">Ch. ${numStr}</span>
       <span class="ch-divider"></span>
-      <span class="ch-title-col">${titleStr || '<span style="color:var(--muted);font-style:italic">Untitled</span>'}</span>
+      <span class="ch-title-col"><span style="color:var(--muted);font-style:italic">${titleStr}</span></span>
       <span class="ch-arrow">→</span>
     </a>`;
     }
