@@ -1,4 +1,5 @@
 import deepl
+import os
 from bs4 import BeautifulSoup
 from requests import Session, RequestException
 from pathlib import Path
@@ -6,11 +7,12 @@ from requests import Session, RequestException
 from re import sub
 from json import load, dump
 from time import sleep
+from dotenv import load_dotenv
 
+load_dotenv()
 DIR = Path().resolve()
 DATA_FILEPATH = DIR.joinpath("data", "data.json")
-auth_key = "47c4aca4-cf92-4553-ab37-b8eed062a5f8:fx"
-deepl_client = deepl.DeepLClient(auth_key)
+DEEPL_CLIENT = deepl.DeepLClient(os.getenv("API_KEY"))
 
 def getEnglishChapterTitle(ch : int):
     url = f"https://freewebnovel.com/novel/shadow-slave/chapter-{ch}"
@@ -38,7 +40,7 @@ def getEnglishChapterTitle(ch : int):
     
 def getTranslatedTitle(ch : int):
     en_title = getEnglishChapterTitle(ch)
-    jp_title = str(deepl_client.translate_text(en_title, source_lang="EN", target_lang="JA", model_type="quality_optimized", tag_handling="html", tag_handling_version="v2", preserve_formatting=True))
+    jp_title = str(DEEPL_CLIENT.translate_text(en_title, source_lang="EN", target_lang="JA", model_type="quality_optimized", tag_handling="html", tag_handling_version="v2", preserve_formatting=True))
 
     print(jp_title)
     return jp_title
