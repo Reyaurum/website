@@ -1,15 +1,17 @@
 import deepl
+import os
 from bs4 import BeautifulSoup
 from requests import Session, RequestException
 from pathlib import Path
 from requests import Session, RequestException
 from re import sub
 from json import load, dump
+from dotenv import load_dotenv
 
+load_dotenv()
 DIR = Path().resolve()
 DATA_FILEPATH = DIR.joinpath("data", "data.json")
-auth_key = "47c4aca4-cf92-4553-ab37-b8eed062a5f8:fx"
-deepl_client = deepl.DeepLClient(auth_key)
+deepl_client = deepl.DeepLClient(os.getenv("API_KEY"))
 
 def getBaseText(ch : int):
     text = ""

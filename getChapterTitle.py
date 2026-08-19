@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 from requests import Session, RequestException
 from pathlib import Path
 from requests import Session, RequestException
-from re import sub
 from json import load, dump
 from time import sleep
 from dotenv import load_dotenv
