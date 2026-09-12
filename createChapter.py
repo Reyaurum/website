@@ -1,5 +1,6 @@
 import deepl
 import os
+from time import sleep
 from bs4 import BeautifulSoup
 from requests import Session, RequestException
 from pathlib import Path
@@ -14,7 +15,7 @@ DATA_FILEPATH = DIR.joinpath("data", "data.json")
 deepl_client = deepl.DeepLClient(os.getenv("API_KEY"))
 
 def getBaseText(ch : int):
-    text = ""
+    text = ["", ""] 
     url = f"https://freewebnovel.com/novel/shadow-slave/chapter-{ch}"
 
     headers = {
@@ -34,19 +35,35 @@ def getBaseText(ch : int):
     soup = BeautifulSoup(res, "html.parser")
 
     for p in soup.find(id = "article").find_all("p"):
-        text += p.text[1:] + "\n\n"
-    print(f"Successfully Scraped Ch-{ch}")
+        text[0] += p.text[1:] + "\n\n"
+    text[1] = soup.find(id = "article").find("h4").text
+    text[1] = text[1][text[1].find(":") + 2:]
+    print(f"Successfully Scraped Ch-{ch} : {text[1]}")
     return text
+
+def updateChapterTitleData(title : str, ch : int):
+    with open(DATA_FILEPATH, "r", encoding="UTF-8") as f:
+        data = load(f)
+
+    if len(data["chapter_titles"]) < ch:
+        while len(data["chapter_titles"]) < ch:
+            data["chapter_titles"].append("")
+    data["chapter_titles"][ch - 1] = title
     
+    with open(DATA_FILEPATH, "w", encoding="utf-8") as f:
+        dump(data, f, indent=2)
+
 def createTranslatedFile(ch : int):
     en_text = getBaseText(ch)
-    jp_text = str(deepl_client.translate_text(en_text, source_lang="EN", target_lang="JA", model_type="quality_optimized", tag_handling="html", tag_handling_version="v2", preserve_formatting=True))
-    jp_text = jp_text.replace("……", "…")
+    res = deepl_client.translate_text(en_text, source_lang="EN", target_lang="JA", model_type="quality_optimized", tag_handling="html", tag_handling_version="v2", preserve_formatting=True)
+    jp_text = str(res[0]).replace("……", "…")
     jp_text = sub(r'[\r\n\u2028\u2029\u0085\x0b\x0c]+', '\n\n', jp_text)
 
     with open(DIR.joinpath("text", f"Ch-{ch}.txt"), "w", encoding="utf-8") as f:
         f.write(jp_text)
-    print(f"Successfully Translated Ch-{ch}")
+
+    updateChapterTitleData(str(res[1]), ch)
+    print(f"Successfully Translated Ch-{ch} : {str(res[1])}")
 
 def searchJisho(query):
     url = "https://jisho.org/search"
@@ -131,7 +148,7 @@ def addBody(html : str, ch : int):
     body_pos = html.find('<div class="text_content">') + 26
     return html[:body_pos] + body + html[body_pos:]
 
-def createIndex(html : str, ch : int):
+def createIndexFile(html : str, ch : int):
     folder = DIR.joinpath(f"ch-{ch}")
     if not folder.exists():
         folder.mkdir()
@@ -153,8 +170,9 @@ def main():
     for ch in range(start_ch, end_ch + 1):
         print(f"\n --- Ch-{ch} ---")
         createTranslatedFile(ch)
-        createIndex(addBody(boilerplate, ch), ch)
+        createIndexFile(addBody(boilerplate, ch), ch)
         updateMaxChapterData(ch)
+        sleep(30)
 
 if __name__ == "__main__":
     main()
