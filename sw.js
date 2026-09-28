@@ -1,5 +1,5 @@
 // Place at /website/sw.js — its default scope covers everything under /website/
-const CACHE_NAME = 'novel-offline-v7'; // bump this any time cached assets or fetch logic change
+const CACHE_NAME = 'novel-offline-v8'; // bump this any time cached assets or fetch logic change
 
 // Files every page needs — including the big data.b64 payload
 const CORE_ASSETS = [
