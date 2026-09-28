@@ -8,6 +8,9 @@ from requests import Session, RequestException
 from re import sub
 from json import load, dump
 from dotenv import load_dotenv
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+from urllib.parse import quote
 
 load_dotenv()
 DIR = Path().resolve()
@@ -65,20 +68,28 @@ def createTranslatedFile(ch : int):
     updateChapterTitleData(str(res[1]), ch)
     print(f"Successfully Translated Ch-{ch} : {str(res[1])}")
 
-def searchJisho(query):
-    url = "https://jisho.org/search"
-
-    headers = {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "User-Agent": "Mozilla/5.0"
-    }
-    data = {
-        "keyword": query
-    }
+def makeSession():
     session = Session()
+    retries = Retry(
+        total=5,
+        backoff_factor=3,
+        status_forcelist=[429, 500, 502, 503, 504],
+        allowed_methods=["GET", "POST"],
+    )
+    session.mount("https://", HTTPAdapter(max_retries=retries))
+    return session
 
+def searchJisho(query):
+    url = f"https://jisho.org/search/{quote(query)}"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                      "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Referer": "https://jisho.org/",
+    }
+    session = makeSession()
     try:
-        response = session.post(url, headers=headers, data=data)
+        response = session.get(url, headers=headers, timeout=15)
         response.raise_for_status()
     except RequestException as e:
         raise Exception(f"Request Error: {e}")
@@ -108,14 +119,26 @@ def searchText(text : str):
 def getBody(text : str):
     sentences = []
     pos_start = 0
-    pos_end = 1200
-    while text.find("\n", pos_end+1) != -1:
-        pos_end = text.find("\n", pos_end+1)
-        sentences.extend(searchText(text[pos_start : pos_end].replace("\n", "").replace(" ", "")))
-        pos_start = pos_end
-        pos_end += 1200
-    pos_end = len(text)
-    sentences.extend(searchText(text[pos_start : pos_end].replace("\n", "").replace(" ", "")))
+    increase = 400
+    reduction = 0
+    pos_end = increase
+    while pos_start < len(text):
+        while(True):
+            try:
+                pos_end = text.find("\n", pos_end+1 - reduction)
+                pos_end = len(text) if pos_end == -1 else pos_end
+                print(len(text), pos_start, pos_end, reduction, increase)
+                if len(text[pos_start : pos_end].replace("\n", "").replace(" ", "")) == 0:
+                    pos_start = len(text)
+                    break
+                sentences.extend(searchText(text[pos_start : pos_end].replace("\n", "").replace(" ", "")))
+                pos_start = pos_end
+                pos_end += increase
+                reduction = 0
+                break
+            except:
+                print("Retrying")
+                reduction += 150
     return sentences
 
 def getText(ch : int):
@@ -172,7 +195,6 @@ def main():
         createTranslatedFile(ch)
         createIndexFile(addBody(boilerplate, ch), ch)
         updateMaxChapterData(ch)
-        sleep(30)
 
 if __name__ == "__main__":
     main()
