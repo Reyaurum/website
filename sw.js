@@ -23,10 +23,22 @@ const CRITICAL = [
   '/website/data/data.b64'
 ];
 
-const offlineFallback = () =>
-  new Response('Not available offline.', { status: 503, headers: { 'Content-Type': 'text/plain' } });
-
+const offlineFallback = (isNav) => isNav
+  ? new Response('<meta name="viewport" content="width=device-width"><body style="font-family:sans-serif;text-align:center;padding:3em"><p>Couldn\'t connect. Retrying…</p><script>setTimeout(()=>location.reload(),2000)</script>',
+      { status: 200, headers: { 'Content-Type': 'text/html' } })
+  : new Response('', { status: 503 });
+  
 const match = (req) => caches.match(req, MATCH_OPTS);
+
+async function fetchWithRetry(req, tries = 3) {
+  for (let i = 0; i < tries; i++) {
+    try { return await fetch(req); }
+    catch (e) {
+      if (i === tries - 1) throw e;
+      await new Promise(r => setTimeout(r, 400 * (i + 1)));
+    }
+  }
+}
 
 // Safari rejects navigation responses that are flagged as redirected — rebuild them clean
 async function clean(res) {
@@ -73,7 +85,7 @@ self.addEventListener('fetch', (event) => {
       const cached = await match(event.request);
       if (cached) return clean(cached);
       try {
-        const res = await fetch(event.request);
+        const res = await fetchWithRetry(event.request);
         if (res.ok && !res.redirected) {
           const copy = res.clone();
           caches.open(CACHE_NAME).then((c) => c.put(event.request, copy));
@@ -92,7 +104,7 @@ self.addEventListener('fetch', (event) => {
     const cached = await match(event.request);
     if (cached) return cached;
     try {
-      const res = await fetch(event.request);
+      const res = await fetchWithRetry(event.request);
       if (res.ok && res.status === 200) {
         const copy = res.clone();
         caches.open(CACHE_NAME).then((c) => c.put(event.request, copy));
