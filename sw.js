@@ -1,4 +1,4 @@
-const CACHE_NAME = 'novel-offline-v9';
+const CACHE_NAME = 'novel-offline-v1.1';
 const INDEX = '/website/index.html';
 const MATCH_OPTS = { ignoreSearch: true, ignoreVary: true };
 
@@ -20,14 +20,13 @@ const CRITICAL = [
   '/website/main.js',
   '/website/main.css',
   '/website/data/data.json',
-  '/website/data/data.b64'
 ];
 
 const offlineFallback = (isNav) => isNav
   ? new Response('<meta name="viewport" content="width=device-width"><body style="font-family:sans-serif;text-align:center;padding:3em"><p>Couldn\'t connect. Retrying…</p><script>setTimeout(()=>location.reload(),2000)</script>',
       { status: 200, headers: { 'Content-Type': 'text/html' } })
   : new Response('', { status: 503 });
-  
+
 const match = (req) => caches.match(req, MATCH_OPTS);
 
 async function fetchWithRetry(req, tries = 3) {
