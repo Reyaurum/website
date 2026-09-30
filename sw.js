@@ -1,4 +1,4 @@
-const CACHE_NAME = 'novel-offline-v1.1';
+const CACHE_NAME = 'novel-offline-v1.2';
 const INDEX = '/website/index.html';
 const MATCH_OPTS = { ignoreSearch: true, ignoreVary: true };
 
@@ -81,8 +81,12 @@ self.addEventListener('fetch', (event) => {
 
   if (event.request.mode === 'navigate') {
     event.respondWith((async () => {
-      const cached = await match(event.request);
+      const path = new URL(event.request.url).pathname;
+      const isHome = path === '/website/' || path === '/website' || path === INDEX;
+
+      const cached = await match(isHome ? INDEX : event.request);
       if (cached) return clean(cached);
+
       try {
         const res = await fetchWithRetry(event.request);
         if (res.ok && !res.redirected) {
@@ -90,10 +94,9 @@ self.addEventListener('fetch', (event) => {
           caches.open(CACHE_NAME).then((c) => c.put(event.request, copy));
         }
         return res;
-      } catch {
-        // Offline and this exact page isn't cached: fall back to the app shell
-        const shell = await match(INDEX);
-        return shell ? clean(shell) : offlineFallback();
+      } catch (err) {
+        console.error('Navigation fetch failed:', event.request.url, err);
+        return offlineFallback(true); // retry page, not the homepage
       }
     })());
     return;

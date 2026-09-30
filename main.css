@@ -42,7 +42,6 @@ ul {
 section {
     overflow-y: scroll;
     height: var(--section-height, 78vh);
-    scrollbar-width: none;
 }
 
 .meta-item {

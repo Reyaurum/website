@@ -2,7 +2,7 @@ import deepl
 import os
 from time import sleep
 from bs4 import BeautifulSoup
-from requests import Session, RequestException
+from requests import Session, RequestException, post
 from pathlib import Path
 from requests import Session, RequestException
 from re import sub
@@ -79,6 +79,15 @@ def makeSession():
     session.mount("https://", HTTPAdapter(max_retries=retries))
     return session
 
+def post_japanese_text(text):
+    response = post(
+        "http://172.27.2.77:8000/api.php",
+        json={"text": text},
+        timeout=120,
+    )
+    response.raise_for_status()
+    return response.text
+
 def searchJisho(query):
     url = f"https://jisho.org/search/{quote(query)}"
     headers = {
@@ -112,7 +121,7 @@ def getNewlines(text : str):
 
 def searchText(text : str):
     text = text.replace("\n", "").replace(" ", "")
-    html = searchJisho(text)
+    html = post_japanese_text(text)
     soup = BeautifulSoup(html, "html.parser")
     return soup.find("section", {"id": "zen_bar"}).find_all("ul", recursive=False)
     
@@ -192,7 +201,7 @@ def main():
     boilerplate = getBoilerPlate()
     for ch in range(start_ch, end_ch + 1):
         print(f"\n --- Ch-{ch} ---")
-        createTranslatedFile(ch)
+        #createTranslatedFile(ch)
         createIndexFile(addBody(boilerplate, ch), ch)
         updateMaxChapterData(ch)
 
