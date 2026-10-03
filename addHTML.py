@@ -2,9 +2,7 @@ from pathlib import Path
 
 dir = Path().resolve()
 
-REPLACEMENT = ["""<link rel="stylesheet" href="../main.css">
-        <script src="../main.js"></script>""", """<link rel="stylesheet" href="/website/main.css">
-        <script src="/website/main.js"></script>"""]
+REPLACEMENT = ["""""", """"""]
 
 def writeFile(html : str, ch : int):
     with open(dir.joinpath(f"ch-{ch}").joinpath(f"index.html"), "w", encoding="utf-8") as f:

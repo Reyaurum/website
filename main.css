@@ -161,18 +161,21 @@ section {
     user-select: none;
 }
 
+li[title] span.japanese_word__text_wrapper,
+li[title] div.japanese_word__text_wrapper {
+    text-decoration: underline;
+}
+
 .japanese_word {
     cursor: pointer;
 }
 
 .japanese_word__text_wrapper span {
-    text-decoration: underline;
     text-decoration-color: #9e9e9e;
     text-decoration-thickness: 0.1rem;
 }
 
 .japanese_word__text_wrapper div {
-    text-decoration: underline;
     text-decoration-color: #9e9e9e;
     text-decoration-thickness: 0.1rem;
     cursor: pointer;
@@ -598,7 +601,7 @@ html[data-color-theme="dark"] .kanji_light .readings .type {
     color: #777;
 }
 
-html[data-color-theme="dark"] .japanese_word__text_wrapper span,
-html[data-color-theme="dark"] .japanese_word__text_wrapper div {
+li[title] span.japanese_word__text_wrapper,
+li[title] div.japanese_word__text_wrapper {
     text-decoration-color: var(--line);
 }
