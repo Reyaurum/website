@@ -1,16 +1,13 @@
 import deepl
 import os
-from time import sleep
 from bs4 import BeautifulSoup
-from requests import Session, RequestException, post
+from requests import Session, RequestException
 from pathlib import Path
 from requests import Session, RequestException
 from re import sub
 from json import load, dump
 from dotenv import load_dotenv
-from requests.adapters import HTTPAdapter
-from urllib3.util.retry import Retry
-from urllib.parse import quote
+from jp_formatter import format_to_html
 
 load_dotenv()
 DIR = Path().resolve()
@@ -68,42 +65,6 @@ def createTranslatedFile(ch : int):
     updateChapterTitleData(str(res[1]), ch)
     print(f"Successfully Translated Ch-{ch} : {str(res[1])}")
 
-def makeSession():
-    session = Session()
-    retries = Retry(
-        total=5,
-        backoff_factor=3,
-        status_forcelist=[429, 500, 502, 503, 504],
-        allowed_methods=["GET", "POST"],
-    )
-    session.mount("https://", HTTPAdapter(max_retries=retries))
-    return session
-
-def post_japanese_text(text):
-    response = post(
-        "http://172.27.2.77:8000/api.php",
-        json={"text": text},
-        timeout=120,
-    )
-    response.raise_for_status()
-    return response.text
-
-def searchJisho(query):
-    url = f"https://jisho.org/search/{quote(query)}"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                      "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-        "Accept-Language": "en-US,en;q=0.9",
-        "Referer": "https://jisho.org/",
-    }
-    session = makeSession()
-    try:
-        response = session.get(url, headers=headers, timeout=15)
-        response.raise_for_status()
-    except RequestException as e:
-        raise Exception(f"Request Error: {e}")
-    return response.text
-
 def getBoilerPlate():
     with open(DIR.joinpath("boilerplate.txt"), "r", encoding="utf-8") as f:
         text = f.read()
@@ -119,36 +80,11 @@ def getNewlines(text : str):
         amount += 1
     return newlines
 
-def searchText(text : str):
+def getBody(text : str):
     text = text.replace("\n", "").replace(" ", "")
-    html = post_japanese_text(text)
+    html = format_to_html(text)
     soup = BeautifulSoup(html, "html.parser")
     return soup.find("section", {"id": "zen_bar"}).find_all("ul", recursive=False)
-    
-def getBody(text : str):
-    sentences = []
-    pos_start = 0
-    increase = 400
-    reduction = 0
-    pos_end = increase
-    while pos_start < len(text):
-        while(True):
-            try:
-                pos_end = text.find("\n", pos_end+1 - reduction)
-                pos_end = len(text) if pos_end == -1 else pos_end
-                print(len(text), pos_start, pos_end, reduction, increase)
-                if len(text[pos_start : pos_end].replace("\n", "").replace(" ", "")) == 0:
-                    pos_start = len(text)
-                    break
-                sentences.extend(searchText(text[pos_start : pos_end].replace("\n", "").replace(" ", "")))
-                pos_start = pos_end
-                pos_end += increase
-                reduction = 0
-                break
-            except:
-                print("Retrying")
-                reduction += 150
-    return sentences
 
 def getText(ch : int):
     with open(DIR.joinpath("text", f"Ch-{ch}.txt"), "r", encoding="utf-8") as f:
@@ -201,7 +137,7 @@ def main():
     boilerplate = getBoilerPlate()
     for ch in range(start_ch, end_ch + 1):
         print(f"\n --- Ch-{ch} ---")
-        #createTranslatedFile(ch)
+        createTranslatedFile(ch)
         createIndexFile(addBody(boilerplate, ch), ch)
         updateMaxChapterData(ch)
 
