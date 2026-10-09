@@ -2,8 +2,7 @@ from pathlib import Path
 
 dir = Path().resolve()
 
-REPLACEMENT = ["""</title>
-        <link rel="icon" href="../data/data.png" type="image/png">""", """</title>"""]
+REPLACEMENT = ["""""", """"""]
 
 def writeFile(html : str, ch : int):
     with open(dir.joinpath(f"ch-{ch}").joinpath(f"index.html"), "w", encoding="utf-8") as f:

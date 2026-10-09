@@ -1,4 +1,4 @@
-const CACHE_NAME = 'novel-offline-v1.8'; // bump this any time cached assets or fetch logic change
+const CACHE_NAME = 'novel-offline-v1.9'; // bump this any time cached assets or fetch logic change
 
 // Files every page needs — including the big data.b64 payload
 const CORE_ASSETS = [
