@@ -2,7 +2,8 @@ from pathlib import Path
 
 dir = Path().resolve()
 
-REPLACEMENT = ["""""", """"""]
+REPLACEMENT = ["""</title>""", """</title>
+        <meta name="theme-color" content="#11100f">"""]
 
 def writeFile(html : str, ch : int):
     with open(dir.joinpath(f"ch-{ch}").joinpath(f"index.html"), "w", encoding="utf-8") as f:
