@@ -56,7 +56,7 @@ def updateChapterTitleData(title : str, ch : int):
 def createTranslatedFile(ch : int):
     en_text = getBaseText(ch)
     res = deepl_client.translate_text(en_text, source_lang="EN", target_lang="JA", model_type="quality_optimized", tag_handling="html", tag_handling_version="v2", preserve_formatting=True)
-    jp_text = str(res[0]).replace("……", "…")
+    jp_text = str(res[0]).replace("……", "…").replace("――", "―")
     jp_text = sub(r'[\r\n\u2028\u2029\u0085\x0b\x0c]+', '\n\n', jp_text)
 
     with open(DIR.joinpath("text", f"Ch-{ch}.txt"), "w", encoding="utf-8") as f:
@@ -137,7 +137,7 @@ def main():
     boilerplate = getBoilerPlate()
     for ch in range(start_ch, end_ch + 1):
         print(f"\n --- Ch-{ch} ---")
-        createTranslatedFile(ch)
+        #createTranslatedFile(ch)
         createIndexFile(addBody(boilerplate, ch), ch)
         updateMaxChapterData(ch)
 

@@ -2,15 +2,15 @@ from pathlib import Path
 
 dir = Path().resolve()
 
-REPLACEMENT = ["""</title>""", """</title>
-        <meta name="theme-color" content="#11100f">"""]
+REPLACEMENT = ["""……""", """…"""]
 
 def writeFile(html : str, ch : int):
-    with open(dir.joinpath(f"ch-{ch}").joinpath(f"index.html"), "w", encoding="utf-8") as f:
+    #with open(dir.joinpath(f"ch-{ch}").joinpath(f"index.html"), "w", encoding="utf-8") as f:
+    with open(dir.joinpath(f"text").joinpath(f"Ch-{ch}.txt"), "w", encoding="utf-8") as f:
         f.write(html)
 
 def getHtml(ch : int):
-    with open(dir.joinpath(f"ch-{ch}").joinpath("index.html"), "r", encoding="utf-8") as f:
+    with open(dir.joinpath(f"text").joinpath(f"Ch-{ch}.txt"), "r", encoding="utf-8") as f:
         return f.read()
 
 def replaceHtml(ch : int):
